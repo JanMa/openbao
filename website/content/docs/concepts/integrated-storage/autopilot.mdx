@@ -8,9 +8,7 @@ description: Learn about the autopilot subsystem of integrated raft storage in O
 
 Autopilot enables automated workflows for managing Raft clusters. The current
 feature set includes 3 main features: Server Stabilization, Dead Server Cleanup
-and State API. These three features were introduced in Vault 1.7. The Enterprise
-feature set includes 2 main features: Automated Upgrades and Redundancy Zones.
-These two features were introduced in Vault 1.11.
+and State API. These three features were introduced in Vault 1.7.
 
 ## Server stabilization
 
@@ -80,9 +78,6 @@ behavior. Autopilot gets initialized with the following default values. If these
   - Minimum amount of time a server must be in a healthy state before it can become a voter. Until that happens,
     it will be visible as a peer in the cluster, but as a non-voter, meaning it won't contribute to quorum.
 
-- `disable_upgrade_migration` - `false`
-  - Controls whether to disable automated upgrade migrations, an Enterprise-only feature.
-
 ~> **Note**: Autopilot in OpenBao does similar things to what autopilot does in
 [Consul](https://www.consul.io/). However, the configuration in these 2 systems
 differ in terms of default values and thresholds; some additional parameters
@@ -124,4 +119,3 @@ Refer to the following tutorials to learn more.
 
 - [Integrated Storage Autopilot](/vault/tutorials/raft/raft-autopilot)
 - [Fault Tolerance with Redundancy Zones](/vault/tutorials/raft/raft-redundancy-zones)
-- [Automate Upgrades with Vault Enterprise](/vault/tutorials/raft/raft-upgrade-automation)
