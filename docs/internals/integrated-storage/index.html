@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-internals/integrated-storage" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.1.1">
+<title data-rh="true">Integrated storage | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/internals/integrated-storage/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Integrated storage | OpenBao"><meta data-rh="true" name="description" content="Learn about the integrated raft storage in OpenBao."><meta data-rh="true" property="og:description" content="Learn about the integrated raft storage in OpenBao."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/internals/integrated-storage/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/internals/integrated-storage/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/internals/integrated-storage/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
+<script src="/openbao/assets/js/runtime~main.9d852785.js" defer="defer"></script>
+<script src="/openbao/assets/js/main.43001c87.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/openbao/"><div class="navbar__logo"><img src="/openbao/img/logo.svg" alt="OpenBao Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/openbao/img/logo.svg" alt="OpenBao Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">OpenBao</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/openbao/docs/">Docs</a><a class="navbar__item navbar__link" href="/openbao/api-docs/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/openbao/openbao" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/agent-and-proxy/">OpenBao agent and OpenBao proxy</a><button aria-label="Expand sidebar category &#x27;OpenBao agent and OpenBao proxy&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/audit/">Audit devices</a><button aria-label="Expand sidebar category &#x27;Audit devices&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/auth/">Auth methods</a><button aria-label="Expand sidebar category &#x27;Auth methods&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/openbao/docs/browser-support/">OpenBao UI browser support</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/commands/">OpenBao commands (CLI)</a><button aria-label="Expand sidebar category &#x27;OpenBao commands (CLI)&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/concepts/">Concepts</a><button aria-label="Expand sidebar category &#x27;Concepts&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/configuration/">OpenBao configuration</a><button aria-label="Expand sidebar category &#x27;OpenBao configuration&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/deprecation/">Feature deprecation notice and plans</a><button aria-label="Expand sidebar category &#x27;Feature deprecation notice and plans&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/openbao/docs/faq/">Product features FAQ</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" aria-expanded="false" href="/openbao/docs/get-started/developer-qs/">get-started</a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/openbao/docs/glossary/">Glossary</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/openbao/docs/">Documentation</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/openbao/docs/install/">Installing OpenBao</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--active" aria-expanded="true" href="/openbao/docs/internals/">OpenBao internals</a><button aria-label="Collapse sidebar category &#x27;OpenBao internals&#x27;" type="button" class="clean-btn menu__caret"></button></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/openbao/docs/internals/architecture/">Architecture</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/openbao/docs/internals/high-availability/">High availability</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/openbao/docs/internals/integrated-storage/">Integrated storage</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/openbao/docs/internals/limits/">OpenBao limits and maximums</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/openbao/docs/internals/rotation/">Key rotation</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/openbao/docs/internals/security/">Security model</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" tabindex="0" href="/openbao/docs/internals/telemetry/">Telemetry</a><button aria-label="Expand sidebar category &#x27;Telemetry&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/openbao/docs/internals/token/">Token authentication</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/platform/">Platforms</a><button aria-label="Expand sidebar category &#x27;Platforms&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/plugins/">Plugin system</a><button aria-label="Expand sidebar category &#x27;Plugin system&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/policies/">Policies</a><button aria-label="Expand sidebar category &#x27;Policies&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/openbao/docs/release-notes/">Release notes</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/secrets/">Secrets engines</a><button aria-label="Expand sidebar category &#x27;Secrets engines&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist" aria-expanded="false" href="/openbao/docs/upgrading/">Upgrading OpenBao</a><button aria-label="Expand sidebar category &#x27;Upgrading OpenBao&#x27;" type="button" class="clean-btn menu__caret"></button></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/openbao/docs/use-cases/">Use cases</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/openbao/docs/what-is-openbao/">What is OpenBao?</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/openbao/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item"><a class="breadcrumbs__link" itemprop="item" href="/openbao/docs/internals/"><span itemprop="name">OpenBao internals</span></a><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">Integrated storage</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><h1>Integrated storage</h1>
+<p>OpenBao supports several storage options for the durable storage of OpenBao&#x27;s
+information. Each backend offers pros, cons, advantages, and trade-offs. For
+example, some backends support high availability while others provide a more
+robust backup and restoration process.</p>
+<p>An Integrated Storage option is offered. This storage backend
+does not rely on any third party systems; it implements high availability and
+provides backup/restore workflows.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="consensus-protocol">Consensus protocol<a href="#consensus-protocol" class="hash-link" aria-label="Direct link to Consensus protocol" title="Direct link to Consensus protocol">​</a></h2>
+<p>OpenBao&#x27;s Integrated Storage uses a <a href="https://en.wikipedia.org/wiki/Consensus_(computer_science)" target="_blank" rel="noopener noreferrer">consensus
+protocol</a> to provide
+<a href="https://en.wikipedia.org/wiki/CAP_theorem" target="_blank" rel="noopener noreferrer">Consistency</a> (as defined by CAP).
+The consensus protocol is based on <a href="https://raft.github.io/raft.pdf" target="_blank" rel="noopener noreferrer">&quot;Raft: In search of an Understandable
+Consensus Algorithm&quot;</a>. For a visual explanation
+of Raft, see <a href="http://thesecretlivesofdata.com/raft" target="_blank" rel="noopener noreferrer">The Secret Lives of Data</a>.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="raft-protocol-overview">Raft protocol overview<a href="#raft-protocol-overview" class="hash-link" aria-label="Direct link to Raft protocol overview" title="Direct link to Raft protocol overview">​</a></h3>
+<p>Raft is a consensus algorithm that is based on
+<a href="https://en.wikipedia.org/wiki/Paxos_%28computer_science%29" target="_blank" rel="noopener noreferrer">Paxos</a>. Compared
+to Paxos, Raft is designed to have fewer states and a simpler, more
+understandable algorithm.</p>
+<p>The Raft protocol will not be fully covered here. However, a high level description is
+provided to help you build a mental model. Refer to the
+complete specification that&#x27;s described in <a href="https://raft.github.io/raft.pdf" target="_blank" rel="noopener noreferrer">this paper</a>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="terminology">Terminology<a href="#terminology" class="hash-link" aria-label="Direct link to Terminology" title="Direct link to Terminology">​</a></h4>
+<p>There are a few key terms to know when discussing Raft:</p>
+<ul>
+<li>
+<p><strong>Leader</strong> - At any given time, the peer set elects a single node to be the leader.
+The leader is responsible for ingesting new log entries, replicating to followers,
+and managing when an entry is committed. The leader node is also the active OpenBao node and followers are standby nodes. Refer to the <a href="/openbao/docs/internals/high-availability/#design-overview">High Availability</a> document for more information.</p>
+</li>
+<li>
+<p><strong>Log</strong> - An ordered sequence of entries (replicated log) to keep track of any cluster changes. The leader is responsible for <em>log replication</em>. When new data is written, for example, a new event creates a log entry. The leader then sends the new log entry to its followers. Any inconsistency within the replicated log entries will indicate an issue.</p>
+</li>
+<li>
+<p><strong>FSM</strong> - <a href="https://en.wikipedia.org/wiki/Finite-state_machine" target="_blank" rel="noopener noreferrer">Finite State Machine</a>.
+A collection of finite states with transitions between them. As new logs
+are applied, the FSM is allowed to transition between states. Application of the
+same sequence of logs must result in the same state, meaning behavior must be deterministic.</p>
+</li>
+<li>
+<p><strong>Peer set</strong> - The set of all members participating in log replication. All server nodes are in the peer set of the local cluster.</p>
+</li>
+<li>
+<p><strong>Quorum</strong> - A majority of members from a peer set: for a set of size <code>n</code>,
+quorum requires at least <code>(n+1)/2</code> members. For example, if there are 5 members
+in the peer set, we would need 3 nodes to form a quorum. If a quorum of nodes is
+unavailable for any reason, the cluster becomes <em>unavailable</em> and no new logs
+can be committed.</p>
+</li>
+<li>
+<p><strong>Committed Entry</strong> - An entry is considered <em>committed</em> when it is durably stored
+on a quorum of nodes. An entry is applied once its committed.</p>
+</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="node-states">Node states<a href="#node-states" class="hash-link" aria-label="Direct link to Node states" title="Direct link to Node states">​</a></h4>
+<p>Raft nodes are always in one of three states: follower, candidate, or leader. All
+nodes initially start out as a follower. In this state, nodes can accept log entries
+from a leader and cast votes. If no entries are received for a period of time, nodes
+will self-promote to the candidate state. In the candidate state, nodes request votes from their peers. If a candidate receives a quorum of votes, then it is promoted to a leader. The leader must accept new log entries and replicate to all the other followers.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="writing-logs">Writing logs<a href="#writing-logs" class="hash-link" aria-label="Direct link to Writing logs" title="Direct link to Writing logs">​</a></h4>
+<p>Once a cluster has a leader, it is able to accept new log entries. A client can
+request that a leader append a new log entry (from Raft&#x27;s perspective, a log entry
+is an opaque binary blob). The leader then writes the entry to durable storage and
+attempts to replicate to a quorum of followers. Once the log entry is considered
+<em>committed</em>, it can be <em>applied</em> to a finite state machine. The finite state machine
+is application specific; in OpenBao&#x27;s case, we use
+<a href="https://github.com/etcd-io/bbolt" target="_blank" rel="noopener noreferrer">BoltDB</a> to maintain a cluster state. OpenBao&#x27;s writes
+are blocked until they are <em>committed</em> and <em>applied</em>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="compacting-logs">Compacting logs<a href="#compacting-logs" class="hash-link" aria-label="Direct link to Compacting logs" title="Direct link to Compacting logs">​</a></h4>
+<p>It would be undesirable to allow a replicated log to grow in an unbounded
+fashion. Raft provides a mechanism by which the current state is saved to
+snapshots and its related logs are compacted. Because of the FSM abstraction,
+restoring the state of the FSM must result in the same state as a replay of old
+logs. This allows Raft to capture the FSM state at a point in time and then remove
+all the logs that were used to reach that state. This is performed automatically
+without user intervention and prevents unbounded disk usage while also minimizing
+the time spent replaying logs. One of the advantages of using BoltDB is that it
+allows OpenBao&#x27;s snapshots to be very light weight. Since OpenBao&#x27;s data is already
+persisted to disk in BoltDB, the snapshot process just needs to truncate the raft logs.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="quorum">Quorum<a href="#quorum" class="hash-link" aria-label="Direct link to Quorum" title="Direct link to Quorum">​</a></h4>
+<p>Consensus is fault-tolerant while a cluster has quorum.
+If a quorum of nodes is unavailable, it is impossible to process log entries or reason
+about peer membership. For example, suppose there are only 2 peers: A and B. The quorum
+size is also 2, meaning both nodes must agree to commit a log entry. If either A or B
+fails, it is now impossible to reach quorum. This means the cluster is unable to add
+or remove a node or to commit any additional log entries. This results in
+<em>unavailability</em>. At this point, manual intervention is required to remove
+either A or B and restart the remaining node in bootstrap mode.</p>
+<p>A Raft cluster of 3 nodes can tolerate a single node failure while a cluster of
+5 can tolerate 2 node failures. The recommended OpenBao production deployment is
+to run 5 OpenBao servers per cluster. See the <a href="#minimums-scaling">Minimum &amp;
+Scaling</a> and <a href="#deployment-table">Deployment Table</a> to learn
+more about the failure tolerance using Integrated Storage.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="performance">Performance<a href="#performance" class="hash-link" aria-label="Direct link to Performance" title="Direct link to Performance">​</a></h4>
+<p>In terms of performance, Raft is comparable to Paxos. Assuming stable leadership,
+committing a log entry requires a single round trip to half of the cluster.
+Thus, performance is bound by disk I/O and network latency.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="raft-in-openbao">Raft in OpenBao<a href="#raft-in-openbao" class="hash-link" aria-label="Direct link to Raft in OpenBao" title="Direct link to Raft in OpenBao">​</a></h3>
+<p>When getting started, a single OpenBao server is
+<a href="/openbao/docs/commands/operator/init/#operator-init">initialized</a>. At this point, the
+cluster is of size 1, which allows the node to self-elect as a leader. Once a
+leader is elected, other servers can be added to the peer set in a way that
+preserves consistency and safety.</p>
+<p>The join process is how new nodes are added to the OpenBao cluster; it uses an
+encrypted challenge/answer workflow. To accomplish this, all nodes in a single
+Raft cluster must share the same seal configuration. If using an Auto Unseal, the
+join process can use the configured seal to automatically decrypt the challenge
+and respond with the answer. If using a Shamir seal, the unseal keys must be
+provided to the node attempting to join the cluster before it can decrypt the
+challenge and respond with the decrypted answer.</p>
+<p>Since all servers participate as part of the peer set, they all know the current
+leader. When an API request arrives at a non-leader server, the request is
+forwarded to the leader.</p>
+<p>Similar to other storage backends, data that is written to the Raft log and FSM
+will be encrypted by OpenBao&#x27;s barrier.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="quorum-management">Quorum management<a href="#quorum-management" class="hash-link" aria-label="Direct link to Quorum management" title="Direct link to Quorum management">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="autopilot">Autopilot<a href="#autopilot" class="hash-link" aria-label="Direct link to Autopilot" title="Direct link to Autopilot">​</a></h4>
+<p>An <a href="/openbao/docs/concepts/integrated-storage/autopilot/">Autopilot feature</a>
+is available since 1.7.x &amp; later versions that include configurable parameters
+for when a node is treated as healthy before it&#x27;s considered an eligible voter in the
+quorum list. Other features which may be enabled include the ability to remove nodes
+considered as dead from the quorum list after a certain period.</p>
+<p>Autopilot is enabled by default and the default configuration values
+should work well for most OpenBao deployments, but they can be changed if needed.</p>
+<p>Autopilot includes stabilization logic for nodes joining the cluster.
+Recently joined nodes are
+accepted as non-voter initially until they are in sync with matching Raft index
+and only after a stability thresholds are they then full voting members.
+Setting the stability threshold too low can result in cluster instability as nodes will be
+counted as voters before they are capable of voting.</p>
+<p>A dead server cleanup capability is available. With this feature
+enabled, unhealthy nodes are automatically removed from the Raft cluster without
+manual operator intervention. This is enabled via the <a href="/openbao/api-docs/system/storage/raftautopilot/">Autopilot API</a>.
+If you wish to decommission a node manually, this can be done with the
+<code>remove peer</code> <a href="/openbao/docs/commands/operator/raft/#remove-peer">command</a>.</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="without-autopilot">Without autopilot<a href="#without-autopilot" class="hash-link" aria-label="Direct link to Without autopilot" title="Direct link to Without autopilot">​</a></h4>
+<p>In scenarios involving those when a node joins a Raft cluster, it attempts to
+catch up with the rest of the nodes through the data that it&#x27;s replicating from
+the leader. While in this initial synchronisation state, the node cannot
+vote but is counted for the purposes of quorum. If a number of new nodes join
+the cluster simultaneously or at similar times, and thereby exceeding the failure
+tolerance of the cluster, quorum may be lost and the cluster can fail.</p>
+<p>For example, consider a scenario where there is a 3-node cluster with a large
+amount of data and a failure tolerance of 1. An additional 3 new nodes then
+join the cluster. The cluster now consists of 6 nodes with a failure tolerance
+of 2, but since all 3 nodes are still catching up, this will result in a loss of
+quorum.</p>
+<ul>
+<li>A 3 node cluster with a large amount of data that&#x27;s at a failure tolerance of 1.</li>
+<li>Another 3 new nodes then join the cluster together.</li>
+<li>Now the cluster consists of 6 nodes with a failure tolerance of 2, but all 3 new nodes are still catching up, resulting in a loss of quorum.</li>
+</ul>
+<p>For this reason, we recommend ensuring new nodes have Raft indexes that are
+close to the leader before adding additional nodes. Raft indexes are visible via
+<code>bao status</code>.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="deployment-table">Deployment table<a href="#deployment-table" class="hash-link" aria-label="Direct link to Deployment table" title="Direct link to Deployment table">​</a></h3>
+<p>Below is a table that shows quorum size and failure tolerance for various
+cluster sizes. The recommended production deployment consists of 5 servers. A
+single server deployment is <em><strong>highly</strong></em> discouraged as data loss is inevitable
+in a failure scenario.</p>
+<table class="table table-bordered table-striped"><thead><tr><th>Servers</th><th>Quorum Size</th><th>Failure Tolerance</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>2</td><td>2</td><td>0</td></tr><tr class="warning"><td>3</td><td>2</td><td>1</td></tr><tr><td>4</td><td>3</td><td>1</td></tr><tr class="warning"><td>5</td><td>3</td><td>2</td></tr><tr><td>6</td><td>4</td><td>2</td></tr><tr><td>7</td><td>4</td><td>3</td></tr></tbody></table>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="minimums--scaling">Minimums &amp; scaling<a href="#minimums--scaling" class="hash-link" aria-label="Direct link to Minimums &amp; scaling" title="Direct link to Minimums &amp; scaling">​</a></h3>
+<p>The <a href="/openbao/tutorials/day-one-raft/raft-reference-architecture/#recommended-architecture">OpenBao Reference Architecture</a>
+recommends a 5 node cluster to ensure a minimum failure tolerance of at least 2.</p>
+<p>It is good practise, wherever possible, to retain a failure tolerance of 2 or
+more.</p>
+<p>A scaling approach can be pursued in the event of maintenance and other changes
+where an additional pair of nodes (ie two) are added in an existing 5 node cluster
+making for a 7 node cluster. Once new joiners are confirmed to be in sync then
+the 2 older nodes can be stopped and or destroyed with the same processes being
+repeated until all other nodes have been replaced. This use of additional nodes
+on a temporary basis of a 7 node cluster arrangement, concluding back to 5 nodes,
+may be one way to ensure sufficient failure tolerance is maintained and that
+changes are made progressively in proportion to the cluster failure tolerance and
+never exceeding the available failure tolerance in any given time.</p>
+<p>The intent with any change or scaling ought to be with the lose of quorum and
+reduction of the quorum failure tolerances at the forefront and discouraging
+any practises that compromise that.</p>
+<p>Scaling clusters up or down in pairs with 2 nodes each time also has the added
+advantage of avoiding even numbers and it is always recommended to
+allow for an odd number of total voters in any cluster.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="theme-doc-footer-edit-meta-row row"><div class="col"><a href="https://github.com/openbao/openbao/tree/main/website/content/docs/internals/integrated-storage.mdx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_vwxv"></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/openbao/docs/internals/high-availability/"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">High availability</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/openbao/docs/internals/limits/"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">OpenBao limits and maximums</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#consensus-protocol" class="table-of-contents__link toc-highlight">Consensus protocol</a><ul><li><a href="#raft-protocol-overview" class="table-of-contents__link toc-highlight">Raft protocol overview</a></li><li><a href="#raft-in-openbao" class="table-of-contents__link toc-highlight">Raft in OpenBao</a></li><li><a href="#quorum-management" class="table-of-contents__link toc-highlight">Quorum management</a></li><li><a href="#deployment-table" class="table-of-contents__link toc-highlight">Deployment table</a></li><li><a href="#minimums--scaling" class="table-of-contents__link toc-highlight">Minimums &amp; scaling</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/openbao/docs/">Intro</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/openbao/openbao/discussions" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub Discussions<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://chat.lfx.linuxfoundation.org/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Chat Server<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://wiki.lfedge.org/display/OH/OpenBao+%28Hashicorp+Vault+Fork+effort%29+FAQ" target="_blank" rel="noopener noreferrer" class="footer__link-item">Wiki<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/openbao/openbao" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 The OpenBao Authors. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
