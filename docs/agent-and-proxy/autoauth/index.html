@@ -6,7 +6,7 @@
 <title data-rh="true">OpenBao Agent and OpenBao Proxy Auto-Auth | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/agent-and-proxy/autoauth/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="OpenBao Agent and OpenBao Proxy Auto-Auth | OpenBao"><meta data-rh="true" name="description" content="OpenBao Agent and OpenBao Proxy&#x27;s Auto-Auth functionality allows easy and automatic
 authentication to OpenBao in a variety of environments."><meta data-rh="true" property="og:description" content="OpenBao Agent and OpenBao Proxy&#x27;s Auto-Auth functionality allows easy and automatic
 authentication to OpenBao in a variety of environments."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/agent-and-proxy/autoauth/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/agent-and-proxy/autoauth/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/agent-and-proxy/autoauth/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -54,8 +54,8 @@ it expires.</p>
 </li>
 </ol>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="encrypting-tokens">Encrypting tokens<a href="#encrypting-tokens" class="hash-link" aria-label="Direct link to Encrypting tokens" title="Direct link to Encrypting tokens">​</a></h3>
-<p>~&gt; Support for encrypted tokens is experimental; if input/output formats
-change, we will make every effort to provide backwards compatibility.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Support for encrypted tokens is experimental; if input/output formats
+change, we will make every effort to provide backwards compatibility.</p></div></div>
 <p>Tokens can be encrypted, using a Diffie-Hellman exchange to generate an
 ephemeral key. In this mechanism, the client receiving the token writes a
 generated public key to a file. The sink responsible for writing the token to
@@ -63,11 +63,11 @@ that client looks for this public key and uses it to compute a shared secret
 key, which is then used to encrypt the token via AES-GCM. The nonce, encrypted
 payload, and the sink&#x27;s public key are then written to the output file, where
 the client can compute the shared secret and decrypt the token value.</p>
-<p>~&gt; NOTE: Token encryption is not a protection against MITM attacks! The purpose
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>NOTE: Token encryption is not a protection against MITM attacks! The purpose
 of this feature is for forward-secrecy and coverage against bare token values
 being persisted. A MITM that can write to the sink&#x27;s output and/or client
 public-key input files could attack this exchange. Using TLS to protect the
-transit of tokens is highly recommended.</p>
+transit of tokens is highly recommended.</p></div></div>
 <p>To help mitigate MITM attacks, additional authenticated data (AAD) can be
 provided to Agent and Proxy. This data is written as part of the AES-GCM tag and must
 match on both Agent and Proxy and the client. This of course means that protecting
@@ -97,11 +97,11 @@ output formats.</p>
 </li>
 </ul>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="configuration-method">Configuration (Method)<a href="#configuration-method" class="hash-link" aria-label="Direct link to Configuration (Method)" title="Direct link to Configuration (Method)">​</a></h3>
-<p>~&gt; Auto-auth does not support using tokens with a limited number of uses. Auto-auth
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Auto-auth does not support using tokens with a limited number of uses. Auto-auth
 does not track the number of uses remaining, and may allow the token to
 expire before attempting to renew it. For example, if using AppRole auto-auth,
 you must use 0 (meaning unlimited) as the value for
-<a href="/openbao/api-docs/auth/approle/#token_num_uses"><code>token_num_uses</code></a>.</p>
+<a href="/openbao/api-docs/auth/approle/#token_num_uses"><code>token_num_uses</code></a>.</p></div></div>
 <p>These are common configuration values that live within the <code>method</code> block:</p>
 <ul>
 <li>
@@ -212,8 +212,8 @@ the two formats.</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="sinks-hcl-format">Sinks (HCL format)<a href="#sinks-hcl-format" class="hash-link" aria-label="Direct link to Sinks (HCL format)" title="Direct link to Sinks (HCL format)">​</a></h4>
 <p>The HCL format may define any number of sink objects with an optional wrapping
 <code>sinks {...}</code> object.</p>
-<p>~&gt; Note: The <a href="#sinks-json-format">corresponding JSON format</a> <em>must</em> specify a
-<code>&quot;sinks&quot; : [...]</code> array to encapsulate all <code>sink</code> JSON objects.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Note: The <a href="#sinks-json-format">corresponding JSON format</a> <em>must</em> specify a
+<code>&quot;sinks&quot; : [...]</code> array to encapsulate all <code>sink</code> JSON objects.</p></div></div>
 <div class="language-hcl codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-hcl codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">// Other OpenBao Agent or OpenBao Proxy configuration blocks</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">// ...</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">auto_auth {</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  method {</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    type = &quot;approle&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    config = {</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      role_id_file_path = &quot;/etc/openbao/roleid&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      secret_id_file_path = &quot;/etc/openbao/secretid&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    }</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  }</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  sinks {</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    sink {</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      type = &quot;file&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      config = {</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        path = &quot;/tmp/file-foo&quot;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      }</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    }</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  }</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">}</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <p>The following valid HCL omits the wrapping <code>sinks</code> object while specifying
 multiple sinks.</p>

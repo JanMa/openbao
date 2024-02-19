@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">Identity | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/concepts/identity/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Identity | OpenBao"><meta data-rh="true" name="description" content="OpenBao provides an identity management solution to maintain clients who are recognized by OpenBao."><meta data-rh="true" property="og:description" content="OpenBao provides an identity management solution to maintain clients who are recognized by OpenBao."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/concepts/identity/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/concepts/identity/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/concepts/identity/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -38,9 +38,9 @@ backend), OpenBao creates a new entity. It attaches a new alias to it if a
 corresponding entity does not already exist. The entity identifier will be tied
 to the authenticated token. When such tokens are used, their entity identifiers
 are audit logged, marking a trail of actions performed by specific users.</p>
-<p>~&gt; OpenBao Entity is used to count the number of OpenBao clients. To learn more
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>OpenBao Entity is used to count the number of OpenBao clients. To learn more
 about client count, refer to the <a href="/openbao/docs/concepts/client-count/">Client Count</a>
-documentation.</p>
+documentation.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="entity-management">Entity management<a href="#entity-management" class="hash-link" aria-label="Direct link to Entity management" title="Direct link to Entity management">​</a></h2>
 <p>Entities in OpenBao <strong>do not</strong> automatically pull identity information from
 anywhere. It needs to be explicitly managed by operators. This way, it is
@@ -65,11 +65,11 @@ tokens.</p>
 <em>additional</em> capabilities and not a replacement for the policies on the token.
 To know the full set of capabilities of the token with an associated entity
 identifier, the policies on the token should be taken into account.</p>
-<p>~&gt; <strong>NOTE:</strong> Be careful in granting permissions to non-readonly identity endpoints.
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>NOTE:</strong> Be careful in granting permissions to non-readonly identity endpoints.
 If a user can modify an entity, they can grant it additional privileges through
 policies. If a user can modify an alias they can login with, they can bind it to
 an entity with higher privileges. If a user can modify group membership, they
-can add their entity to a group with higher privileges.</p>
+can add their entity to a group with higher privileges.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="mount-bound-aliases">Mount bound aliases<a href="#mount-bound-aliases" class="hash-link" aria-label="Direct link to Mount bound aliases" title="Direct link to Mount bound aliases">​</a></h2>
 <p>OpenBao supports multiple authentication backends and also allows enabling the
 same type of authentication backend on different mount paths. The alias name of

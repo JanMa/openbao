@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">lambda-extension | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/platform/aws/lambda-extension/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="lambda-extension | OpenBao"><meta data-rh="true" name="description" content="The Vault Lambda Extension allows a Lambda function to read secrets from a Vault deployment."><meta data-rh="true" property="og:description" content="The Vault Lambda Extension allows a Lambda function to read secrets from a Vault deployment."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/platform/aws/lambda-extension/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/platform/aws/lambda-extension/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/platform/aws/lambda-extension/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -12,7 +12,7 @@
 <p>AWS Lambda lets you run code without provisioning and managing servers.
 The <a href="https://github.com/hashicorp/vault-lambda-extension" target="_blank" rel="noopener noreferrer">Vault Lambda Extension</a> utilizes the AWS Lambda Extensions API to help your Lambda function read secrets from your Vault deployment.
 You can use the <a href="https://github.com/hashicorp/vault-lambda-extension/tree/main/quick-start" target="_blank" rel="noopener noreferrer">quick-start</a> directory which has an end-to-end example if you would like to try out the extension from scratch.</p>
-<p>~&gt; <strong>Note</strong>: If you decide to create one from scratch, be aware that this will create real infrastructure with an associated cost as per AWS&#x27; pricing.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Note</strong>: If you decide to create one from scratch, be aware that this will create real infrastructure with an associated cost as per AWS&#x27; pricing.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="usage">Usage<a href="#usage" class="hash-link" aria-label="Direct link to Usage" title="Direct link to Usage">​</a></h2>
 <p>To use the extension, include one of the following ARNs as a layer in your
 Lambda function, depending on your desired architecture.</p>
@@ -137,9 +137,9 @@ cached as though the header <code>X-Vault-Cache-Control: cache</code> was presen
 the header to <code>nocache</code> on a request will opt-out of caching entirely in this
 configuration. Setting the header to <code>recache</code> will skip the cache lookup and
 return and cache the response from Vault as described previously.</p>
-<p>~&gt; <strong>Warning!</strong> The Vault Lambda Extension&#x27;s cache is only in-memory
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Warning!</strong> The Vault Lambda Extension&#x27;s cache is only in-memory
 and will not be persisted when the Lambda execution environment shuts down.
-In order words, the cache TTL is capped to the duration of the Lambda execution environment.</p>
+In order words, the cache TTL is capped to the duration of the Lambda execution environment.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="limitations">Limitations<a href="#limitations" class="hash-link" aria-label="Direct link to Limitations" title="Direct link to Limitations">​</a></h2>
 <p>Secrets written to disk or returned from the proxy server will not be automatically
 refreshed when they expire. This is particularly important if you configure the

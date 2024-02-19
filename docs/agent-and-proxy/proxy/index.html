@@ -6,7 +6,7 @@
 <title data-rh="true">What is OpenBao Proxy? | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/agent-and-proxy/proxy/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="What is OpenBao Proxy? | OpenBao"><meta data-rh="true" name="description" content="OpenBao Proxy is a daemon that can be used to perform some OpenBao
 functionality automatically, and act as a proxy for OpenBao&#x27;s APIs."><meta data-rh="true" property="og:description" content="OpenBao Proxy is a daemon that can be used to perform some OpenBao
 functionality automatically, and act as a proxy for OpenBao&#x27;s APIs."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/agent-and-proxy/proxy/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/agent-and-proxy/proxy/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/agent-and-proxy/proxy/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -105,8 +105,8 @@ Set to <code>-1</code> to discard old log files when a new one is created.</p>
 <p><code>listener</code> <code>(<a href="/openbao/docs/agent-and-proxy/proxy/#listener-stanza">listener</a>: &lt;optional&gt;)</code> - Specifies the addresses and ports on which the Proxy will respond to requests.</p>
 </li>
 </ul>
-<p>~&gt; <strong>Note:</strong> On <code>SIGHUP</code> (<code>kill -SIGHUP $(pidof bao)</code>), OpenBao Proxy will attempt to reload listener TLS configuration.
-This method can be used to refresh certificates used by OpenBao Proxy without having to restart its process.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Note:</strong> On <code>SIGHUP</code> (<code>kill -SIGHUP $(pidof bao)</code>), OpenBao Proxy will attempt to reload listener TLS configuration.
+This method can be used to refresh certificates used by OpenBao Proxy without having to restart its process.</p></div></div>
 <ul>
 <li>
 <p><code>pid_file</code> <code>(string: &quot;&quot;)</code> - Path to the file in which the Proxy&#x27;s Process ID
@@ -142,8 +142,8 @@ for a list of metrics specific to Proxy.</p>
 <p><code>log_level</code> - Equivalent to the <a href="#_log_level"><code>-log-level</code> command-line flag</a>.</p>
 </li>
 </ul>
-<p>~&gt; <strong>Note:</strong> On <code>SIGHUP</code> (<code>kill -SIGHUP $(pidof bao)</code>), OpenBao Proxy will update the log level to the value
-specified by configuration file (including overriding values set using CLI or environment variable parameters).</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Note:</strong> On <code>SIGHUP</code> (<code>kill -SIGHUP $(pidof bao)</code>), OpenBao Proxy will update the log level to the value
+specified by configuration file (including overriding values set using CLI or environment variable parameters).</p></div></div>
 <ul>
 <li>
 <p><code>log_format</code> - Equivalent to the <a href="#_log_format"><code>-log-format</code> command-line flag</a>.</p>

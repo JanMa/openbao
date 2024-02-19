@@ -6,7 +6,7 @@
 <title data-rh="true">Login MFA | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/auth/login-mfa/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Login MFA | OpenBao"><meta data-rh="true" name="description" content="Multi-factor authentication (MFA) is supported for several authentication
 methods."><meta data-rh="true" property="og:description" content="Multi-factor authentication (MFA) is supported for several authentication
 methods."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/auth/login-mfa/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/auth/login-mfa/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/auth/login-mfa/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -43,11 +43,11 @@ identity&#x27;s alias.</p>
 </li>
 </ul>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="login-mfa-procedure">Login MFA procedure<a href="#login-mfa-procedure" class="hash-link" aria-label="Direct link to Login MFA procedure" title="Direct link to Login MFA procedure">​</a></h2>
-<p>~&gt; <strong>NOTE:</strong> OpenBao&#x27;s built-in Login MFA feature does not protect against brute forcing of
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>NOTE:</strong> OpenBao&#x27;s built-in Login MFA feature does not protect against brute forcing of
 TOTP passcodes by default. We recommend that per-client <a href="/openbao/docs/concepts/resource-quotas/">rate limits</a>
 are applied to the relevant login and/or mfa paths (e.g. <code>/sys/mfa/validate</code>). External MFA
 methods (<code>Duo</code>, <code>Ping</code> and <code>Okta</code>) may already provide configurable rate limiting. Rate limiting of
-Login MFA paths are enforced by default.</p>
+Login MFA paths are enforced by default.</p></div></div>
 <p>Login MFA can be configured to secure further authenticating to an auth method. To enable login
 MFA, an MFA method needs to be configured. Please see <a href="/openbao/api-docs/secret/identity/mfa/">Login MFA API</a> for details
 on how to configure an MFA method. Once an MFA method is configured, an operator can configure an MFA enforcement using the returned unique MFA method ID.

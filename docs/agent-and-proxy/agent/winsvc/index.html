@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">OpenBao agent windows service | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/agent-and-proxy/agent/winsvc/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="OpenBao agent windows service | OpenBao"><meta data-rh="true" name="description" content="OpenBao Agent can be run as a Windows service."><meta data-rh="true" property="og:description" content="OpenBao Agent can be run as a Windows service."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/agent-and-proxy/agent/winsvc/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/agent-and-proxy/agent/winsvc/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/agent-and-proxy/agent/winsvc/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -24,8 +24,8 @@ alternative is to use the
 cmdlet. <code>New-Service</code> is less picky about the method used to escape quotes, and can sometimes be easier. Examples of
 both will be shown below.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="using-scexe">Using sc.exe<a href="#using-scexe" class="hash-link" aria-label="Direct link to Using sc.exe" title="Direct link to Using sc.exe">​</a></h3>
-<p>~&gt; <strong>Important Note:</strong> Ensure the executable path of the service is quoted, especially when it contains spaces, to avoid
-potential privilege escalation risks.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Important Note:</strong> Ensure the executable path of the service is quoted, especially when it contains spaces, to avoid
+potential privilege escalation risks.</p></div></div>
 <p>If you use <code>sc.exe</code>, make sure you specify <code>sc.exe</code> explicitly, and not just <code>sc</code>. The command below shows the creation
 of OpenBao Agent as a service, using &quot;OpenBao Agent&quot; as the display name, and starting automatically when Windows starts.
 The <code>binPath</code> argument should include the fully qualified path to the OpenBao executable, as well as any arguments required.</p>

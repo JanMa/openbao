@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">google | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/auth/jwt/oidc-providers/google/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="google | OpenBao"><meta data-rh="true" name="description" content="OIDC provider configuration for Google"><meta data-rh="true" property="og:description" content="OIDC provider configuration for Google"><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/auth/jwt/oidc-providers/google/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/auth/jwt/oidc-providers/google/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/auth/jwt/oidc-providers/google/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -50,8 +50,8 @@ the only OAuth scopes that should be granted are:</p>
 <li><code>https://www.googleapis.com/auth/admin.directory.group.readonly</code></li>
 <li><code>https://www.googleapis.com/auth/admin.directory.user.readonly</code></li>
 </ul>
-<p>~&gt; This is an <strong>important security step</strong> in order to give the service account the least set of privileges
-that enable the feature.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>This is an <strong>important security step</strong> in order to give the service account the least set of privileges
+that enable the feature.</p></div></div>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="configuration">Configuration<a href="#configuration" class="hash-link" aria-label="Direct link to Configuration" title="Direct link to Configuration">​</a></h4>
 <ul>
 <li><code>provider</code> <code>(string: &lt;required&gt;)</code> - Name of the provider. Must be set to &quot;gsuite&quot;.</li>

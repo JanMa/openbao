@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">Storage | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/concepts/storage/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Storage | OpenBao"><meta data-rh="true" name="description" content="OpenBao relies on external storage to save its durable information."><meta data-rh="true" property="og:description" content="OpenBao relies on external storage to save its durable information."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/concepts/storage/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/concepts/storage/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/concepts/storage/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -15,10 +15,10 @@ storage backend is untrusted storage used purely to keep encrypted information.<
 <p>Many other options for storage are available for OpenBao - see our
 <a href="/openbao/docs/configuration/storage/">Storage Configuration</a> section for more
 information.</p>
-<p>-&gt; <strong>Choosing a storage backend:</strong> Refer to the <a href="/openbao/docs/configuration/storage/#integrated-storage-vs-external-storage">integrated storage vs. external
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p><strong>Choosing a storage backend:</strong> Refer to the <a href="/openbao/docs/configuration/storage/#integrated-storage-vs-external-storage">integrated storage vs. external
 storage</a>
 section of the storage configuration page to help make a decision about which
-storage backend to use.</p>
+storage backend to use.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="backups">Backups<a href="#backups" class="hash-link" aria-label="Direct link to Backups" title="Direct link to Backups">​</a></h2>
 <p>Due to the highly flexible nature of OpenBao&#x27;s potential storage configurations,
 providing exact guidance on backing up OpenBao is challenging.</p>
@@ -61,8 +61,8 @@ backups and HA as critical components of that plan.</p>
 backups are not feasible, we recommend using a storage backend that supports
 atomic snapshots (such as <a href="/openbao/docs/commands/operator/raft/#snapshot">Integrated
 Storage</a>).</p>
-<p>~&gt; If your storage backend does not support atomic snapshots, we recommend only
-taking offline backups.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>If your storage backend does not support atomic snapshots, we recommend only
+taking offline backups.</p></div></div>
 <p>To perform a backup or restore of OpenBao&#x27;s encrypted data when using an
 officially supported storage backend, see the instructions linked below. For
 other storage backends, follow the documentation of that backend for taking and
@@ -75,7 +75,7 @@ restoring backups.</p>
 may also wish to save the server configuration files, any scripts for managing
 the OpenBao service, and ensure you can reinstall any user-installed plugins. The
 location of these files will be specific to your installation of OpenBao.</p>
-<p>~&gt; <strong>NOTE</strong>: Although a backup or snapshot of OpenBao&#x27;s data from the storage
+<p><strong>NOTE</strong>: Although a backup or snapshot of OpenBao&#x27;s data from the storage
 backend is encrypted, some of your configuration may be sensitive (an OpenBao token
 for Transit Autounseal or a TLS private key in your configuration, for example).
 The presence of this information in your backups will mean that they may need

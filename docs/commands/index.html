@@ -10,7 +10,7 @@ maps directly to the HTTP API internally."><meta data-rh="true" property="og:des
 that wraps common functionality and formats output. The OpenBao CLI is a single
 static binary. It is a thin wrapper around the HTTP API. Every CLI command
 maps directly to the HTTP API internally."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/commands/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/commands/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/commands/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -30,8 +30,8 @@ and arguments if any:</p>
 <li><code>options</code> - <a href="/openbao/docs/commands/#flags">Flags</a> to specify additional settings</li>
 <li><code>args</code> - API arguments specific to the operation</li>
 </ul>
-<p>-&gt; <strong>NOTE:</strong> Use the <a href="#command-help">command help</a> to display available options
-and arguments.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p><strong>NOTE:</strong> Use the <a href="#command-help">command help</a> to display available options
+and arguments.</p></div></div>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="examples">Examples:<a href="#examples" class="hash-link" aria-label="Direct link to Examples:" title="Direct link to Examples:">​</a></h4>
 <p>The following <code>write</code> command creates a new user (<code>bob</code>) in the userpass auth
 method. It passes the <code>-address</code> flag to specify the OpenBao server address which
@@ -130,7 +130,7 @@ document this anomaly.</p>
 arguments (where supported).</p>
 <p>Enable autocompletion by running:</p>
 <div class="language-shell-session codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-shell-session codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">$ bao -autocomplete-install</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
-<p>~&gt; Be sure to <strong>restart your shell</strong> after installing autocompletion!</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Be sure to <strong>restart your shell</strong> after installing autocompletion!</p></div></div>
 <p>When you start typing an OpenBao command, press the <code>&lt;tab&gt;</code> character to show a
 list of available completions. Type <code>-&lt;tab&gt;</code> to show available flag completions.</p>
 <p>If the <code>VAULT_*</code> environment variables are set, the autocompletion will
@@ -224,16 +224,16 @@ Format should be <code>http://server:port</code> or <code>https://server:port</c
 <p>HTTP or HTTPS proxy location which should be used by all requests to access OpenBao.
 When present, this overrides the default proxy resolution behavior.
 Format should be <code>http://server:port</code> or <code>https://server:port</code>.</p>
-<p>~&gt; Note: When using <code>VAULT_HTTP_PROXY</code> or <code>VAULT_PROXY_ADDR</code> any of the standard
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Note: When using <code>VAULT_HTTP_PROXY</code> or <code>VAULT_PROXY_ADDR</code> any of the standard
 proxy variables found in the environment will be ignored.
 Specifically <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> and <code>NO_PROXY</code>.
 All requests will resolve the specified proxy; there is no way to exclude
-domains from consulting the proxy server.</p>
-<p>~&gt; Note: If both <code>VAULT_HTTP_PROXY</code> and <code>VAULT_PROXY_ADDR</code> environment
-variables are supplied, <code>VAULT_PROXY_ADDR</code> will be prioritized and preferred.</p>
+domains from consulting the proxy server.</p></div></div>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Note: If both <code>VAULT_HTTP_PROXY</code> and <code>VAULT_PROXY_ADDR</code> environment
+variables are supplied, <code>VAULT_PROXY_ADDR</code> will be prioritized and preferred.</p></div></div>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="vault_disable_redirects"><code>VAULT_DISABLE_REDIRECTS</code><a href="#vault_disable_redirects" class="hash-link" aria-label="Direct link to vault_disable_redirects" title="Direct link to vault_disable_redirects">​</a></h3>
 <p>Prevents the OpenBao client from following redirects. By default, the OpenBao client will automatically follow a single redirect.</p>
-<p>~&gt; <strong>Note:</strong> Disabling redirect following behavior could cause issues with commands such as &#x27;bao operator raft snapshot&#x27; as this command redirects the request to the cluster&#x27;s primary node.</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Note:</strong> Disabling redirect following behavior could cause issues with commands such as &#x27;bao operator raft snapshot&#x27; as this command redirects the request to the cluster&#x27;s primary node.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="flags">Flags<a href="#flags" class="hash-link" aria-label="Direct link to Flags" title="Direct link to Flags">​</a></h2>
 <p>There are different CLI flags that are available depending on subcommands. Some
 flags, such as those used for setting HTTP and output options, are available

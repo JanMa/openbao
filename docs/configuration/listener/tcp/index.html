@@ -6,7 +6,7 @@
 <title data-rh="true">tcp listener | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/configuration/listener/tcp/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="tcp listener | OpenBao"><meta data-rh="true" name="description" content="The TCP listener configures OpenBao to listen on the specified TCP address and
 port."><meta data-rh="true" property="og:description" content="The TCP listener configures OpenBao to listen on the specified TCP address and
 port."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/configuration/listener/tcp/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/configuration/listener/tcp/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/configuration/listener/tcp/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -134,37 +134,37 @@ while OpenBao is running will have no effect for <code>SIGHUP</code>s.</p>
 <li>
 <p><code>tls_min_version</code> <code>(string: &quot;tls12&quot;)</code> – Specifies the minimum supported
 version of TLS. Accepted values are &quot;tls10&quot;, &quot;tls11&quot;, &quot;tls12&quot; or &quot;tls13&quot;.</p>
-<p>~&gt; <strong>Warning</strong>: TLS 1.1 and lower (<code>tls10</code> and <code>tls11</code> values for the
-<code>tls_min_version</code> and <code>tls_max_version</code> parameters) are widely considered
-insecure.</p>
-</li>
-<li>
-<p><code>tls_max_version</code> <code>(string: &quot;tls13&quot;)</code> – Specifies the maximum supported
-version of TLS. Accepted values are &quot;tls10&quot;, &quot;tls11&quot;, &quot;tls12&quot; or &quot;tls13&quot;.</p>
 </li>
 </ul>
-<p>~&gt; <strong>Warning</strong>: TLS 1.1 and lower (<code>tls10</code> and <code>tls11</code> values for the
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Warning</strong>: TLS 1.1 and lower (<code>tls10</code> and <code>tls11</code> values for the
 <code>tls_min_version</code> and <code>tls_max_version</code> parameters) are widely considered
-insecure.</p>
+insecure.</p></div></div>
 <ul>
-<li>
-<p><code>tls_cipher_suites</code> <code>(string: &quot;&quot;)</code> – Specifies the list of supported
+<li><code>tls_max_version</code> <code>(string: &quot;tls13&quot;)</code> – Specifies the maximum supported
+version of TLS. Accepted values are &quot;tls10&quot;, &quot;tls11&quot;, &quot;tls12&quot; or &quot;tls13&quot;.</li>
+</ul>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Warning</strong>: TLS 1.1 and lower (<code>tls10</code> and <code>tls11</code> values for the
+<code>tls_min_version</code> and <code>tls_max_version</code> parameters) are widely considered
+insecure.</p></div></div>
+<ul>
+<li><code>tls_cipher_suites</code> <code>(string: &quot;&quot;)</code> – Specifies the list of supported
 ciphersuites as a comma-separated-list. The list of all available ciphersuites
-is available in the <a href="https://golang.org/src/crypto/tls/cipher_suites.go" target="_blank" rel="noopener noreferrer">Golang TLS documentation</a>.</p>
-<p>~&gt; <strong>Note</strong>: Go only consults the <code>tls_cipher_suites</code> list for TLSv1.2 and
+is available in the <a href="https://golang.org/src/crypto/tls/cipher_suites.go" target="_blank" rel="noopener noreferrer">Golang TLS documentation</a>.</li>
+</ul>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Note</strong>: Go only consults the <code>tls_cipher_suites</code> list for TLSv1.2 and
 earlier; the order of ciphers is not important. For this parameter to be
 effective, the <code>tls_max_version</code> property must be set to <code>tls12</code> to prevent
 negotiation of TLSv1.3, which is not recommended. For more information about
-this and other TLS related changes, see the <a href="https://go.dev/blog/tls-cipher-suites" target="_blank" rel="noopener noreferrer">Go TLS blog post</a>.</p>
-</li>
-<li>
-<p><code>tls_prefer_server_cipher_suites</code> <code>(string: &quot;false&quot;)</code> – Specifies to prefer the
-server&#x27;s ciphersuite over the client ciphersuites.</p>
-<p>~&gt; <strong>Warning</strong>: The <code>tls_prefer_server_cipher_suites</code> parameter is
+this and other TLS related changes, see the <a href="https://go.dev/blog/tls-cipher-suites" target="_blank" rel="noopener noreferrer">Go TLS blog post</a>.</p></div></div>
+<ul>
+<li><code>tls_prefer_server_cipher_suites</code> <code>(string: &quot;false&quot;)</code> – Specifies to prefer the
+server&#x27;s ciphersuite over the client ciphersuites.</li>
+</ul>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Warning</strong>: The <code>tls_prefer_server_cipher_suites</code> parameter is
 deprecated. Setting it has no effect. See the above
 <a href="https://go.dev/blog/tls-cipher-suites" target="_blank" rel="noopener noreferrer">Go blog post</a> for more information about
-this change.</p>
-</li>
+this change.</p></div></div>
+<ul>
 <li>
 <p><code>tls_require_and_verify_client_cert</code> <code>(string: &quot;false&quot;)</code> – Turns on client
 authentication for this listener; the listener will require a presented
@@ -178,8 +178,10 @@ used for checking the authenticity of client.</p>
 <p><code>tls_disable_client_certs</code> <code>(string: &quot;false&quot;)</code> – Turns off client
 authentication for this listener. The default behavior (when this is false)
 is for OpenBao to request client certificates when available.</p>
-<p>~&gt; <strong>Warning</strong>: The <code>tls_disable_client_certs</code> and <code>tls_require_and_verify_client_cert</code> fields in the listener stanza of the OpenBao server configuration are mutually exclusive fields. Please ensure they are not both set to true. TLS client verification remains optional with default settings and is not enforced.</p>
 </li>
+</ul>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Warning</strong>: The <code>tls_disable_client_certs</code> and <code>tls_require_and_verify_client_cert</code> fields in the listener stanza of the OpenBao server configuration are mutually exclusive fields. Please ensure they are not both set to true. TLS client verification remains optional with default settings and is not enforced.</p></div></div>
+<ul>
 <li>
 <p><code>x_forwarded_for_authorized_addrs</code> <code>(string: &lt;required-to-enable&gt;)</code> –
 Specifies the list of source IP CIDRs for which an X-Forwarded-For header

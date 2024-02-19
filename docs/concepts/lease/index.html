@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">Lease, renew, and revoke | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/concepts/lease/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Lease, renew, and revoke | OpenBao"><meta data-rh="true" name="description" content="OpenBao provides a lease with every secret. When this lease is expired, OpenBao will revoke that secret."><meta data-rh="true" property="og:description" content="OpenBao provides a lease with every secret. When this lease is expired, OpenBao will revoke that secret."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/concepts/lease/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/concepts/lease/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/concepts/lease/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -56,7 +56,7 @@ its best to respect the increment, but often limits it to ensure renewals every
 so often.</p>
 <p>As a result, the return value of renewals should be carefully inspected to
 determine what the new lease is.</p>
-<p>-&gt; To implement token renewal logic in your application code, refer to the <a href="/openbao/docs/concepts/auth/#code-example">code example in the Authentication doc</a>.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>To implement token renewal logic in your application code, refer to the <a href="/openbao/docs/concepts/auth/#code-example">code example in the Authentication doc</a>.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="prefix-based-revocation">Prefix-based revocation<a href="#prefix-based-revocation" class="hash-link" aria-label="Direct link to Prefix-based revocation" title="Direct link to Prefix-based revocation">​</a></h2>
 <p>In addition to revoking a single secret, operators with proper access control
 can revoke multiple secrets based on their lease ID prefix.</p>

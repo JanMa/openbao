@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">HTTP API | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/api-docs/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-api-docs-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-api-docs-current"><meta data-rh="true" property="og:title" content="HTTP API | OpenBao"><meta data-rh="true" name="description" content="OpenBao has an HTTP API that can be used to control every aspect of OpenBao."><meta data-rh="true" property="og:description" content="OpenBao has an HTTP API that can be used to control every aspect of OpenBao."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/api-docs/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/api-docs/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/api-docs/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -14,12 +14,12 @@ Every aspect of OpenBao can be controlled using the APIs. The OpenBao CLI uses t
 HTTP API to access OpenBao similar to all other consumers.</p>
 <p>All API routes are prefixed with <code>/v1/</code>.</p>
 <p>This documentation is only for the v1 API, which is currently the only version.</p>
-<p>~&gt; <strong>Backwards compatibility:</strong> At the current version, OpenBao does not yet
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Backwards compatibility:</strong> At the current version, OpenBao does not yet
 promise backwards compatibility even with the v1 prefix. We&#x27;ll remove this
 warning when this policy changes. At this point in time the core API (that
 is, <code>sys/</code> routes) change very infrequently, but various secrets engines/auth
 methods/etc. sometimes have minor changes to accommodate new features as
-they&#x27;re developed.</p>
+they&#x27;re developed.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="transport">Transport<a href="#transport" class="hash-link" aria-label="Direct link to Transport" title="Direct link to Transport">​</a></h2>
 <p>The API is expected to be accessed over a TLS connection at all times, with a
 valid certificate that is verified by a well-behaved client. It is possible to
@@ -111,10 +111,10 @@ document are relative to the initial path queried.</p>
 <p>The following HTTP status codes are used throughout the API. OpenBao tries to
 adhere to these whenever possible, but in case it doesn&#x27;t -- then feel free to
 <a href="https://github.com/openbao/openbao/issues" target="_blank" rel="noopener noreferrer">raise a bug</a> for our attention!</p>
-<p>~&gt; <em>Note</em>: Applications should be prepared to accept both <code>200</code> and <code>204</code> as
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><em>Note</em>: Applications should be prepared to accept both <code>200</code> and <code>204</code> as
 success. <code>204</code> is simply an indication that there is no response body to parse,
 but API endpoints that indicate that they return a <code>204</code> may return a <code>200</code> if
-warnings are generated during the operation.</p>
+warnings are generated during the operation.</p></div></div>
 <ul>
 <li><code>200</code> - Success with data.</li>
 <li><code>204</code> - Success, no data returned.</li>

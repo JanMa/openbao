@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">Seal/Unseal | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/concepts/seal/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Seal/Unseal | OpenBao"><meta data-rh="true" name="description" content="An OpenBao must be unsealed before it can access its data. Likewise, it can be sealed to lock it down."><meta data-rh="true" property="og:description" content="An OpenBao must be unsealed before it can access its data. Likewise, it can be sealed to lock it down."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/concepts/seal/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/concepts/seal/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/concepts/seal/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -59,10 +59,10 @@ is not distributed across the cluster.</p>
 <p>OpenBao&#x27;s storage layer encounters an unrecoverable error.</p>
 </li>
 </ol>
-<p>-&gt; <strong>Note:</strong> Unsealing makes the process of automating an OpenBao install
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p><strong>Note:</strong> Unsealing makes the process of automating an OpenBao install
 difficult. Automated tools can easily install, configure, and start OpenBao,
 but unsealing it using Shamir is a very manual process. For most users
-Auto Unseal will provide a better experience.</p>
+Auto Unseal will provide a better experience.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="sealing">Sealing<a href="#sealing" class="hash-link" aria-label="Direct link to Sealing" title="Direct link to Sealing">​</a></h2>
 <p>There is also an API to seal the OpenBao. This will throw away the root
 key in memory and require another unseal process to restore it. Sealing
@@ -90,7 +90,7 @@ Unseal requires the recovery key fragments instead of the unseal key fragments
 that would be provided with Shamir. The process remains the same.</p>
 <p>For a list of examples and supported providers, please see the
 <a href="/openbao/docs/configuration/seal/">seal documentation</a>.</p>
-<p>-&gt; <strong>Warning:</strong> Recovery keys cannot decrypt the root key, and thus are not
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p><strong>Warning:</strong> Recovery keys cannot decrypt the root key, and thus are not
 sufficient to unseal OpenBao if the Auto Unseal mechanism isn&#x27;t working. They
 are purely an authorization mechanism.  Using Auto Unseal
 creates a strict OpenBao lifecycle dependency on the underlying seal mechanism.
@@ -102,7 +102,7 @@ from backups.</strong>
 To mitigate this risk, we recommend careful controls around management of the seal
 mechanism, for example using
 <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html" target="_blank" rel="noopener noreferrer">AWS Service Control Policies</a>
-or similar.</p>
+or similar.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="recovery-key">Recovery key<a href="#recovery-key" class="hash-link" aria-label="Direct link to Recovery key" title="Direct link to Recovery key">​</a></h2>
 <p>When OpenBao is initialized while using an HSM or KMS, rather than unseal keys
 being returned to the operator, recovery keys are returned. These are generated
@@ -151,18 +151,18 @@ technical underpinnings of the seal implementations, the process requires that
 you briefly take the whole cluster down. While experiencing some downtime may
 be unavoidable, we believe that switching seals is a rare event and that the
 inconvenience of the downtime is an acceptable trade-off.</p>
-<p>~&gt; <strong>NOTE</strong>: A backup should be taken before starting seal migration in case
-something goes wrong.</p>
-<p>~&gt; <strong>NOTE</strong>: Seal migration operation will require both old and new seals to be
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>NOTE</strong>: A backup should be taken before starting seal migration in case
+something goes wrong.</p></div></div>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>NOTE</strong>: Seal migration operation will require both old and new seals to be
 available during the migration. For example, migration from Auto Unseal to Shamir
 seal will require that the service backing the Auto Unseal is accessible during
-the migration.</p>
-<p>~&gt; <strong>NOTE</strong>: Seal migration from Auto Unseal to Auto Unseal of the same type is
+the migration.</p></div></div>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>NOTE</strong>: Seal migration from Auto Unseal to Auto Unseal of the same type is
 supported in OpenBao. However, there is a current limitation that
 prevents migrating from AWSKMS to AWSKMS; all other seal migrations of the same
 type are supported. Seal migration from One Auto Unseal type (AWS KMS) to
 different Auto Unseal type (HSM, Azure KMS, etc.) is also supported on older
-versions as well.</p>
+versions as well.</p></div></div>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="migration-steps">Migration steps<a href="#migration-steps" class="hash-link" aria-label="Direct link to Migration steps" title="Direct link to Migration steps">​</a></h3>
 <p>These steps are common for seal migrations between any supported kinds and for
 any storage backend.</p>

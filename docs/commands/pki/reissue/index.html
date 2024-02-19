@@ -8,7 +8,7 @@ using an existing certificate in OpenBao as a template, and using a parent
 certificate in OpenBao to issue the new certificate."><meta data-rh="true" property="og:description" content="The &quot;pki reissue&quot; command issues a new intermediate (&quot;issuer&quot;) certificate,
 using an existing certificate in OpenBao as a template, and using a parent
 certificate in OpenBao to issue the new certificate."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/commands/pki/reissue/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/commands/pki/reissue/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/commands/pki/reissue/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -31,10 +31,10 @@ which will issue the new intermediate certificate.</p>
 which will be used to populate certificate fields not overridden by <code>[options]</code>.</p>
 </li>
 </ul>
-<p>~&gt; <strong>Note</strong>: not all possible certificate fields are supported by OpenBao, and
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Note</strong>: not all possible certificate fields are supported by OpenBao, and
 this template reader covers only those OpenBao generates as a best effort.  If
 unknown fields are set, such as when an external CA was imported into OpenBao,
-there may not be a warning that those are missing from the new issuer.</p>
+there may not be a warning that those are missing from the new issuer.</p></div></div>
 <ul>
 <li>
 <p><code>&lt;child_mount&gt;</code> is the path of the mount in OpenBao where the new issuer is saved.</p>
@@ -54,11 +54,11 @@ a key already present in the OpenBao-backend to be used - <code>&quot;internal&q
 generate a new key for this certificate - or <code>&quot;kms&quot;</code> - to link to an external
 key.  Exported keys are not available through this API.</li>
 </ul>
-<p>~&gt; <strong>Note</strong>: It is only possible to generate a new certificate with an existing
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p><strong>Note</strong>: It is only possible to generate a new certificate with an existing
 key that exists in the same mount where that key-material exists.  This
 command is expected to fail should the template exist on a different mount,
 <code>existing</code> is the selected type, and no <code>key_ref</code> for a key in the new issuer
-mount is provided.</p>
+mount is provided.</p></div></div>
 <ul>
 <li><code>-issuer_name</code> <code>(string: &quot;&quot;)</code> - If present, the newly created issuer will be
 given this name.</li>

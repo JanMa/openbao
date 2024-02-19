@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">Audit devices | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/audit/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Audit devices | OpenBao"><meta data-rh="true" name="description" content="Audit devices are mountable devices that log requests and responses in OpenBao."><meta data-rh="true" property="og:description" content="Audit devices are mountable devices that log requests and responses in OpenBao."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/audit/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/audit/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/audit/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -43,9 +43,9 @@ configured audit device (see: <a href="/openbao/docs/audit/#blocked-audit-device
 Devices</a> section below).  Therefore in order
 to build a complete picture of all audited actions, use the aggregate/union of
 the logs from each audit device.</p>
-<p>~&gt; Note: It is <strong>highly recommended</strong> that you configure OpenBao to use multiple audit
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Note: It is <strong>highly recommended</strong> that you configure OpenBao to use multiple audit
 devices. Audit failures can prevent OpenBao from servicing requests, so it is
-important to provide at least one other device.</p>
+important to provide at least one other device.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="format">Format<a href="#format" class="hash-link" aria-label="Direct link to Format" title="Direct link to Format">​</a></h2>
 <p>Each line in the audit log is a JSON object. The <code>type</code> field specifies what
 type of object it is. Currently, only two types exist: <code>request</code> and <code>response</code>.
@@ -57,10 +57,10 @@ audit logs.</p>
 interaction with OpenBao. The request and response can be matched utilizing a
 unique identifier assigned to each request.</p>
 <p>Most strings contained within requests and responses are hashed with a salt using HMAC-SHA256. The purpose of the hash is so that secrets aren&#x27;t in plaintext within your audit logs. However, you&#x27;re still able to check the value of secrets by generating HMACs yourself; this can be done with the audit device&#x27;s hash function and salt by using the <code>/sys/audit-hash</code> API endpoint (see the documentation for more details).</p>
-<p>~&gt; Currently, only strings that come from JSON or returned in JSON are
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Currently, only strings that come from JSON or returned in JSON are
 HMAC&#x27;d. Other data types, like integers, booleans, and so on, are passed
 through in plaintext. We recommend that all sensitive data be provided as string values
-inside all JSON sent to OpenBao (i.e., that integer values are provided in quotes).</p>
+inside all JSON sent to OpenBao (i.e., that integer values are provided in quotes).</p></div></div>
 <p>While most strings are hashed, OpenBao does make some exceptions, such as auth and secrets, and users can enable additional exceptions using the <a href="/openbao/docs/commands/secrets/enable/">secrets enable</a> command, and then tune it afterward.</p>
 <p><strong>see also</strong>:</p>
 <p><a href="/openbao/docs/commands/secrets/tune/">secrets tune</a></p>
@@ -75,16 +75,16 @@ For example, the command below enables the file audit device:</p>
 <p>In the command above, we passed the &quot;file_path&quot; parameter to specify the path
 where the audit log will be written to. Each audit device has its own
 set of parameters. See the documentation to the left for more details.</p>
-<p>~&gt; Note: Audit device configuration is replicated to all nodes within a cluster
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Note: Audit device configuration is replicated to all nodes within a cluster
 by default.  Before enabling an audit device, ensure that all nodes within the
 cluster(s) will be able to successfully log to the audit device to avoid OpenBao
 being blocked from serving requests.
-An audit device can be limited to only within the node&#x27;s cluster with the <a href="/openbao/api-docs/system/audit/#local"><code>local</code></a> parameter.</p>
+An audit device can be limited to only within the node&#x27;s cluster with the <a href="/openbao/api-docs/system/audit/#local"><code>local</code></a> parameter.</p></div></div>
 <p>When an audit device is disabled, it will stop receiving logs immediately.
 The existing logs that it did store are untouched.</p>
-<p>~&gt; Note: Once an audit device is disabled, you will no longer be able to HMAC values
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Note: Once an audit device is disabled, you will no longer be able to HMAC values
 for comparison with entries in the audit logs. This is true even if you re-enable
-the audit device at the same path, as a new salt will be created for hashing.</p>
+the audit device at the same path, as a new salt will be created for hashing.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="blocked-audit-devices">Blocked audit devices<a href="#blocked-audit-devices" class="hash-link" aria-label="Direct link to Blocked audit devices" title="Direct link to Blocked audit devices">​</a></h2>
 <p>Audit device logs are critically important and ignoring auditing failures opens an avenue for attack. OpenBao will not respond to requests when no enabled audit devices can record them.</p>
 <p>OpenBao can distinguish between two types of audit device failures.</p>

@@ -8,7 +8,7 @@ created tokens and responses containing leased secrets generated off of these
 newly created tokens."><meta data-rh="true" property="og:description" content="OpenBao Agent Caching allows client-side caching of responses containing newly
 created tokens and responses containing leased secrets generated off of these
 newly created tokens."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/agent-and-proxy/agent/caching/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/agent-and-proxy/agent/caching/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/agent-and-proxy/agent/caching/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -136,9 +136,9 @@ The top level <code>cache</code> block has the following configuration entry:</p
 maintain backwards compatibility. This configuration <strong>cannot</strong> be specified alongside <code>api_proxy</code> equivalents,
 should not be preferred over configuring these values in the <code>api_proxy</code> block,
 and <code>api_proxy</code> should be the preferred place to configure these values.</p>
-<p>-&gt; <strong>Note:</strong> When the <code>cache</code> block is defined, at least one
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p><strong>Note:</strong> When the <code>cache</code> block is defined, at least one
 <a href="/openbao/docs/agent-and-proxy/agent/template/">template</a> or <a href="/openbao/docs/agent-and-proxy/agent/#listener-stanza">listener</a> must also be defined
-in the config, otherwise there is no way to utilize the cache.</p>
+in the config, otherwise there is no way to utilize the cache.</p></div></div>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="configuration-persist">Configuration (Persist)<a href="#configuration-persist" class="hash-link" aria-label="Direct link to Configuration (Persist)" title="Direct link to Configuration (Persist)">​</a></h3>
 <p>These are common configuration values that live within the <code>persist</code> block:</p>
 <ul>

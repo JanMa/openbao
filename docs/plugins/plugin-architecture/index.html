@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.1.1">
 <title data-rh="true">External plugin architecture | OpenBao</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://janma.github.io/openbao/docs/plugins/plugin-architecture/"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="External plugin architecture | OpenBao"><meta data-rh="true" name="description" content="Learn about OpenBao&#x27;s plugin architecture."><meta data-rh="true" property="og:description" content="Learn about OpenBao&#x27;s plugin architecture."><link data-rh="true" rel="icon" href="/openbao/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://janma.github.io/openbao/docs/plugins/plugin-architecture/"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/plugins/plugin-architecture/" hreflang="en"><link data-rh="true" rel="alternate" href="https://janma.github.io/openbao/docs/plugins/plugin-architecture/" hreflang="x-default"><link rel="stylesheet" href="/openbao/assets/css/styles.28fe8a88.css">
-<script src="/openbao/assets/js/runtime~main.8bb6b3e4.js" defer="defer"></script>
+<script src="/openbao/assets/js/runtime~main.f91cb76b.js" defer="defer"></script>
 <script src="/openbao/assets/js/main.6b64db56.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -17,8 +17,8 @@ crash the entirety of OpenBao.</p>
 <p>It is possible to enable a custom plugin with a name that&#x27;s identical to a
 built-in plugin. In such a situation, OpenBao will always choose the custom plugin
 when enabling it.</p>
-<p>-&gt; <strong>NOTE:</strong> See the <a href="/openbao/integrations/">OpenBao Integrations</a> page to find a
-curated collection of official, partner, and community OpenBao plugins.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p><strong>NOTE:</strong> See the <a href="/openbao/integrations/">OpenBao Integrations</a> page to find a
+curated collection of official, partner, and community OpenBao plugins.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="external-plugin-lifecycle">External plugin lifecycle<a href="#external-plugin-lifecycle" class="hash-link" aria-label="Direct link to External plugin lifecycle" title="Direct link to External plugin lifecycle">​</a></h2>
 <p>OpenBao external plugins are long-running processes that remain running once they are
 spawned by OpenBao, the parent process. Plugin processes can be started by OpenBao&#x27;s
@@ -90,9 +90,9 @@ the catalog. It then checks the executable&#x27;s SHA256 sum against the one
 configured in the plugin catalog. Finally OpenBao runs the command configured in
 the catalog, sending along the JWT formatted response wrapping token and mlock
 settings. Like OpenBao, plugins support <a href="/openbao/docs/configuration/#disable_mlock">the use of mlock when available</a>.</p>
-<p>~&gt; Note: If OpenBao is configured with <code>mlock</code> enabled, then the OpenBao executable
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>Note: If OpenBao is configured with <code>mlock</code> enabled, then the OpenBao executable
 and each plugin executable in your <a href="/openbao/docs/plugins/plugin-architecture/#plugin-directory">plugins directory</a>
-must be given the ability to use the <code>mlock</code> syscall.</p>
+must be given the ability to use the <code>mlock</code> syscall.</p></div></div>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="plugin-upgrades">Plugin upgrades<a href="#plugin-upgrades" class="hash-link" aria-label="Direct link to Plugin upgrades" title="Direct link to Plugin upgrades">​</a></h3>
 <p>External plugins may be updated by registering and reloading them. More details
 on the upgrade procedure can be found in
