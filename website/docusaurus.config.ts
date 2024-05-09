@@ -10,15 +10,15 @@ const config: Config = {
   favicon: "img/favicon.svg",
 
   // Set the production url of your site here
-  url: "https://openbao.org",
+  url: "https://janma.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
+  baseUrl: "/openbao/",
   trailingSlash: true,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "openbao", // Usually your GitHub org/user name.
+  organizationName: "JanMa", // Usually your GitHub org/user name.
   projectName: "openbao", // Usually your repo name.
 
   onBrokenLinks: "warn",
@@ -139,7 +139,7 @@ const config: Config = {
         `Copyright © ${new Date().getFullYear()} OpenBao a Series of LF Projects, LLC <br>`,
         `For web site terms of use, trademark policy and other project policies please see <a href="https://lfprojects.org">lfprojects.org</a>. <br>`,
         ` OpenBao is a <a href="https://wiki.lfedge.org/display/LE/Stage+1%3A+At+Large">Stage One project</a> at`,
-        `<a href="https://www.lfedge.org/"><img src="/img/lfedge-logo.svg" alt="LF Edge Logo" width="90px"></a>.`,
+        `<a href="https://www.lfedge.org/"><img src="/openbao/img/lfedge-logo.svg" alt="LF Edge Logo" width="90px"></a>.`,
       ].join(" "),
     },
     prism: {
