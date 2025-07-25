@@ -16,6 +16,7 @@ import (
 	"time"
 
 	"github.com/go-viper/mapstructure/v2"
+	"github.com/google/go-containerregistry/pkg/name"
 	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/go-secure-stdlib/parseutil"
 	"github.com/hashicorp/hcl"
@@ -72,6 +73,10 @@ type Config struct {
 
 	PluginFilePermissions    int         `hcl:"-"`
 	PluginFilePermissionsRaw interface{} `hcl:"plugin_file_permissions,alias:PluginFilePermissions"`
+
+	Plugins                       map[string]*PluginConfig        `hcl:"plugins"`
+	PluginDownloadOnErrorBehavior string                          `hcl:"plugin_download_on_error_behavior"`
+	PluginOCIAuth                 map[string]*PluginOCIAuthConfig `hcl:"plugin_oci_auth"`
 
 	EnableIntrospectionEndpoint    bool        `hcl:"-"`
 	EnableIntrospectionEndpointRaw interface{} `hcl:"introspection_endpoint,alias:EnableIntrospectionEndpoint"`
@@ -147,6 +152,30 @@ func (c *Config) Validate(sourceFilePath string) []configutil.ConfigError {
 	for _, a := range c.Audits {
 		results = append(results, a.Validate(sourceFilePath)...)
 	}
+
+	// Validate plugin configurations
+	for pluginName, pluginConfig := range c.Plugins {
+		if pluginConfig != nil {
+			results = append(results, pluginConfig.Validate(pluginName, sourceFilePath)...)
+		}
+	}
+
+	// Validate OCI auth configurations
+	for _, authConfig := range c.PluginOCIAuth {
+		if authConfig != nil {
+			results = append(results, authConfig.Validate(sourceFilePath)...)
+		}
+	}
+
+	// Validate plugin_download_on_error_behavior
+	if c.PluginDownloadOnErrorBehavior != "" {
+		if c.PluginDownloadOnErrorBehavior != "fail_startup" && c.PluginDownloadOnErrorBehavior != "log_and_continue" {
+			results = append(results, configutil.ConfigError{
+				Problem: fmt.Sprintf("plugin_download_on_error_behavior must be either 'fail_startup' or 'log_and_continue', got %q", c.PluginDownloadOnErrorBehavior),
+			})
+		}
+	}
+
 	results = append(results, c.validateEnt(sourceFilePath)...)
 	return results
 }
@@ -268,6 +297,91 @@ func (b *ServiceRegistration) Validate(source string) []configutil.ConfigError {
 
 func (b *ServiceRegistration) GoString() string {
 	return fmt.Sprintf("*%#v", *b)
+}
+
+// PluginConfig represents the configuration for a single OCI-based plugin
+type PluginConfig struct {
+	UnusedKeys configutil.UnusedKeyMap `hcl:",unusedKeyPositions"`
+	URL        string                  `hcl:"url"`
+	BinaryName string                  `hcl:"binary_name"`
+	SHA256Sum  string                  `hcl:"sha256sum"`
+}
+
+// PluginOCIAuthConfig represents OCI registry authentication configuration
+type PluginOCIAuthConfig struct {
+	UnusedKeys configutil.UnusedKeyMap `hcl:",unusedKeyPositions"`
+	Username   string                  `hcl:"username"`
+	Password   string                  `hcl:"password"`
+	Token      string                  `hcl:"token"`
+}
+
+// Validate validates a PluginConfig
+func (p *PluginConfig) Validate(pluginName, sourceFilePath string) []configutil.ConfigError {
+	var results []configutil.ConfigError
+
+	// Validate unused keys
+	results = append(results, configutil.ValidateUnusedFields(p.UnusedKeys, sourceFilePath)...)
+
+	// Validate URL is not empty
+	if p.URL == "" {
+		results = append(results, configutil.ConfigError{
+			Problem: fmt.Sprintf("plugin %q: url cannot be empty", pluginName),
+		})
+	}
+
+	// Ensure URL is a valid image reference
+	if _, err := name.ParseReference(p.URL); err != nil {
+		results = append(results, configutil.ConfigError{
+			Problem: fmt.Sprintf("plugin %q: url is not a valid image reference. %v", pluginName, err),
+		})
+	}
+
+	// Validate binary_name is not empty
+	if p.BinaryName == "" {
+		results = append(results, configutil.ConfigError{
+			Problem: fmt.Sprintf("plugin %q: binary_name cannot be empty", pluginName),
+		})
+	}
+
+	// Validate sha256sum is exactly 64 hex characters
+	if len(p.SHA256Sum) != 64 {
+		results = append(results, configutil.ConfigError{
+			Problem: fmt.Sprintf("plugin %q: sha256sum must be exactly 64 characters, got %d", pluginName, len(p.SHA256Sum)),
+		})
+	} else {
+		// Check if it's valid hex
+		for i, c := range p.SHA256Sum {
+			if !((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F')) {
+				results = append(results, configutil.ConfigError{
+					Problem: fmt.Sprintf("plugin %q: sha256sum contains invalid character '%c' at position %d, must be hexadecimal", pluginName, c, i),
+				})
+				break
+			}
+		}
+	}
+
+	return results
+}
+
+// Validate validates a PluginOCIAuthConfig
+func (p *PluginOCIAuthConfig) Validate(sourceFilePath string) []configutil.ConfigError {
+	results := configutil.ValidateUnusedFields(p.UnusedKeys, sourceFilePath)
+
+	// At least one authentication method should be provided
+	if p.Username == "" && p.Password == "" && p.Token == "" {
+		results = append(results, configutil.ConfigError{
+			Problem: "plugin_oci_auth: at least one of username, password, or token must be provided",
+		})
+	}
+
+	// If username is provided, password should also be provided
+	if p.Username != "" && p.Password == "" {
+		results = append(results, configutil.ConfigError{
+			Problem: "plugin_oci_auth: password must be provided when username is specified",
+		})
+	}
+
+	return results
 }
 
 func NewConfig() *Config {
@@ -485,6 +599,30 @@ func (c *Config) Merge(c2 *Config) *Config {
 		result.Audits = make([]*AuditDevice, len(c.Audits)+len(c2.Audits))
 		copy(result.Audits[0:len(c.Audits)], c.Audits)
 		copy(result.Audits[len(c.Audits):], c2.Audits)
+	}
+
+	// Merge plugin configurations
+	result.Plugins = make(map[string]*PluginConfig)
+	for name, plugin := range c.Plugins {
+		result.Plugins[name] = plugin
+	}
+	for name, plugin := range c2.Plugins {
+		result.Plugins[name] = plugin // c2 takes precedence
+	}
+
+	// Merge OCI auth configurations
+	result.PluginOCIAuth = make(map[string]*PluginOCIAuthConfig)
+	for name, auth := range c.PluginOCIAuth {
+		result.PluginOCIAuth[name] = auth
+	}
+	for name, auth := range c2.PluginOCIAuth {
+		result.PluginOCIAuth[name] = auth // c2 takes precedence
+	}
+
+	// Merge plugin download behavior
+	result.PluginDownloadOnErrorBehavior = c.PluginDownloadOnErrorBehavior
+	if c2.PluginDownloadOnErrorBehavior != "" {
+		result.PluginDownloadOnErrorBehavior = c2.PluginDownloadOnErrorBehavior
 	}
 
 	return result
