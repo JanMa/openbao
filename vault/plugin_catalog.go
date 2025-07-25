@@ -5,10 +5,13 @@ package vault
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"os"
 	"path"
 	"path/filepath"
 	"strings"
@@ -19,6 +22,7 @@ import (
 	"github.com/hashicorp/go-plugin"
 	"github.com/hashicorp/go-secure-stdlib/base62"
 	semver "github.com/hashicorp/go-version"
+	"github.com/openbao/openbao/command/server"
 	"github.com/openbao/openbao/helper/versions"
 	v4 "github.com/openbao/openbao/sdk/v2/database/dbplugin"
 	v5 "github.com/openbao/openbao/sdk/v2/database/dbplugin/v5"
@@ -189,6 +193,128 @@ func (c *Core) setupPluginCatalog(ctx context.Context) error {
 	}
 
 	return nil
+}
+
+// reconcileOCIPlugins handles downloading and validating OCI-based plugins configured in the server
+func (c *Core) reconcileOCIPlugins(ctx context.Context) error {
+	logger := c.logger.Named("oci-plugins")
+	logger.Info("starting OCI plugin reconciliation")
+	// Load the current configuration
+	conf := c.rawConfig.Load()
+	if conf == nil {
+		logger.Error("nil config")
+		return nil
+	}
+
+	config := conf.(*server.Config)
+
+	// Skip if no configuration provided
+	if len(config.Plugins) == 0 {
+		logger.Debug("no plugin configuration found")
+		return nil
+	}
+
+	for pluginName, pluginConfig := range config.Plugins {
+		if pluginConfig == nil {
+			continue
+		}
+
+		logger = logger.With("plugin", pluginName)
+		logger.Debug("processing plugin", "url", pluginConfig.URL, "binary_name", pluginConfig.BinaryName)
+
+		// Fast path: check if plugin already exists and matches expected SHA256
+		if c.isPluginCacheValid(pluginName, pluginConfig) {
+			logger.Debug("plugin cache is valid, skipping download")
+			continue
+		}
+
+		// Slow path: download from OCI registry
+		logger.Info("downloading plugin from OCI registry", "url", pluginConfig.URL)
+		if err := c.downloadOCIPlugin(ctx, pluginName, pluginConfig, logger); err != nil {
+			if c.shouldFailOnPluginError() {
+				return fmt.Errorf("failed to download plugin %q: %w", pluginName, err)
+			}
+			logger.Error("failed to download plugin, continuing", "error", err)
+			continue
+		}
+
+		logger.Info("successfully downloaded and validated plugin")
+	}
+
+	logger.Info("OCI plugin reconciliation completed")
+	return nil
+}
+
+// isPluginCacheValid checks if the plugin already exists in the plugin directory
+// and matches the expected SHA256 hash (fast path)
+func (c *Core) isPluginCacheValid(pluginName string, config *server.PluginConfig) bool {
+	if c.pluginDirectory == "" {
+		return false
+	}
+
+	pluginPath := filepath.Join(c.pluginDirectory, config.BinaryName)
+
+	// Check if file exists
+	if _, err := os.Stat(pluginPath); os.IsNotExist(err) {
+		return false
+	}
+
+	// Validate SHA256
+	actualHash, err := c.calculateSHA256(pluginPath)
+	if err != nil {
+		c.logger.Debug("failed to calculate plugin hash", "plugin", pluginName, "error", err)
+		return false
+	}
+
+	return strings.EqualFold(actualHash, config.SHA256Sum)
+}
+
+// calculateSHA256 computes the SHA256 hash of a file
+func (c *Core) calculateSHA256(filePath string) (string, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	hasher := sha256.New()
+	if _, err := io.Copy(hasher, file); err != nil {
+		return "", err
+	}
+
+	return hex.EncodeToString(hasher.Sum(nil)), nil
+}
+
+// downloadOCIPlugin downloads a plugin from an OCI registry (slow path)
+func (c *Core) downloadOCIPlugin(ctx context.Context, pluginName string, config *server.PluginConfig, logger log.Logger) error {
+	// This is a placeholder for the OCI download implementation
+	// In Phase 3, we'll implement the actual OCI download logic using go-containerregistry
+
+	logger.Info("OCI download not yet implemented - placeholder",
+		"plugin", pluginName,
+		"url", config.URL,
+		"expected_hash", config.SHA256Sum)
+
+	// For now, return an error to indicate the feature is not yet complete
+	return fmt.Errorf("OCI plugin download not yet implemented")
+}
+
+// shouldFailOnPluginError determines whether plugin download errors should fail startup
+func (c *Core) shouldFailOnPluginError() bool {
+	conf := c.rawConfig.Load()
+	if conf == nil {
+		return false // Default to continue
+	}
+
+	config := conf.(*server.Config)
+
+	// Default to "fail_startup" if not specified
+	behavior := config.PluginDownloadOnErrorBehavior
+	if behavior == "" {
+		behavior = "fail_startup"
+	}
+
+	return behavior == "fail_startup"
 }
 
 type pluginClientConn struct {
