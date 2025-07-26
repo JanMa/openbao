@@ -1,0 +1,96 @@
+You are implementing RFC #1476 for OpenBao: OCI-based plugin distribution system. This allows OpenBao to download and manage plugins from OCI container registries.
+
+**Completed Phases:**
+- ✅ **Phase 1**: Configuration parsing and validation
+- ✅ **Phase 2**: Core plugin reconciliation logic integration
+- 🔄 **Phase 3**: OCI download implementation (in progress)
+
+**Files Modified:**
+1. config.go - Added configuration structs and validation
+2. core.go - Added reconciliation call to startup sequence
+3. plugin_catalog.go - Added reconciliation logic and OCI download framework
+
+**Key Components Implemented:**
+
+1. **Configuration Schema** (config.go):
+   ```go
+   type PluginConfig struct {
+       URL        string `hcl:"url"`        // OCI image reference
+       BinaryName string `hcl:"binary_name"` // Plugin binary name
+       SHA256Sum  string `hcl:"sha256sum"`   // Expected SHA256 hash
+   }
+
+   type PluginOCIAuthConfig struct {
+       Username string `hcl:"username"`
+       Password string `hcl:"password"`
+       Token    string `hcl:"token"`
+   }
+   ```
+
+2. **Core Integration** (core.go):
+   - Added `reconcileOCIPlugins(ctx)` call after `setupPluginCatalog(ctx)`
+   - Runs during OpenBao startup before mounts are loaded
+
+3. **Reconciliation Logic** (plugin_catalog.go):
+   - Fast path: Check if plugin exists locally with correct SHA256
+   - Slow path: Download from OCI registry if needed
+   - Error handling based on `plugin_download_on_error_behavior` setting
+
+**Configuration Example:**
+```hcl
+plugins {
+  "my-plugin" {
+    url         = "ghcr.io/myorg/my-plugin:v1.0.0"
+    binary_name = "my-plugin"
+    sha256sum   = "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+  }
+}
+
+plugin_oci_auth {
+  "ghcr.io" {
+    username = "myuser"
+    password = "mypass"
+  }
+}
+
+plugin_download_on_error_behavior = "log_and_continue"  # or "fail_startup"
+plugin_directory = "/opt/openbao/plugins"
+```
+
+The reconciliation loop is working and being called during startup. The current `downloadOCIPlugin` function is a placeholder that needs to be implemented with actual OCI download logic using `go-containerregistry`.
+
+1. **Implement OCI Download Logic**:
+   - Use `github.com/google/go-containerregistry` library
+   - Parse OCI image reference
+   - Handle authentication using configured credentials
+   - Download container image and extract plugin binary
+   - Validate SHA256 hash matches expected value
+   - Set correct file permissions
+
+2. **Add Error Handling**:
+   - Network timeout handling
+   - Registry authentication failures
+   - Image not found scenarios
+   - Invalid SHA256 hash mismatches
+
+3. **Testing**:
+   - Create integration tests
+   - Test with real OCI registries
+   - Verify permission handling
+   - Test error scenarios
+
+- `github.com/google/go-containerregistry` for OCI operations
+- Extended existing imports in plugin_catalog.go
+
+- Fast path validation prevents unnecessary downloads
+- Configuration drives behavior (fail vs continue on errors)
+- Integration point is after plugin catalog setup but before mount loading
+- Uses OpenBao's existing plugin directory structure
+- Leverages `go-containerregistry` for robust OCI support
+
+- Configuration parsing validates correctly
+- HCL configuration schema works with validation
+- Reconciliation loop executes during startup
+- Logging system provides visibility into the process
+
+Continue from implementing the actual OCI download functionality in the `downloadOCIPlugin` method in plugin_catalog.go.
