@@ -4,6 +4,7 @@
 package vault
 
 import (
+	"archive/tar"
 	"context"
 	"crypto/sha256"
 	"encoding/hex"
@@ -20,6 +21,7 @@ import (
 	"github.com/google/go-containerregistry/pkg/authn"
 	"github.com/google/go-containerregistry/pkg/name"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
+	"github.com/google/go-containerregistry/pkg/v1/mutate"
 	"github.com/google/go-containerregistry/pkg/v1/remote"
 	log "github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-multierror"
@@ -256,15 +258,43 @@ func (c *Core) isPluginCacheValid(pluginName string, config *server.PluginConfig
 		return false
 	}
 
-	pluginPath := filepath.Join(c.pluginDirectory, config.BinaryName)
+	// Check if the symlink exists in the plugin directory
+	symlinkPath := filepath.Join(c.pluginDirectory, config.BinaryName)
 
-	// Check if file exists
-	if _, err := os.Stat(pluginPath); os.IsNotExist(err) {
+	// Check if symlink exists and is a symlink
+	linkInfo, err := os.Lstat(symlinkPath)
+	if err != nil {
 		return false
 	}
 
-	// Validate SHA256
-	actualHash, err := c.calculateSHA256(pluginPath)
+	if linkInfo.Mode()&os.ModeSymlink == 0 {
+		// If it's not a symlink, it might be a regular file from manual installation
+		// Let's validate it directly
+		actualHash, err := c.calculateSHA256(symlinkPath)
+		if err != nil {
+			return false
+		}
+		return strings.EqualFold(actualHash, config.SHA256Sum)
+	}
+
+	// Follow the symlink to get the actual cached file
+	cachedFilePath, err := os.Readlink(symlinkPath)
+	if err != nil {
+		return false
+	}
+
+	// Make sure it's an absolute path
+	if !filepath.IsAbs(cachedFilePath) {
+		cachedFilePath = filepath.Join(c.pluginDirectory, cachedFilePath)
+	}
+
+	// Check if the cached file exists
+	if _, err := os.Stat(cachedFilePath); os.IsNotExist(err) {
+		return false
+	}
+
+	// Validate SHA256 of the cached file
+	actualHash, err := c.calculateSHA256(cachedFilePath)
 	if err != nil {
 		c.logger.Debug("failed to calculate plugin hash", "plugin", pluginName, "error", err)
 		return false
@@ -313,34 +343,60 @@ func (c *Core) downloadOCIPlugin(ctx context.Context, pluginName string, config 
 		return fmt.Errorf("failed to download OCI image: %w", err)
 	}
 
-	// Extract the plugin binary from the image
-	pluginPath := filepath.Join(c.pluginDirectory, config.BinaryName)
-	if err := c.extractPluginFromImage(img, pluginPath, logger); err != nil {
+	// Extract the plugin binary from the image using hidden cache path
+	// Format: <plugin_directory>/.oci-cache/<plugin_name>/<sha256_prefix>/<binary_name>
+	sha256Prefix := config.SHA256Sum[:8]
+	cacheDir := filepath.Join(c.pluginDirectory, ".oci-cache", pluginName, sha256Prefix)
+	cachedPluginPath := filepath.Join(cacheDir, config.BinaryName)
+
+	if err := c.extractPluginFromImage(img, cachedPluginPath, config.BinaryName, logger); err != nil {
 		return fmt.Errorf("failed to extract plugin from OCI image: %w", err)
 	}
 
-	// Verify the SHA256 hash
-	actualHash, err := c.calculateSHA256(pluginPath)
+	// Verify the SHA256 hash of the cached file
+	actualHash, err := c.calculateSHA256(cachedPluginPath)
 	if err != nil {
-		// Clean up the file if hash verification fails
-		os.Remove(pluginPath)
+		// Clean up the cached file if hash verification fails
+		os.Remove(cachedPluginPath)
 		return fmt.Errorf("failed to calculate plugin hash: %w", err)
 	}
 
 	if !strings.EqualFold(actualHash, config.SHA256Sum) {
-		// Clean up the file if hash doesn't match
-		os.Remove(pluginPath)
+		// Clean up the cached file if hash doesn't match
+		os.Remove(cachedPluginPath)
 		return fmt.Errorf("plugin hash mismatch: expected %s, got %s", config.SHA256Sum, actualHash)
 	}
 
-	// Set appropriate file permissions for plugin execution
-	if err := os.Chmod(pluginPath, 0755); err != nil {
-		logger.Warn("failed to set executable permissions on plugin", "error", err)
+	// Create symlink in the plugin directory pointing to the cached file
+	symlinkPath := filepath.Join(c.pluginDirectory, config.BinaryName)
+
+	// Remove existing symlink or file if it exists
+	if _, err := os.Lstat(symlinkPath); err == nil {
+		if err := os.Remove(symlinkPath); err != nil {
+			logger.Warn("failed to remove existing plugin file/symlink", "path", symlinkPath, "error", err)
+		}
+	}
+
+	// Create symlink (use relative path for portability)
+	relativeTarget, err := filepath.Rel(c.pluginDirectory, cachedPluginPath)
+	if err != nil {
+		// Fallback to absolute path if relative path calculation fails
+		relativeTarget = cachedPluginPath
+	}
+
+	if err := os.Symlink(relativeTarget, symlinkPath); err != nil {
+		return fmt.Errorf("failed to create plugin symlink: %w", err)
+	}
+
+	// Set appropriate file permissions for the cached plugin file
+	if err := os.Chmod(cachedPluginPath, 0755); err != nil {
+		logger.Warn("failed to set executable permissions on cached plugin", "error", err)
 	}
 
 	logger.Info("successfully downloaded and validated plugin",
 		"plugin", pluginName,
-		"path", pluginPath,
+		"cached_path", cachedPluginPath,
+		"symlink_path", symlinkPath,
 		"hash", actualHash)
 
 	return nil
@@ -353,22 +409,22 @@ func (c *Core) getOCIAuthenticator(registry string, logger log.Logger) (authn.Au
 	if conf == nil {
 		return authn.Anonymous, nil
 	}
-	
+
 	config := conf.(*server.Config)
-	
+
 	// Check if we have authentication configured for this registry
 	authConfig, exists := config.PluginOCIAuth[registry]
 	if !exists {
 		logger.Debug("no authentication configured for registry, using anonymous", "registry", registry)
 		return authn.Anonymous, nil
 	}
-	
+
 	// Use token-based auth if available
 	if authConfig.Token != "" {
 		logger.Debug("using token authentication for registry", "registry", registry)
 		return &authn.Bearer{Token: authConfig.Token}, nil
 	}
-	
+
 	// Use username/password auth if available
 	if authConfig.Username != "" && authConfig.Password != "" {
 		logger.Debug("using basic authentication for registry", "registry", registry)
@@ -377,38 +433,76 @@ func (c *Core) getOCIAuthenticator(registry string, logger log.Logger) (authn.Au
 			Password: authConfig.Password,
 		}, nil
 	}
-	
+
 	logger.Debug("no valid authentication method found, using anonymous", "registry", registry)
 	return authn.Anonymous, nil
 }
 
 // extractPluginFromImage extracts the plugin binary from the OCI image
-func (c *Core) extractPluginFromImage(img v1.Image, targetPath string, logger log.Logger) error {
-	// This is a simplified implementation that assumes the plugin binary is at /plugin
-	// In a full implementation, you might want to:
-	// 1. Check image annotations/labels for the binary path
-	// 2. Support different image structures
-	// 3. Handle compressed layers
-	
-	logger.Debug("extracting plugin from OCI image", "target", targetPath)
-	
-	// For now, we'll implement a placeholder that creates a dummy file
-	// In Phase 4, we would implement the full OCI image extraction logic
-	
+func (c *Core) extractPluginFromImage(img v1.Image, targetPath string, binaryName string, logger log.Logger) error {
+	logger.Debug("extracting plugin from OCI image", "target", targetPath, "binary", binaryName)
+
 	// Create the plugin directory if it doesn't exist
 	if err := os.MkdirAll(filepath.Dir(targetPath), 0755); err != nil {
 		return fmt.Errorf("failed to create plugin directory: %w", err)
 	}
-	
-	// For testing purposes, create a dummy plugin file
-	// In a real implementation, this would extract the actual binary from the OCI image layers
-	dummyContent := []byte("#!/bin/bash\necho 'This is a dummy plugin for testing OCI download'\n")
-	if err := os.WriteFile(targetPath, dummyContent, 0755); err != nil {
-		return fmt.Errorf("failed to write plugin file: %w", err)
+
+	// Use mutate.Extract to get the final filesystem as a tar stream
+	rc := mutate.Extract(img)
+	defer rc.Close()
+
+	// Create a tar reader to read the extracted filesystem
+	tarReader := tar.NewReader(rc)
+
+	// Search for the binary in the root of the image
+	for {
+		header, err := tarReader.Next()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return fmt.Errorf("error reading tar entry: %w", err)
+		}
+
+		// Normalize the path by removing leading slashes
+		normalizedPath := strings.TrimPrefix(header.Name, "/")
+
+		// Check if this is our target binary (expect it in the root)
+		if normalizedPath == binaryName || header.Name == binaryName {
+			// Check if it's a regular file
+			if header.Typeflag != tar.TypeReg {
+				logger.Debug("found target but not a regular file", "name", header.Name, "type", header.Typeflag)
+				continue
+			}
+
+			logger.Info("found plugin binary in OCI image", "entry", header.Name, "size", header.Size)
+
+			// Create the output file
+			outFile, err := os.Create(targetPath)
+			if err != nil {
+				return fmt.Errorf("failed to create output file: %w", err)
+			}
+
+			// Copy the binary data
+			_, err = io.Copy(outFile, tarReader)
+			outFile.Close()
+
+			if err != nil {
+				os.Remove(targetPath) // Clean up on error
+				return fmt.Errorf("failed to extract binary data: %w", err)
+			}
+
+			// Set executable permissions
+			if err := os.Chmod(targetPath, 0755); err != nil {
+				logger.Warn("failed to set executable permissions", "path", targetPath, "error", err)
+			}
+
+			logger.Debug("successfully extracted plugin binary", "path", targetPath, "size", header.Size)
+			return nil
+		}
 	}
-	
-	logger.Debug("successfully extracted plugin binary", "path", targetPath)
-	return nil
+
+	return fmt.Errorf("binary %q not found in root of OCI image", binaryName)
 }
 
 // shouldFailOnPluginError determines whether plugin download errors should fail startup
