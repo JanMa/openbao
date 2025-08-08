@@ -20,18 +20,38 @@ import (
 	"github.com/google/go-containerregistry/pkg/v1/mutate"
 	"github.com/google/go-containerregistry/pkg/v1/remote"
 	"github.com/hashicorp/go-hclog"
-	"github.com/openbao/openbao/command/server"
 )
+
+// PluginConfig represents the configuration for a single plugin
+type PluginConfig struct {
+	URL        string `hcl:"url"`
+	BinaryName string `hcl:"binary_name"`
+	SHA256Sum  string `hcl:"sha256sum"`
+}
+
+// PluginOCIAuthConfig represents OCI registry authentication configuration
+type PluginOCIAuthConfig struct {
+	Username string `hcl:"username"`
+	Password string `hcl:"password"`
+	Token    string `hcl:"token"`
+}
+
+// PluginConfigProvider provides plugin configuration data
+type PluginConfigProvider interface {
+	GetPlugins() map[string]*PluginConfig
+	GetPluginDownloadOnErrorBehavior() string
+	GetPluginOCIAuth() map[string]*PluginOCIAuthConfig
+}
 
 // PluginDownloader handles downloading and managing OCI-based plugins
 type PluginDownloader struct {
 	pluginDirectory string
-	config          *server.Config
+	config          PluginConfigProvider
 	logger          hclog.Logger
 }
 
 // NewPluginDownloader creates a new OCI plugin downloader
-func NewPluginDownloader(pluginDirectory string, config *server.Config, logger hclog.Logger) *PluginDownloader {
+func NewPluginDownloader(pluginDirectory string, config PluginConfigProvider, logger hclog.Logger) *PluginDownloader {
 	return &PluginDownloader{
 		pluginDirectory: pluginDirectory,
 		config:          config,
@@ -41,12 +61,13 @@ func NewPluginDownloader(pluginDirectory string, config *server.Config, logger h
 
 // ReconcilePlugins downloads and validates all configured OCI plugins
 func (d *PluginDownloader) ReconcilePlugins(ctx context.Context) error {
-	if len(d.config.Plugins) == 0 {
+	plugins := d.config.GetPlugins()
+	if len(plugins) == 0 {
 		d.logger.Debug("no plugin configuration found")
 		return nil
 	}
 
-	for pluginName, pluginConfig := range d.config.Plugins {
+	for pluginName, pluginConfig := range plugins {
 		if pluginConfig == nil {
 			continue
 		}
@@ -79,7 +100,7 @@ func (d *PluginDownloader) ReconcilePlugins(ctx context.Context) error {
 
 // shouldFailOnPluginError determines whether plugin download errors should fail startup
 func (d *PluginDownloader) shouldFailOnPluginError() bool {
-	behavior := d.config.PluginDownloadOnErrorBehavior
+	behavior := d.config.GetPluginDownloadOnErrorBehavior()
 	if behavior == "" {
 		behavior = "fail_startup"
 	}
@@ -89,7 +110,7 @@ func (d *PluginDownloader) shouldFailOnPluginError() bool {
 
 // IsPluginCacheValid checks if the plugin already exists in the plugin directory
 // and matches the expected SHA256 hash (fast path)
-func (d *PluginDownloader) IsPluginCacheValid(pluginName string, config *server.PluginConfig) bool {
+func (d *PluginDownloader) IsPluginCacheValid(pluginName string, config *PluginConfig) bool {
 	if d.pluginDirectory == "" {
 		return false
 	}
@@ -140,7 +161,7 @@ func (d *PluginDownloader) IsPluginCacheValid(pluginName string, config *server.
 }
 
 // DownloadPlugin downloads a plugin from an OCI registry
-func (d *PluginDownloader) DownloadPlugin(ctx context.Context, pluginName string, config *server.PluginConfig, logger hclog.Logger) error {
+func (d *PluginDownloader) DownloadPlugin(ctx context.Context, pluginName string, config *PluginConfig, logger hclog.Logger) error {
 	logger.Info("downloading plugin from OCI registry",
 		"plugin", pluginName,
 		"url", config.URL)
@@ -241,7 +262,8 @@ func (d *PluginDownloader) calculateSHA256(filePath string) (string, error) {
 // getOCIAuthenticator returns the appropriate authenticator for the given registry
 func (d *PluginDownloader) getOCIAuthenticator(registry string, logger hclog.Logger) (authn.Authenticator, error) {
 	// Check if we have authentication configured for this registry
-	authConfig, exists := d.config.PluginOCIAuth[registry]
+	authConfigs := d.config.GetPluginOCIAuth()
+	authConfig, exists := authConfigs[registry]
 	if !exists {
 		logger.Debug("no authentication configured for registry, using anonymous", "registry", registry)
 		return authn.Anonymous, nil

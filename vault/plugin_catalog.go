@@ -28,7 +28,7 @@ import (
 	"github.com/openbao/openbao/sdk/v2/helper/pluginutil"
 	"github.com/openbao/openbao/sdk/v2/logical"
 	backendplugin "github.com/openbao/openbao/sdk/v2/plugin"
-	"github.com/openbao/openbao/vault/oci"
+	"github.com/openbao/openbao/sdk/v2/helper/pluginutil/oci"
 	"github.com/openbao/openbao/version"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"

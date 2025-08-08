@@ -26,6 +26,7 @@ import (
 	"github.com/openbao/openbao/helper/profiles"
 	"github.com/openbao/openbao/internalshared/configutil"
 	"github.com/openbao/openbao/sdk/v2/helper/consts"
+	"github.com/openbao/openbao/sdk/v2/helper/pluginutil/oci"
 	"github.com/openbao/openbao/sdk/v2/helper/testcluster"
 )
 
@@ -1458,4 +1459,39 @@ func parseAuditDevices(name string, list *ast.ObjectList) ([]*AuditDevice, error
 	}
 
 	return result, nil
+}
+
+// GetPlugins implements PluginConfigProvider for OCI compatibility
+func (c *Config) GetPlugins() map[string]*oci.PluginConfig {
+	result := make(map[string]*oci.PluginConfig)
+	for name, pluginConfig := range c.Plugins {
+		if pluginConfig != nil {
+			result[name] = &oci.PluginConfig{
+				URL:        pluginConfig.URL,
+				BinaryName: pluginConfig.BinaryName,
+				SHA256Sum:  pluginConfig.SHA256Sum,
+			}
+		}
+	}
+	return result
+}
+
+// GetPluginDownloadOnErrorBehavior implements PluginConfigProvider for OCI compatibility
+func (c *Config) GetPluginDownloadOnErrorBehavior() string {
+	return c.PluginDownloadOnErrorBehavior
+}
+
+// GetPluginOCIAuth implements PluginConfigProvider for OCI compatibility
+func (c *Config) GetPluginOCIAuth() map[string]*oci.PluginOCIAuthConfig {
+	result := make(map[string]*oci.PluginOCIAuthConfig)
+	for registry, authConfig := range c.PluginOCIAuth {
+		if authConfig != nil {
+			result[registry] = &oci.PluginOCIAuthConfig{
+				Username: authConfig.Username,
+				Password: authConfig.Password,
+				Token:    authConfig.Token,
+			}
+		}
+	}
+	return result
 }
