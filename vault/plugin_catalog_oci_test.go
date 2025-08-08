@@ -21,6 +21,7 @@ import (
 	"github.com/google/go-containerregistry/pkg/v1/static"
 	"github.com/hashicorp/go-hclog"
 	"github.com/openbao/openbao/command/server"
+	"github.com/openbao/openbao/vault/oci"
 )
 
 // createTestOCIImage creates a test OCI image with a plugin binary
@@ -107,11 +108,14 @@ func TestExtractPluginFromImage(t *testing.T) {
 
 			// Create a test core with a logger
 			logger := hclog.NewNullLogger()
-			core := &Core{}
+			
+			// Create a minimal config and downloader for testing
+			config := &server.Config{}
+			downloader := oci.NewPluginDownloader(tempDir, config, logger)
 
 			// Test the extraction
 			targetPath := filepath.Join(tempDir, "extracted-plugin")
-			err = core.extractPluginFromImage(img, targetPath, tt.targetBinary, logger)
+			err = downloader.ExtractPluginFromImage(img, targetPath, tt.targetBinary, logger)
 
 			if tt.expectError {
 				if err == nil {
@@ -262,11 +266,6 @@ func TestPluginCacheStructure(t *testing.T) {
 		SHA256Sum:  "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08", // SHA256 of "test"
 	}
 
-	// Create a test core
-	core := &Core{
-		pluginDirectory: tempDir,
-	}
-
 	// Manually create the expected cache structure to test validation
 	sha256Prefix := pluginConfig.SHA256Sum[:8] // "9f86d081"
 	cacheDir := filepath.Join(tempDir, ".oci-cache", "test-plugin", sha256Prefix)
@@ -293,8 +292,10 @@ func TestPluginCacheStructure(t *testing.T) {
 		t.Fatalf("failed to create symlink: %v", err)
 	}
 
-	// Test that cache validation works with symlinks
-	isValid := core.isPluginCacheValid("test-plugin", pluginConfig)
+	// Test that cache validation works with symlinks using the OCI downloader
+	config := &server.Config{}
+	downloader := oci.NewPluginDownloader(tempDir, config, hclog.NewNullLogger())
+	isValid := downloader.IsPluginCacheValid("test-plugin", pluginConfig)
 	if !isValid {
 		t.Error("Expected plugin cache to be valid with symlink")
 	}
