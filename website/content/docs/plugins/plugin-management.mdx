@@ -18,6 +18,25 @@ will automatically attempt to determine the `api_addr` as well.
 Detailed information regarding the plugin system can be found in the
 [internals documentation](/docs/plugins).
 
+## Plugin distribution methods
+
+OpenBao supports two primary methods for managing external plugins:
+
+### Traditional plugin management
+
+The traditional approach involves manually placing plugin binaries in the plugin directory and registering them through the CLI or API.
+
+### OCI-based plugin distribution
+
+OpenBao supports downloading and managing plugins distributed as OCI (Open Container Initiative) images from container registries. This provides:
+
+- **Declarative configuration** of plugins in server config files
+- **Automatic downloads** from container registries during server startup
+- **Integrity verification** with SHA256 checksums
+- **Private registry support** with authentication
+
+See the [OCI Plugin Management Guide](/docs/plugins/oci-plugins) for detailed information on configuring and using OCI-based plugins.
+
 ## Registering external plugins
 
 Before an external plugin can be mounted, it needs to be

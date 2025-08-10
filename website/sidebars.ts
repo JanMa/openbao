@@ -127,6 +127,7 @@ const sidebars: SidebarsConfig = {
                         "configuration/storage/postgresql",
                     ],
                 },
+                "configuration/oci-plugins",
                 "configuration/telemetry",
                 "configuration/ui",
                 "configuration/user-lockout",
@@ -212,6 +213,7 @@ const sidebars: SidebarsConfig = {
                         "commands/plugin/index",
                         "commands/plugin/deregister",
                         "commands/plugin/info",
+                        "commands/plugin/init",
                         "commands/plugin/list",
                         "commands/plugin/register",
                         "commands/plugin/reload",
@@ -419,6 +421,7 @@ const sidebars: SidebarsConfig = {
                 "plugins/plugin-development",
                 "plugins/plugin-authors-guide",
                 "plugins/plugin-management",
+                "plugins/oci-plugins",
             ],
             Platforms: [
                 "platform/index",

@@ -1,0 +1,111 @@
+---
+description: >-
+  Configure and manage OCI-based plugins in OpenBao using container registries
+  for plugin distribution.
+---
+
+# OCI-based plugin distribution
+
+OpenBao supports downloading plugins distributed as OCI (Open Container Initiative) images from container registries. This allows plugins to be packaged as container images and distributed through registries like GitHub Container Registry (GHCR) or private registries.
+
+## Configuration
+
+Add plugin definitions to your OpenBao configuration file:
+
+```hcl
+plugin_directory = "/opt/openbao/plugins"
+
+plugins {
+  "secrets-aws" {
+    url = "ghcr.io/openbao/openbao-plugin-secrets-aws:v1.0.0"
+    binary_name = "openbao-plugin-secrets-aws"
+    sha256sum = "9fdd8be7947e4a4caf7cce4f0e02695081b6c85178aa912df5d37be97363144c"
+  }
+}
+
+plugin_download_on_error_behavior = "fail_startup"
+```
+
+### Plugin parameters
+
+- `url` `(string: required)` - Full OCI image URL including registry, repository, and tag
+- `binary_name` `(string: required)` - Name of the plugin binary within the OCI image
+- `sha256sum` `(string: required)` - Expected SHA256 checksum of the plugin binary
+
+### Error handling
+
+- `plugin_download_on_error_behavior` `(string: "fail_startup")` - Controls server behavior when plugin downloads fail. Valid values are `"fail_startup"` or `"warn_only"`.
+
+### Private registry authentication
+
+For private registries, configure authentication:
+
+```hcl
+plugin_oci_auth {
+  "ghcr.io" {
+    username = "your-username"
+    password = "your-token"
+  }
+  
+  "private-registry.com" {
+    token = "bearer-token"
+  }
+}
+```
+
+## Usage
+
+### Automatic download on server start
+
+When OpenBao server starts, it automatically downloads configured OCI plugins to the plugin directory and verifies their checksums.
+
+### Manual download with CLI
+
+Use the `plugin init` command to download plugins without starting the server:
+
+```shell-session
+$ bao plugin init -config=/path/to/openbao.hcl
+Plugin directory: /opt/openbao/plugins
+Found 1 OCI plugin(s) configured
+```
+
+### Plugin registration
+
+After downloading, register plugins in the catalog:
+
+```shell-session
+$ bao plugin register \
+    -sha256=9fdd8be7947e4a4caf7cce4f0e02695081b6c85178aa912df5d37be97363144c \
+    secret \
+    secrets-aws
+```
+
+## Example configuration
+
+```hcl
+storage "raft" {
+  path = "/opt/openbao/data"
+}
+
+listener "tcp" {
+  address = "0.0.0.0:8200"
+  tls_disable = true
+}
+
+plugin_directory = "/opt/openbao/plugins"
+
+plugins {
+  "secrets-aws" {
+    url = "ghcr.io/openbao/openbao-plugin-secrets-aws:v1.0.0"
+    binary_name = "openbao-plugin-secrets-aws"
+    sha256sum = "9fdd8be7947e4a4caf7cce4f0e02695081b6c85178aa912df5d37be97363144c"
+  }
+}
+
+plugin_oci_auth {
+  "ghcr.io" {
+    username = "${GITHUB_USERNAME}"
+    password = "${GITHUB_TOKEN}"
+  }
+}
+```
