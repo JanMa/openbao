@@ -159,7 +159,7 @@ func (c *PluginInitCommand) runPluginInit() int {
 	c.UI.Info(fmt.Sprintf("Found %d OCI plugin(s) configured", len(config.Plugins)))
 
 	// Ensure plugin directory exists
-	if err := os.MkdirAll(pluginDir, 0755); err != nil {
+	if err = os.MkdirAll(pluginDir, 0o755); err != nil {
 		c.UI.Error(fmt.Sprintf("Failed to create plugin directory: %v", err))
 		return 1
 	}
@@ -226,5 +226,4 @@ func (c *PluginInitCommand) reconcilePlugins(config *server.Config, pluginDir st
 
 	logger.Info("OCI plugin reconciliation completed")
 	return 0
-
 }

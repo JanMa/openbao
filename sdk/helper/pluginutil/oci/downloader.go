@@ -16,7 +16,7 @@ import (
 
 	"github.com/google/go-containerregistry/pkg/authn"
 	"github.com/google/go-containerregistry/pkg/name"
-	"github.com/google/go-containerregistry/pkg/v1"
+	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/mutate"
 	"github.com/google/go-containerregistry/pkg/v1/remote"
 	"github.com/hashicorp/go-hclog"
@@ -230,7 +230,7 @@ func (d *PluginDownloader) DownloadPlugin(ctx context.Context, pluginName string
 	}
 
 	// Set appropriate file permissions for the cached plugin file
-	if err := os.Chmod(cachedPluginPath, 0755); err != nil {
+	if err := os.Chmod(cachedPluginPath, 0o755); err != nil {
 		logger.Warn("failed to set executable permissions on cached plugin", "error", err)
 	}
 
@@ -293,7 +293,7 @@ func (d *PluginDownloader) ExtractPluginFromImage(img v1.Image, targetPath strin
 	logger.Debug("extracting plugin from OCI image", "target", targetPath, "binary", binaryName)
 
 	// Create the plugin directory if it doesn't exist
-	if err := os.MkdirAll(filepath.Dir(targetPath), 0755); err != nil {
+	if err := os.MkdirAll(filepath.Dir(targetPath), 0o755); err != nil {
 		return fmt.Errorf("failed to create plugin directory: %w", err)
 	}
 
@@ -343,7 +343,7 @@ func (d *PluginDownloader) ExtractPluginFromImage(img v1.Image, targetPath strin
 			}
 
 			// Set executable permissions
-			if err := os.Chmod(targetPath, 0755); err != nil {
+			if err := os.Chmod(targetPath, 0o755); err != nil {
 				logger.Warn("failed to set executable permissions", "path", targetPath, "error", err)
 			}
 

@@ -15,7 +15,7 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/v1"
+	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/empty"
 	"github.com/google/go-containerregistry/pkg/v1/mutate"
 	"github.com/google/go-containerregistry/pkg/v1/static"
@@ -33,7 +33,7 @@ func createTestOCIImage(t *testing.T, binaryName, binaryContent string) v1.Image
 	// Add the plugin binary to the tar
 	header := &tar.Header{
 		Name:     binaryName,
-		Mode:     0755,
+		Mode:     0o755,
 		Size:     int64(len(binaryContent)),
 		Typeflag: tar.TypeReg,
 	}
@@ -108,7 +108,7 @@ func TestExtractPluginFromImage(t *testing.T) {
 
 			// Create a test core with a logger
 			logger := hclog.NewNullLogger()
-			
+
 			// Create a minimal config and downloader for testing
 			config := &server.Config{}
 			downloader := oci.NewPluginDownloader(tempDir, config, logger)
@@ -192,7 +192,6 @@ func TestReconcileOCIPlugins(t *testing.T) {
 	// Test the OCI plugin reconciliation
 	ctx := context.Background()
 	err = core.reconcileOCIPlugins(ctx)
-
 	// Verify the download worked
 	if err != nil {
 		t.Fatalf("OCI plugin reconciliation failed: %v", err)
@@ -230,7 +229,7 @@ func TestReconcileOCIPlugins(t *testing.T) {
 		t.Fatalf("Cached plugin file not found: %v", err)
 	}
 
-	if cachedInfo.Mode()&0111 == 0 {
+	if cachedInfo.Mode()&0o111 == 0 {
 		t.Error("Cached plugin should be executable")
 	}
 
@@ -272,14 +271,14 @@ func TestPluginCacheStructure(t *testing.T) {
 	cachedPluginPath := filepath.Join(cacheDir, "test-plugin")
 
 	// Create the cache directory
-	err = os.MkdirAll(cacheDir, 0755)
+	err = os.MkdirAll(cacheDir, 0o755)
 	if err != nil {
 		t.Fatalf("failed to create cache directory: %v", err)
 	}
 
 	// Create a test plugin file in cache with the expected content
 	testContent := []byte("test")
-	err = os.WriteFile(cachedPluginPath, testContent, 0755)
+	err = os.WriteFile(cachedPluginPath, testContent, 0o755)
 	if err != nil {
 		t.Fatalf("failed to create cached plugin file: %v", err)
 	}
@@ -295,14 +294,14 @@ func TestPluginCacheStructure(t *testing.T) {
 	// Test that cache validation works with symlinks using the OCI downloader
 	config := &server.Config{}
 	downloader := oci.NewPluginDownloader(tempDir, config, hclog.NewNullLogger())
-	
+
 	// Convert server.PluginConfig to oci.PluginConfig
 	ociPluginConfig := &oci.PluginConfig{
 		URL:        pluginConfig.URL,
 		BinaryName: pluginConfig.BinaryName,
 		SHA256Sum:  pluginConfig.SHA256Sum,
 	}
-	
+
 	isValid := downloader.IsPluginCacheValid("test-plugin", ociPluginConfig)
 	if !isValid {
 		t.Error("Expected plugin cache to be valid with symlink")
