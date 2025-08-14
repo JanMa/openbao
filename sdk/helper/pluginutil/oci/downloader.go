@@ -8,6 +8,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -198,13 +199,21 @@ func (d *PluginDownloader) DownloadPlugin(ctx context.Context, pluginName string
 	actualHash, err := d.calculateSHA256(cachedPluginPath)
 	if err != nil {
 		// Clean up the cached file if hash verification fails
-		os.Remove(cachedPluginPath)
+		removeErr := os.Remove(cachedPluginPath)
+		if removeErr != nil {
+			return errors.Join(fmt.Errorf("failed to calculate plugin hash: %w", err),
+				fmt.Errorf("failed to remove cached file: %w", removeErr))
+		}
 		return fmt.Errorf("failed to calculate plugin hash: %w", err)
 	}
 
 	if !strings.EqualFold(actualHash, config.SHA256Sum) {
 		// Clean up the cached file if hash doesn't match
-		os.Remove(cachedPluginPath)
+		removeErr := os.Remove(cachedPluginPath)
+		if removeErr != nil {
+			return errors.Join(fmt.Errorf("plugin hash mismatch: expected %s, got %s", config.SHA256Sum, actualHash),
+				fmt.Errorf("failed to remove cached file: %w", removeErr))
+		}
 		return fmt.Errorf("plugin hash mismatch: expected %s, got %s", config.SHA256Sum, actualHash)
 	}
 
@@ -244,19 +253,28 @@ func (d *PluginDownloader) DownloadPlugin(ctx context.Context, pluginName string
 }
 
 // calculateSHA256 computes the SHA256 hash of a file
-func (d *PluginDownloader) calculateSHA256(filePath string) (string, error) {
+func (d *PluginDownloader) calculateSHA256(filePath string) (result string, err error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return "", err
 	}
-	defer file.Close()
+	defer func() {
+		closeErr := file.Close()
+		// in case closing the file returns an error
+		// make calculateSHA256 exit with that error
+		if err == nil && closeErr != nil {
+			err = closeErr
+		}
+	}()
 
 	hasher := sha256.New()
-	if _, err := io.Copy(hasher, file); err != nil {
+	_, err = io.Copy(hasher, file)
+	if err != nil {
 		return "", err
 	}
 
-	return hex.EncodeToString(hasher.Sum(nil)), nil
+	result = hex.EncodeToString(hasher.Sum(nil))
+	return result, err
 }
 
 // getOCIAuthenticator returns the appropriate authenticator for the given registry
@@ -289,7 +307,7 @@ func (d *PluginDownloader) getOCIAuthenticator(registry string, logger hclog.Log
 }
 
 // ExtractPluginFromImage extracts the plugin binary from the OCI image (public for testing)
-func (d *PluginDownloader) ExtractPluginFromImage(img v1.Image, targetPath string, binaryName string, logger hclog.Logger) error {
+func (d *PluginDownloader) ExtractPluginFromImage(img v1.Image, targetPath string, binaryName string, logger hclog.Logger) (err error) {
 	logger.Debug("extracting plugin from OCI image", "target", targetPath, "binary", binaryName)
 
 	// Create the plugin directory if it doesn't exist
@@ -299,7 +317,14 @@ func (d *PluginDownloader) ExtractPluginFromImage(img v1.Image, targetPath strin
 
 	// Use mutate.Extract to get the final filesystem as a tar stream
 	rc := mutate.Extract(img)
-	defer rc.Close()
+	defer func() {
+		closeErr := rc.Close()
+		// in case closing the reader returns an error
+		// exit with that error
+		if err == nil && closeErr != nil {
+			err = closeErr
+		}
+	}()
 
 	// Create a tar reader to read the extracted filesystem
 	tarReader := tar.NewReader(rc)
@@ -335,10 +360,12 @@ func (d *PluginDownloader) ExtractPluginFromImage(img v1.Image, targetPath strin
 
 			// Copy the binary data
 			_, err = io.Copy(outFile, tarReader)
-			outFile.Close()
-
+			outFile.Close() //nolint:errcheck
 			if err != nil {
-				os.Remove(targetPath) // Clean up on error
+				removeErr := os.Remove(targetPath)
+				if removeErr != nil {
+					return errors.Join(fmt.Errorf("failed to extract binary data: %w", err), fmt.Errorf("failed to remove %s: %w", targetPath, err))
+				}
 				return fmt.Errorf("failed to extract binary data: %w", err)
 			}
 

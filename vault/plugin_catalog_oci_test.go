@@ -101,7 +101,7 @@ func TestExtractPluginFromImage(t *testing.T) {
 			if err != nil {
 				t.Fatalf("failed to create temp dir: %v", err)
 			}
-			defer os.RemoveAll(tempDir)
+			defer os.RemoveAll(tempDir) //nolint:errcheck
 
 			// Create the test OCI image
 			img := createTestOCIImage(t, tt.binaryName, tt.binaryContent)
@@ -160,7 +160,7 @@ func TestReconcileOCIPlugins(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to create temp dir: %v", err)
 	}
-	defer os.RemoveAll(tempDir)
+	defer os.RemoveAll(tempDir) //nolint:errcheck
 
 	// The actual SHA256 of the Nomad plugin binary in ghcr.io/openbao/openbao-plugin-secrets-nomad:v0.1.3-dev2
 	nomadPluginSHA256 := "b7f2db3cbba3df7b4c2868c7c18e43956862b7cd69f90a96bdbba6a3013e400b"
@@ -256,7 +256,7 @@ func TestPluginCacheStructure(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to create temp dir: %v", err)
 	}
-	defer os.RemoveAll(tempDir)
+	defer os.RemoveAll(tempDir) //nolint:errcheck
 
 	// Test plugin configuration
 	pluginConfig := &server.PluginConfig{
