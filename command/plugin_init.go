@@ -155,12 +155,12 @@ func (c *PluginInitCommand) runPluginInit() int {
 		return 0
 	}
 
-	c.UI.Info(fmt.Sprintf("Plugin directory: %s", pluginDir))
-	c.UI.Info(fmt.Sprintf("Found %d OCI plugin(s) configured", len(config.Plugins)))
+	hclog.Default().Info(fmt.Sprintf("Plugin directory: %s", pluginDir))
+	hclog.Default().Info(fmt.Sprintf("Found %d OCI plugin(s) configured", len(config.Plugins)))
 
 	// Ensure plugin directory exists
 	if err = os.MkdirAll(pluginDir, 0o755); err != nil {
-		c.UI.Error(fmt.Sprintf("Failed to create plugin directory: %v", err))
+		hclog.Default().Error(fmt.Sprintf("Failed to create plugin directory: %v", err))
 		return 1
 	}
 
@@ -204,26 +204,18 @@ func (c *PluginInitCommand) parseConfig() (*server.Config, []error, error) {
 }
 
 func (c *PluginInitCommand) reconcilePlugins(config *server.Config, pluginDir string) int {
-	// Create a logger for the operation
-	logger := hclog.New(&hclog.LoggerOptions{
-		Name:  "plugin-init",
-		Level: hclog.Info,
-	})
-	logger.Info("starting OCI plugin reconciliation")
-
 	// Create context with timeout
 	ctx, cancel := context.WithTimeout(context.Background(), c.flagTimeout)
 	defer cancel()
 
 	// Create OCI plugin downloader using the shared package
-	downloader := oci.NewPluginDownloader(pluginDir, config, logger)
+	downloader := oci.NewPluginDownloader(pluginDir, config, hclog.Default())
 
 	err := downloader.ReconcilePlugins(ctx)
 	if err != nil {
-		logger.Error("failed to reconcile plugins", "error", err)
+		hclog.Default().Error(fmt.Sprintf("Error reconciling plugins: %s", err))
 		return 1
 	}
 
-	logger.Info("OCI plugin reconciliation completed")
 	return 0
 }

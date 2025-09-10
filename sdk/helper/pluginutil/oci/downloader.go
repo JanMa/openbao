@@ -78,12 +78,11 @@ func (d *PluginDownloader) ReconcilePlugins(ctx context.Context) error {
 
 		// Fast path: check if plugin already exists and matches expected SHA256
 		if d.IsPluginCacheValid(pluginName, pluginConfig) {
-			pluginLogger.Debug("plugin cache is valid, skipping download")
+			pluginLogger.Info("plugin is cached on disk, skipping download")
 			continue
 		}
 
 		// Slow path: download from OCI registry
-		pluginLogger.Info("downloading plugin from OCI registry", "url", pluginConfig.URL)
 		if err := d.DownloadPlugin(ctx, pluginName, pluginConfig, pluginLogger); err != nil {
 			if d.shouldFailOnPluginError() {
 				return fmt.Errorf("failed to download plugin %q: %w", pluginName, err)
@@ -92,8 +91,6 @@ func (d *PluginDownloader) ReconcilePlugins(ctx context.Context) error {
 				continue
 			}
 		}
-
-		pluginLogger.Info("successfully downloaded and validated plugin")
 	}
 
 	return nil
@@ -164,7 +161,6 @@ func (d *PluginDownloader) IsPluginCacheValid(pluginName string, config *PluginC
 // DownloadPlugin downloads a plugin from an OCI registry
 func (d *PluginDownloader) DownloadPlugin(ctx context.Context, pluginName string, config *PluginConfig, logger hclog.Logger) error {
 	logger.Info("downloading plugin from OCI registry",
-		"plugin", pluginName,
 		"url", config.URL)
 
 	// Parse the OCI reference
