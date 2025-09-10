@@ -23,6 +23,12 @@ import (
 	"github.com/hashicorp/go-hclog"
 )
 
+// Plugin download error behavior constants
+const (
+	PluginDownloadFailStartup = "fail"
+	PluginDownloadContinue    = "continue"
+)
+
 // PluginConfig represents the configuration for a single plugin
 type PluginConfig struct {
 	URL        string `hcl:"url"`
@@ -100,10 +106,10 @@ func (d *PluginDownloader) ReconcilePlugins(ctx context.Context) error {
 func (d *PluginDownloader) shouldFailOnPluginError() bool {
 	behavior := d.config.GetPluginDownloadOnErrorBehavior()
 	if behavior == "" {
-		behavior = "fail_startup"
+		behavior = PluginDownloadFailStartup
 	}
 
-	return behavior == "fail_startup"
+	return behavior == PluginDownloadFailStartup
 }
 
 // IsPluginCacheValid checks if the plugin already exists in the plugin directory

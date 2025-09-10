@@ -54,8 +54,8 @@ plugin_oci_auth {
 	}
 
 	// Test plugin download behavior
-	if config.PluginDownloadOnErrorBehavior != "fail_startup" {
-		t.Errorf("Expected plugin download behavior 'fail_startup', got '%s'", config.PluginDownloadOnErrorBehavior)
+	if config.PluginDownloadOnErrorBehavior != "fail" {
+		t.Errorf("Expected plugin download behavior 'fail', got '%s'", config.PluginDownloadOnErrorBehavior)
 	}
 
 	// Test plugins
@@ -225,7 +225,7 @@ listener "tcp" {
 }
 plugin_download_on_error_behavior = "invalid_value"`,
 			expectError: true,
-			errorMsg:    "must be either 'fail_startup' or 'log_and_continue'",
+			errorMsg:    "must be either 'fail' or 'continue'",
 		},
 	}
 
