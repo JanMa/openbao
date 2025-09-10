@@ -90,7 +90,7 @@ func (c *PluginInitCommand) Flags() *FlagSets {
 		Name:    "timeout",
 		Target:  &c.flagTimeout,
 		Default: 300 * time.Second,
-		Usage:   "Timeout for downloading each plugin.",
+		Usage:   "Global timeout for downloading all plugins.",
 	})
 
 	return set
