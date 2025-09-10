@@ -134,9 +134,13 @@ func (c *PluginInitCommand) runPluginInit() int {
 		return 1
 	}
 
-	// Display configuration warnings if any
+	// Display configuration errors if any and exit
 	for _, configError := range configErrors {
-		c.UI.Warn(configError.Error())
+		c.UI.Error(configError.Error())
+	}
+
+	if len(configErrors) > 0 {
+		return 1
 	}
 
 	// Determine plugin directory
