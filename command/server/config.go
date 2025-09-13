@@ -1462,7 +1462,7 @@ func parseAuditDevices(name string, list *ast.ObjectList) ([]*AuditDevice, error
 	return result, nil
 }
 
-// GetPlugins implements PluginConfigProvider for OCI compatibility
+// GetPlugins implements PluginConfigProvider for OCI plugin downloader
 func (c *Config) GetPlugins() map[string]*oci.PluginConfig {
 	result := make(map[string]*oci.PluginConfig)
 	for name, pluginConfig := range c.Plugins {
@@ -1477,12 +1477,12 @@ func (c *Config) GetPlugins() map[string]*oci.PluginConfig {
 	return result
 }
 
-// GetPluginDownloadOnErrorBehavior implements PluginConfigProvider for OCI compatibility
+// GetPluginDownloadOnErrorBehavior implements PluginConfigProvider for OCI plugin downloader
 func (c *Config) GetPluginDownloadOnErrorBehavior() string {
 	return c.PluginDownloadOnErrorBehavior
 }
 
-// GetPluginOCIAuth implements PluginConfigProvider for OCI compatibility
+// GetPluginOCIAuth implements PluginConfigProvider for OCI plugin downloader
 func (c *Config) GetPluginOCIAuth() map[string]*oci.PluginOCIAuthConfig {
 	result := make(map[string]*oci.PluginOCIAuthConfig)
 	for registry, authConfig := range c.PluginOCIAuth {
