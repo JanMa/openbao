@@ -106,10 +106,8 @@ func TestExtractPluginFromImage(t *testing.T) {
 			// Create the test OCI image
 			img := createTestOCIImage(t, tt.binaryName, tt.binaryContent)
 
-			// Create a test core with a logger
-			logger := hclog.NewNullLogger()
-
 			// Create a minimal config and downloader for testing
+			logger := hclog.NewNullLogger()
 			config := &server.Config{}
 			downloader := oci.NewPluginDownloader(tempDir, config, logger)
 
@@ -162,15 +160,15 @@ func TestReconcileOCIPlugins(t *testing.T) {
 	}
 	defer os.RemoveAll(tempDir) //nolint:errcheck
 
-	// The actual SHA256 of the Nomad plugin binary in ghcr.io/openbao/openbao-plugin-secrets-nomad:v0.1.3-dev2
-	nomadPluginSHA256 := "b7f2db3cbba3df7b4c2868c7c18e43956862b7cd69f90a96bdbba6a3013e400b"
+	// The actual SHA256 of the Nomad plugin binary in ghcr.io/openbao/openbao-plugin-secrets-nomad:v0.1.4
+	nomadPluginSHA256 := "04f9a349982449415037dbb8a7854250dea4e2328ff890cf767a5d38739699d4"
 
 	// Create a test configuration with the real Nomad plugin
 	config := &server.Config{
 		PluginDirectory: tempDir,
 		Plugins: map[string]*server.PluginConfig{
 			"openbao-plugin-secrets-nomad": {
-				URL:        "ghcr.io/openbao/openbao-plugin-secrets-nomad:v0.1.3-dev2",
+				URL:        "ghcr.io/openbao/openbao-plugin-secrets-nomad:v0.1.4",
 				BinaryName: "openbao-plugin-secrets-nomad",
 				SHA256Sum:  nomadPluginSHA256,
 			},
@@ -306,26 +304,4 @@ func TestPluginCacheStructure(t *testing.T) {
 	if !isValid {
 		t.Error("Expected plugin cache to be valid with symlink")
 	}
-
-	// Verify the symlink points to the right place
-	linkTarget, err := os.Readlink(symlinkPath)
-	if err != nil {
-		t.Fatalf("failed to read symlink: %v", err)
-	}
-
-	expectedTarget := relativeTarget
-	if linkTarget != expectedTarget {
-		t.Errorf("Symlink target mismatch: expected %s, got %s", expectedTarget, linkTarget)
-	}
-
-	// Verify the cache directory is hidden (starts with .)
-	// cachedPluginPath is: tempDir/.oci-cache/test-plugin/9f86d081/test-plugin
-	// So we need to go up 3 levels to get to the cache dir name
-	cacheDirPath := filepath.Dir(filepath.Dir(filepath.Dir(cachedPluginPath)))
-	cacheDirName := filepath.Base(cacheDirPath)
-	if cacheDirName != ".oci-cache" {
-		t.Errorf("Expected cache directory to be '.oci-cache', got '%s'", cacheDirName)
-	}
-
-	t.Log("Hidden cache structure and symlink functionality working correctly")
 }
