@@ -33,7 +33,7 @@ plugins {
   }
 }
 
-plugin_download_on_error_behavior = "fail_startup"
+plugin_download_on_error_behavior = "fail"
 
 plugin_oci_auth {
   "ghcr.io" {
