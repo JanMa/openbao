@@ -27,6 +27,7 @@ import (
 const (
 	PluginDownloadFailStartup = "fail"
 	PluginDownloadContinue    = "continue"
+	PluginCacheDir            = ".oci-cache"
 )
 
 // PluginConfig represents the configuration for a single plugin
@@ -190,7 +191,7 @@ func (d *PluginDownloader) DownloadPlugin(ctx context.Context, pluginName string
 	// Extract the plugin binary from the image using hidden cache path
 	// Format: <plugin_directory>/.oci-cache/<plugin_name>/<sha256_prefix>/<binary_name>
 	sha256Prefix := config.SHA256Sum[:8]
-	cacheDir := filepath.Join(d.pluginDirectory, ".oci-cache", pluginName, sha256Prefix)
+	cacheDir := filepath.Join(d.pluginDirectory, PluginCacheDir, pluginName, sha256Prefix)
 	cachedPluginPath := filepath.Join(cacheDir, config.BinaryName)
 
 	if err := d.ExtractPluginFromImage(img, cachedPluginPath, config.BinaryName, logger); err != nil {
@@ -240,13 +241,7 @@ func (d *PluginDownloader) DownloadPlugin(ctx context.Context, pluginName string
 		return fmt.Errorf("failed to create plugin symlink: %w", err)
 	}
 
-	// Set appropriate file permissions for the cached plugin file
-	if err := os.Chmod(cachedPluginPath, 0o755); err != nil {
-		logger.Warn("failed to set executable permissions on cached plugin", "error", err)
-	}
-
 	logger.Info("successfully downloaded and validated plugin",
-		"plugin", pluginName,
 		"cached_path", cachedPluginPath,
 		"symlink_path", symlinkPath,
 		"hash", actualHash)
