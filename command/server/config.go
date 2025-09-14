@@ -75,9 +75,9 @@ type Config struct {
 	PluginFilePermissions    int         `hcl:"-"`
 	PluginFilePermissionsRaw interface{} `hcl:"plugin_file_permissions,alias:PluginFilePermissions"`
 
-	Plugins                       map[string]*PluginConfig        `hcl:"plugins"`
-	PluginDownloadOnErrorBehavior string                          `hcl:"plugin_download_on_error_behavior"`
-	PluginOCIAuth                 map[string]*PluginOCIAuthConfig `hcl:"plugin_oci_auth"`
+	Plugins                map[string]*PluginConfig        `hcl:"plugins"`
+	PluginDownloadBehavior string                          `hcl:"plugin_download_behavior"`
+	PluginOCIAuth          map[string]*PluginOCIAuthConfig `hcl:"plugin_oci_auth"`
 
 	EnableIntrospectionEndpoint    bool        `hcl:"-"`
 	EnableIntrospectionEndpointRaw interface{} `hcl:"introspection_endpoint,alias:EnableIntrospectionEndpoint"`
@@ -168,11 +168,11 @@ func (c *Config) Validate(sourceFilePath string) []configutil.ConfigError {
 		}
 	}
 
-	// Validate plugin_download_on_error_behavior
-	if c.PluginDownloadOnErrorBehavior != "" {
-		if c.PluginDownloadOnErrorBehavior != oci.PluginDownloadFailStartup && c.PluginDownloadOnErrorBehavior != oci.PluginDownloadContinue {
+	// Validate plugin_download_behavior
+	if c.PluginDownloadBehavior != "" {
+		if c.PluginDownloadBehavior != oci.PluginDownloadFailStartup && c.PluginDownloadBehavior != oci.PluginDownloadContinue {
 			results = append(results, configutil.ConfigError{
-				Problem: fmt.Sprintf("plugin_download_on_error_behavior must be either '%s' or '%s', got %q", oci.PluginDownloadFailStartup, oci.PluginDownloadContinue, c.PluginDownloadOnErrorBehavior),
+				Problem: fmt.Sprintf("plugin_download_behavior must be either '%s' or '%s', got %q", oci.PluginDownloadFailStartup, oci.PluginDownloadContinue, c.PluginDownloadBehavior),
 			})
 		}
 	}
@@ -622,9 +622,9 @@ func (c *Config) Merge(c2 *Config) *Config {
 	}
 
 	// Merge plugin download behavior
-	result.PluginDownloadOnErrorBehavior = c.PluginDownloadOnErrorBehavior
-	if c2.PluginDownloadOnErrorBehavior != "" {
-		result.PluginDownloadOnErrorBehavior = c2.PluginDownloadOnErrorBehavior
+	result.PluginDownloadBehavior = c.PluginDownloadBehavior
+	if c2.PluginDownloadBehavior != "" {
+		result.PluginDownloadBehavior = c2.PluginDownloadBehavior
 	}
 
 	return result
@@ -1477,9 +1477,9 @@ func (c *Config) GetPlugins() map[string]*oci.PluginConfig {
 	return result
 }
 
-// GetPluginDownloadOnErrorBehavior implements PluginConfigProvider for OCI plugin downloader
-func (c *Config) GetPluginDownloadOnErrorBehavior() string {
-	return c.PluginDownloadOnErrorBehavior
+// GetPluginDownloadBehavior implements PluginConfigProvider for OCI plugin downloader
+func (c *Config) GetPluginDownloadBehavior() string {
+	return c.PluginDownloadBehavior
 }
 
 // GetPluginOCIAuth implements PluginConfigProvider for OCI plugin downloader

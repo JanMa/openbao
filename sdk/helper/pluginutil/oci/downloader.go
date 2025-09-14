@@ -47,7 +47,7 @@ type PluginOCIAuthConfig struct {
 // PluginConfigProvider provides plugin configuration data
 type PluginConfigProvider interface {
 	GetPlugins() map[string]*PluginConfig
-	GetPluginDownloadOnErrorBehavior() string
+	GetPluginDownloadBehavior() string
 	GetPluginOCIAuth() map[string]*PluginOCIAuthConfig
 }
 
@@ -105,7 +105,7 @@ func (d *PluginDownloader) ReconcilePlugins(ctx context.Context) error {
 
 // shouldFailOnPluginError determines whether plugin download errors should fail startup
 func (d *PluginDownloader) shouldFailOnPluginError() bool {
-	behavior := d.config.GetPluginDownloadOnErrorBehavior()
+	behavior := d.config.GetPluginDownloadBehavior()
 	if behavior == "" {
 		behavior = PluginDownloadFailStartup
 	}

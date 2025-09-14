@@ -33,7 +33,7 @@ plugins {
   }
 }
 
-plugin_download_on_error_behavior = "fail"
+plugin_download_behavior = "fail"
 
 plugin_oci_auth {
   "ghcr.io" {
@@ -54,8 +54,8 @@ plugin_oci_auth {
 	}
 
 	// Test plugin download behavior
-	if config.PluginDownloadOnErrorBehavior != "fail" {
-		t.Errorf("Expected plugin download behavior 'fail', got '%s'", config.PluginDownloadOnErrorBehavior)
+	if config.PluginDownloadBehavior != "fail" {
+		t.Errorf("Expected plugin download behavior 'fail', got '%s'", config.PluginDownloadBehavior)
 	}
 
 	// Test plugins
@@ -223,7 +223,7 @@ listener "tcp" {
   address = "127.0.0.1:8200"
   tls_disable = true 
 }
-plugin_download_on_error_behavior = "invalid_value"`,
+plugin_download_behavior = "invalid_value"`,
 			expectError: true,
 			errorMsg:    "must be either 'fail' or 'continue'",
 		},

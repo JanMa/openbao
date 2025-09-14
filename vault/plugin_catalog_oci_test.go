@@ -173,7 +173,7 @@ func TestReconcileOCIPlugins(t *testing.T) {
 				SHA256Sum:  nomadPluginSHA256,
 			},
 		},
-		PluginDownloadOnErrorBehavior: "continue", // Don't fail startup on download errors during testing
+		PluginDownloadBehavior: "continue", // Don't fail startup on download errors during testing
 	}
 
 	// Create a test core

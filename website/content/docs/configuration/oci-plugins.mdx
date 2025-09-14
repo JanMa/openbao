@@ -41,12 +41,12 @@ plugins {
 }
 ```
 
-## `plugin_download_on_error_behavior`
+## `plugin_download_behavior`
 
 Controls server behavior when plugin downloads fail.
 
 ```hcl
-plugin_download_on_error_behavior = "fail"
+plugin_download_behavior = "fail"
 ```
 
 ### Values
@@ -108,7 +108,7 @@ listener "tcp" {
 }
 
 plugin_directory = "/opt/openbao/plugins"
-plugin_download_on_error_behavior = "fail"
+plugin_download_behavior = "fail"
 
 plugins {
   "secrets-aws" {
