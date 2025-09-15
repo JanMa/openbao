@@ -121,7 +121,7 @@ func (d *PluginDownloader) IsPluginCacheValid(pluginName string, config *PluginC
 	}
 
 	// Check if the symlink exists in the plugin directory
-	symlinkPath := filepath.Join(d.pluginDirectory, config.BinaryName)
+	symlinkPath := filepath.Join(d.pluginDirectory, pluginName)
 
 	// Check if symlink exists and is a symlink
 	linkInfo, err := os.Lstat(symlinkPath)
@@ -221,7 +221,7 @@ func (d *PluginDownloader) DownloadPlugin(ctx context.Context, pluginName string
 	}
 
 	// Create symlink in the plugin directory pointing to the cached file
-	symlinkPath := filepath.Join(d.pluginDirectory, config.BinaryName)
+	symlinkPath := filepath.Join(d.pluginDirectory, pluginName)
 
 	// Remove existing symlink or file if it exists
 	if _, err := os.Lstat(symlinkPath); err == nil {
