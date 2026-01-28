@@ -4,22 +4,39 @@
  */
 
 import Controller, { inject as controller } from '@ember/controller';
-import BackendCrumbMixin from 'vault/mixins/backend-crumb';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend(BackendCrumbMixin, {
-  backendController: controller('vault.cluster.secrets.backend'),
-  queryParams: ['initialKey', 'itemType'],
+export default class CreateController extends Controller {
+  @controller('vault.cluster.secrets.backend') backendController;
 
-  initialKey: '',
-  itemType: '',
+  queryParams = ['initialKey', 'itemType'];
 
-  actions: {
-    refresh: function () {
-      this.send('refreshModel');
-    },
-    toggleAdvancedEdit(bool) {
-      this.set('preferAdvancedEdit', bool);
-      this.backendController.set('preferAdvancedEdit', bool);
-    },
-  },
-});
+  @tracked initialKey = '';
+  @tracked itemType = '';
+  @tracked preferAdvancedEdit = false;
+
+  get backendCrumb() {
+    const backend = this.backend;
+    if (backend === undefined) {
+      return undefined;
+    }
+    return {
+      label: backend,
+      text: backend,
+      path: 'vault.cluster.secrets.backend.list-root',
+      model: backend,
+    };
+  }
+
+  @action
+  refresh() {
+    this.send('refreshModel');
+  }
+
+  @action
+  toggleAdvancedEdit(bool) {
+    this.preferAdvancedEdit = bool;
+    this.backendController.preferAdvancedEdit = bool;
+  }
+}

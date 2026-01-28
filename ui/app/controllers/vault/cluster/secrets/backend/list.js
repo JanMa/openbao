@@ -8,15 +8,27 @@ import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
 import utils from 'vault/lib/key-utils';
-import BackendCrumbMixin from 'vault/mixins/backend-crumb';
 import WithNavToNearestAncestor from 'vault/mixins/with-nav-to-nearest-ancestor';
 import ListController from 'core/mixins/list-controller';
 
-export default Controller.extend(ListController, BackendCrumbMixin, WithNavToNearestAncestor, {
+export default Controller.extend(ListController, WithNavToNearestAncestor, {
   flashMessages: service(),
   queryParams: ['page', 'pageFilter', 'tab'],
 
   tab: '',
+
+  backendCrumb: computed('backend', function () {
+    const backend = this.backend;
+    if (backend === undefined) {
+      return undefined;
+    }
+    return {
+      label: backend,
+      text: backend,
+      path: 'vault.cluster.secrets.backend.list-root',
+      model: backend,
+    };
+  }),
 
   filterIsFolder: computed('filter', function () {
     return !!utils.keyIsFolder(this.filter);
