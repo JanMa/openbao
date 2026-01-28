@@ -113,7 +113,7 @@ Mixins are deprecated. Convert each to an appropriate modern pattern.
 | Mixin File | Status | Recommended Replacement |
 |------------|--------|------------------------|
 | `backend-crumb.js` | ✅ DONE (commit 1c0b99ba75) | Native class getter |
-| `cluster-route.js` | ⏳ Pending | Base class or decorator |
+| `cluster-route.js` | ✅ DONE | Base class (`app/routes/cluster-route-base.js`) |
 | `focus-on-insert.js` | ⏳ Pending | Modifier (`ember-modifier`) |
 | `key-mixin.js` | ⏳ Pending | Utility function or service |
 | `model-boundary-route.js` | ⏳ Pending | Base route class |
@@ -131,6 +131,24 @@ Mixins are deprecated. Convert each to an appropriate modern pattern.
   - `app/controllers/vault/cluster/secrets/backend/list.js`
   - `app/controllers/vault/cluster/secrets/backend/metadata.js`
   - `app/controllers/vault/cluster/secrets/backend/show.js`
+- [x] `cluster-route.js` - Converted to native base class `app/routes/cluster-route-base.js`:
+  - Created `app/routes/cluster-route-base.js` as a native ES6 class extending Route
+  - Updated 14 consumer routes to extend the new base class:
+    - `app/routes/vault/cluster.js` (extends ClusterRouteBase with ModelBoundaryRoute mixin)
+    - `app/routes/vault/cluster/access.js` (extends ClusterRouteBase with ModelBoundaryRoute mixin)
+    - `app/routes/vault/cluster/access/leases.js`
+    - `app/routes/vault/cluster/auth.js`
+    - `app/routes/vault/cluster/cluster-route-base.js`
+    - `app/routes/vault/cluster/init.js`
+    - `app/routes/vault/cluster/policies.js`
+    - `app/routes/vault/cluster/policies/index.js`
+    - `app/routes/vault/cluster/policy.js`
+    - `app/routes/vault/cluster/secrets.js`
+    - `app/routes/vault/cluster/settings.js`
+    - `app/routes/vault/cluster/storage.js`
+    - `app/routes/vault/cluster/tools.js`
+    - `app/routes/vault/cluster/unseal.js`
+  - Removed `app/mixins/cluster-route.js`
 - [ ] Identify all files that import the mixin: `grep -r "import.*from.*mixins/MIXIN_NAME" app/ lib/`
 - [ ] Create replacement (service/utility/modifier/base class)
 - [ ] Update all consumers to use the new pattern

@@ -6,12 +6,11 @@
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { reject } from 'rsvp';
-import Route from '@ember/routing/route';
 import { task, timeout } from 'ember-concurrency';
 import Ember from 'ember';
 import getStorage from '../../lib/token-storage';
 import localStorage from 'vault/lib/local-storage';
-import ClusterRoute from 'vault/mixins/cluster-route';
+import ClusterRouteBase from 'vault/routes/cluster-route-base';
 import ModelBoundaryRoute from 'vault/mixins/model-boundary-route';
 
 const POLL_INTERVAL_MS = 10000;
@@ -26,7 +25,9 @@ export const getManagedNamespace = (nsParam, root) => {
   return `${root}/${nsParam}`;
 };
 
-export default Route.extend(ModelBoundaryRoute, ClusterRoute, {
+// Note: ClusterRouteBase already provides auth, store, and router services
+// We re-declare store and auth here for ESLint's ember/no-implicit-injections rule
+export default ClusterRouteBase.extend(ModelBoundaryRoute, {
   namespaceService: service('namespace'),
   version: service(),
   permissions: service(),

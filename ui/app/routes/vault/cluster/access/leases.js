@@ -3,14 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Route from '@ember/routing/route';
-import ClusterRoute from 'vault/mixins/cluster-route';
-import { inject as service } from '@ember/service';
+import ClusterRouteBase from 'vault/routes/cluster-route-base';
 
-export default Route.extend(ClusterRoute, {
-  store: service(),
+export default class VaultClusterAccessLeasesRoute extends ClusterRouteBase {
+  // store is already injected in ClusterRouteBase
 
   model() {
     return this.store.findRecord('capabilities', 'sys/leases/lookup/');
-  },
-});
+  }
+}

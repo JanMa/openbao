@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import Mixin from '@ember/object/mixin';
 import RSVP from 'rsvp';
 import {
   INIT,
@@ -19,10 +19,19 @@ import {
   REDIRECT,
 } from 'vault/lib/route-paths';
 
-export default Mixin.create({
-  auth: service(),
-  store: service(),
-  router: service(),
+/**
+ * Base route class for cluster-aware routes.
+ * Handles authentication state transitions and cluster status checks.
+ *
+ * This class replaces the cluster-route mixin.
+ *
+ * @class ClusterRouteBase
+ * @extends Route
+ */
+export default class ClusterRouteBase extends Route {
+  @service auth;
+  @service store;
+  @service router;
 
   transitionToTargetRoute(transition = {}) {
     const targetRoute = this.targetRouteName(transition);
@@ -46,24 +55,24 @@ export default Mixin.create({
     }
 
     return RSVP.resolve();
-  },
+  }
 
   beforeModel(transition) {
     return this.transitionToTargetRoute(transition);
-  },
+  }
 
   clusterModel() {
     return this.modelFor(CLUSTER) || this.store.peekRecord('cluster', 'vault');
-  },
+  }
 
   authToken() {
     return this.auth.currentToken;
-  },
+  }
 
   hasKeyData() {
     /* eslint-disable-next-line ember/no-controller-access-in-routes */
     return !!this.controllerFor(INIT).keyData;
-  },
+  }
 
   targetRouteName(transition) {
     const cluster = this.clusterModel();
@@ -97,5 +106,5 @@ export default Mixin.create({
       return REDIRECT;
     }
     return null;
-  },
-});
+  }
+}
