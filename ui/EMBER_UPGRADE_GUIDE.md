@@ -110,19 +110,27 @@ Complete these tasks BEFORE attempting version upgrades.
 
 Mixins are deprecated. Convert each to an appropriate modern pattern.
 
-| Mixin File | Recommended Replacement |
-|------------|------------------------|
-| `backend-crumb.js` | Service or helper function |
-| `cluster-route.js` | Base class or decorator |
-| `focus-on-insert.js` | Modifier (`ember-modifier`) |
-| `key-mixin.js` | Utility function or service |
-| `model-boundary-route.js` | Base route class |
-| `unload-model-route.js` | Route decorator or base class |
-| `unsaved-model-route.js` | Route decorator or base class |
-| `with-nav-to-nearest-ancestor.js` | Service or utility |
+| Mixin File | Status | Recommended Replacement |
+|------------|--------|------------------------|
+| `backend-crumb.js` | ✅ DONE (commit 1c0b99ba75) | Native class getter |
+| `cluster-route.js` | ⏳ Pending | Base class or decorator |
+| `focus-on-insert.js` | ⏳ Pending | Modifier (`ember-modifier`) |
+| `key-mixin.js` | ⏳ Pending | Utility function or service |
+| `model-boundary-route.js` | ⏳ Pending | Base route class |
+| `unload-model-route.js` | ⏳ Pending | Route decorator or base class |
+| `unsaved-model-route.js` | ⏳ Pending | Route decorator or base class |
+| `with-nav-to-nearest-ancestor.js` | ⏳ Pending | Service or utility |
 
 **Conversion Steps for Each Mixin:**
 
+- [x] `backend-crumb.js` - Converted to native class getter pattern in 7 consumer controllers:
+  - `app/controllers/vault/cluster/secrets/backend/actions.js`
+  - `app/controllers/vault/cluster/secrets/backend/create.js`
+  - `app/controllers/vault/cluster/secrets/backend/diff.js`
+  - `app/controllers/vault/cluster/secrets/backend/edit.js`
+  - `app/controllers/vault/cluster/secrets/backend/list.js`
+  - `app/controllers/vault/cluster/secrets/backend/metadata.js`
+  - `app/controllers/vault/cluster/secrets/backend/show.js`
 - [ ] Identify all files that import the mixin: `grep -r "import.*from.*mixins/MIXIN_NAME" app/ lib/`
 - [ ] Create replacement (service/utility/modifier/base class)
 - [ ] Update all consumers to use the new pattern
