@@ -115,7 +115,7 @@ Mixins are deprecated. Convert each to an appropriate modern pattern.
 | `backend-crumb.js` | ✅ DONE (commit 1c0b99ba75) | Native class getter |
 | `cluster-route.js` | ✅ DONE | Base class (`app/routes/cluster-route-base.js`) |
 | `focus-on-insert.js` | ✅ DONE (commit 0450f69695) | Modifier (`app/modifiers/focus-on-insert.js`) or direct method |
-| `key-mixin.js` | ⏳ Pending | Utility function or service |
+| `key-mixin.js` | ✅ DONE (commit 32b73fd278) | Inlined into models (lease.js, secret.js, secret-v2.js) |
 | `model-boundary-route.js` | ⏳ Pending | Base route class |
 | `unload-model-route.js` | ⏳ Pending | Route decorator or base class |
 | `unsaved-model-route.js` | ⏳ Pending | Route decorator or base class |
@@ -154,6 +154,12 @@ Mixins are deprecated. Convert each to an appropriate modern pattern.
   - `app/components/role-edit.js` - Implemented `focusOnInsertFocus()` method called from `didInsertElement()`
   - `app/components/transit-edit.js` - Implemented `focusOnInsertFocus()` method called from `didInsertElement()`
   - Removed `app/mixins/focus-on-insert.js`
+- [x] `key-mixin.js` - Converted to inline implementations in 3 consumer models:
+  - `app/models/lease.js` - Inlined all computed properties (pathAttr, isCreating, pathVal, isFolder, keyParts, parentKey, keyWithoutParent)
+  - `app/models/secret.js` - Inlined all computed properties
+  - `app/models/secret-v2.js` - Inlined all computed properties
+  - Fixed import: `computed` must come from `@ember/object`, not `@ember/object/computed`
+  - Removed `app/mixins/key-mixin.js`
 - [ ] Identify all files that import the mixin: `grep -r "import.*from.*mixins/MIXIN_NAME" app/ lib/`
 - [ ] Create replacement (service/utility/modifier/base class)
 - [ ] Update all consumers to use the new pattern
