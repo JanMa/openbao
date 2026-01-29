@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import Mixin from '@ember/object/mixin';
 import RSVP from 'rsvp';
 import {
   INIT,
@@ -19,23 +19,10 @@ import {
   REDIRECT,
 } from 'vault/lib/route-paths';
 
-/**
- * Base route class for cluster-aware routes.
- * Handles authentication state transitions and cluster status checks.
- *
- * This class replaces the cluster-route mixin.
- *
- * @class ClusterRouteBase
- * @extends Route
- */
-export default class ClusterRouteBase extends Route {
-  @service auth;
-  @service store;
-  @service router;
-
-  // Model boundary clearing properties (from model-boundary-route mixin)
-  modelType = null;
-  modelTypes = null;
+export default Mixin.create({
+  auth: service(),
+  store: service(),
+  router: service(),
 
   transitionToTargetRoute(transition = {}) {
     const targetRoute = this.targetRouteName(transition);
@@ -59,32 +46,28 @@ export default class ClusterRouteBase extends Route {
     }
 
     return RSVP.resolve();
-  }
+  },
 
   beforeModel(transition) {
     return this.transitionToTargetRoute(transition);
-  }
+  },
 
   clusterModel() {
     return this.modelFor(CLUSTER) || this.store.peekRecord('cluster', 'vault');
-  }
+  },
 
   authToken() {
     return this.auth.currentToken;
-  }
+  },
 
   hasKeyData() {
     /* eslint-disable-next-line ember/no-controller-access-in-routes */
     return !!this.controllerFor(INIT).keyData;
-  }
+  },
 
   targetRouteName(transition) {
     const cluster = this.clusterModel();
     const isAuthed = this.authToken();
-    // Handle case where cluster model is not yet loaded (e.g., during tests)
-    if (!cluster) {
-      return null;
-    }
     if (cluster.needsInit) {
       return INIT;
     }
@@ -114,20 +97,5 @@ export default class ClusterRouteBase extends Route {
       return REDIRECT;
     }
     return null;
-  }
-
-  deactivate() {
-    // Clear Ember Data store of models when route is deactivated
-    const modelType = this.modelType;
-    const modelTypes = this.modelTypes;
-
-    if (modelType) {
-      this.store.unloadAll(modelType);
-    }
-    if (modelTypes) {
-      modelTypes.forEach((type) => {
-        this.store.unloadAll(type);
-      });
-    }
-  }
-}
+  },
+});

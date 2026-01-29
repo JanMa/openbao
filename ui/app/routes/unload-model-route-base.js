@@ -5,6 +5,7 @@
 
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 import removeRecord from 'vault/utils/remove-record';
 
 /**
@@ -53,6 +54,7 @@ export default class UnloadModelRouteBase extends Route {
   /**
    * Handle willTransition by unloading the model
    */
+  @action
   willTransition() {
     this.unloadModel();
     return true;

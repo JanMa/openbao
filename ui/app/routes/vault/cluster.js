@@ -83,7 +83,8 @@ export default class VaultClusterRoute extends ClusterRouteBase {
     return this.store.findRecord('cluster', id);
   }
 
-  poll = task(function* () {
+  @task({ cancelOn: 'deactivate', keepLatest: true })
+  *poll() {
     while (true) {
       // when testing, the polling loop causes promises to never settle so acceptance tests hang
       // to get around that, we just disable the poll in tests
@@ -98,9 +99,7 @@ export default class VaultClusterRoute extends ClusterRouteBase {
         // we want to keep polling here
       }
     }
-  })
-    .cancelOn('deactivate')
-    .keepLatest();
+  }
 
   afterModel(model, transition) {
     super.afterModel(model, transition);
