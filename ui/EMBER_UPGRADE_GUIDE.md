@@ -116,7 +116,7 @@ Mixins are deprecated. Convert each to an appropriate modern pattern.
 | `cluster-route.js` | ✅ DONE | Base class (`app/routes/cluster-route-base.js`) |
 | `focus-on-insert.js` | ✅ DONE (commit 0450f69695) | Modifier (`app/modifiers/focus-on-insert.js`) or direct method |
 | `key-mixin.js` | ✅ DONE (commit 32b73fd278) | Inlined into models (lease.js, secret.js, secret-v2.js) |
-| `model-boundary-route.js` | ⏳ Pending | Base route class |
+| `model-boundary-route.js` | ✅ DONE (commit c5cac6641d) | Base class (`app/routes/model-boundary-route-base.js`) |
 | `unload-model-route.js` | ⏳ Pending | Route decorator or base class |
 | `unsaved-model-route.js` | ⏳ Pending | Route decorator or base class |
 | `with-nav-to-nearest-ancestor.js` | ⏳ Pending | Service or utility |
@@ -160,6 +160,15 @@ Mixins are deprecated. Convert each to an appropriate modern pattern.
   - `app/models/secret-v2.js` - Inlined all computed properties
   - Fixed import: `computed` must come from `@ember/object`, not `@ember/object/computed`
   - Removed `app/mixins/key-mixin.js`
+- [x] `model-boundary-route.js` - Converted to base class pattern:
+  - Created `app/routes/model-boundary-route-base.js` extending Route for routes that need model boundary clearing
+  - Updated `app/routes/cluster-route-base.js` to include model boundary clearing logic (modelTypes/modelType properties and deactivate hook)
+  - Updated 2 routes extending ClusterRouteBase to remove mixin:
+    - `app/routes/vault/cluster.js`
+    - `app/routes/vault/cluster/access.js`
+  - Updated 1 route extending Route:
+    - `app/routes/vault/cluster/logout.js` - now extends ModelBoundaryRouteBase
+  - Removed `app/mixins/model-boundary-route.js`
 - [ ] Identify all files that import the mixin: `grep -r "import.*from.*mixins/MIXIN_NAME" app/ lib/`
 - [ ] Create replacement (service/utility/modifier/base class)
 - [ ] Update all consumers to use the new pattern
