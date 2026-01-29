@@ -5,12 +5,11 @@
 
 import { set } from '@ember/object';
 import { hash } from 'rsvp';
-import Route from '@ember/routing/route';
-import UnloadModelRoute from 'vault/mixins/unload-model-route';
+import UnloadModelRouteBase from 'vault/routes/unload-model-route-base';
 import utils from 'vault/lib/key-utils';
 import { inject as service } from '@ember/service';
 
-export default Route.extend(UnloadModelRoute, {
+export default UnloadModelRouteBase.extend({
   store: service(),
 
   beforeModel() {

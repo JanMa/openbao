@@ -1,0 +1,114 @@
+$ bao server -dev -dev-ha -dev-root-token-id=root -dev-listen-address=127.0.0.1:9200
+$ ember test --launch firefox
+==> OpenBao server configuration:
+
+             Api Address: http://127.0.0.1:9200
+                     Cgo: disabled
+         Cluster Address: https://127.0.0.1:9201
+   Environment Variables: BERRY_BIN_FOLDER, BROWSER, CHROME_DESKTOP, CLOUDSDK_ROOT_DIR, COLORTERM, DBUS_SESSION_BUS_ADDRESS, DEBUGINFOD_URLS, DESKTOP_SESSION, DISPLAY, EDITOR, FC_FONTATIONS, GDK_BACKEND, GDMSESSION, GIT_ASKPASS, GIT_PAGER, GOOGLE_CLOUD_SDK_HOME, GTK3_MODULES, GTK_MODULES, HOME, INIT_CWD, LANG, LC_ADDRESS, LC_IDENTIFICATION, LC_MEASUREMENT, LC_MONETARY, LC_NAME, LC_NUMERIC, LC_PAPER, LC_TELEPHONE, LC_TIME, LESS, LOGNAME, LSCOLORS, LS_COLORS, MAIL, MOTD_SHOWN, NO_AT_BRIDGE, NVM_BIN, NVM_CD_FLAGS, NVM_DIR, NVM_INC, OLDPWD, PAGER, PANEL_GDK_CORE_DEVICE_EVENTS, PATH, PROJECT_CWD, PWD, SESSION_MANAGER, SHELL, SHLVL, SSH_AGENT_PID, SSH_AUTH_SOCK, TERM, TERM_PROGRAM, TERM_PROGRAM_VERSION, USER, USER_ZDOTDIR, VSCODE_GIT_ASKPASS_EXTRA_ARGS, VSCODE_GIT_ASKPASS_MAIN, VSCODE_GIT_ASKPASS_NODE, VSCODE_GIT_IPC_HANDLE, VSCODE_INJECTION, VSCODE_PYTHON_AUTOACTIVATE_GUARD, XAUTHORITY, XDG_CACHE_HOME, XDG_CONFIG_DIRS, XDG_CONFIG_HOME, XDG_CURRENT_DESKTOP, XDG_DATA_DIRS, XDG_GREETER_DATA_DIR, XDG_MENU_PREFIX, XDG_RUNTIME_DIR, XDG_SEAT, XDG_SEAT_PATH, XDG_SESSION_CLASS, XDG_SESSION_DESKTOP, XDG_SESSION_ID, XDG_SESSION_PATH, XDG_SESSION_TYPE, XDG_VTNR, ZDOTDIR, ZSH, _, npm_config_user_agent, npm_execpath, npm_lifecycle_event, npm_node_execpath, npm_package_json, npm_package_name, npm_package_version
+              Go Version: go1.25.5 X:nodwarf5
+              Listener 1: tcp (addr: "127.0.0.1:9200", cluster address: "127.0.0.1:9201", max_request_duration: "1m30s", max_request_json_memory: "34078720", max_request_json_strings: "1000", max_request_size: "33554432", tls: "disabled")
+               Log Level: 
+           Recovery Mode: false
+                 Storage: inmem_ha (HA available)
+                 Version: OpenBao v2.0.0-HEAD, built 2026-01-26T23:18:54Z
+             Version Sha: 5010dcda53005620cd4f42cadb0356e6f85fec5d+CHANGES
+
+==> OpenBao server started! Log data will stream in below:
+
+2026-01-29T17:12:17.949+0100 [INFO]  proxy environment: http_proxy="" https_proxy="" no_proxy=""
+2026-01-29T17:12:17.949+0100 [WARN]  no `api_addr` value specified in config or in BAO_API_ADDR; falling back to detection if possible, but this value should be manually set
+2026-01-29T17:12:17.949+0100 [INFO]  core: Initializing version history cache for core
+2026-01-29T17:12:17.950+0100 [INFO]  core: security barrier not initialized
+2026-01-29T17:12:17.950+0100 [INFO]  core: security barrier not initialized
+2026-01-29T17:12:17.950+0100 [INFO]  core: acquired HA initialization lock
+2026-01-29T17:12:17.950+0100 [INFO]  core: security barrier initialized: stored=1 shares=1 threshold=1
+2026-01-29T17:12:17.967+0100 [INFO]  core: post-unseal setup starting
+2026-01-29T17:12:17.968+0100 [INFO]  core: loaded wrapping token key
+2026-01-29T17:12:17.968+0100 [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-01-29T17:12:17.968+0100 [INFO]  core.oci-plugins: skipping OCI plugin downloading
+2026-01-29T17:12:17.968+0100 [INFO]  core.oci-plugins: skipping OCI plugin registration
+2026-01-29T17:12:17.968+0100 [INFO]  core: no mounts in legacy mount table; adding default mount table
+2026-01-29T17:12:17.969+0100 [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.0+builtin.bao" path=cubbyhole/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.969+0100 [INFO]  core: successfully mounted: type=system version="v2.0.0+builtin.bao" path=sys/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.969+0100 [INFO]  core: successfully mounted: type=identity version="v2.0.0+builtin.bao" path=identity/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.975+0100 [INFO]  core: no mounts in legacy auth table; adding default mount table
+2026-01-29T17:12:17.976+0100 [INFO]  core: successfully mounted: type=token version="v2.0.0+builtin.bao" path=token/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.976+0100 [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-01-29T17:12:17.977+0100 [INFO]  core: restoring leases
+2026-01-29T17:12:17.977+0100 [INFO]  rollback: starting rollback manager
+2026-01-29T17:12:17.978+0100 [INFO]  identity: entities restored
+2026-01-29T17:12:17.978+0100 [INFO]  identity: groups restored
+2026-01-29T17:12:17.978+0100 [INFO]  core: Recorded vault version: vault version=2.0.0 upgrade time="2026-01-29 16:12:17.978812621 +0000 UTC" build date=2026-01-26T23:18:54Z
+2026-01-29T17:12:17.978+0100 [INFO]  expiration: lease restore complete
+2026-01-29T17:12:17.979+0100 [INFO]  core: post-unseal setup complete
+2026-01-29T17:12:17.979+0100 [INFO]  core: root token generated
+2026-01-29T17:12:17.979+0100 [INFO]  core: pre-seal teardown starting
+2026-01-29T17:12:17.979+0100 [INFO]  rollback: stopping rollback manager
+2026-01-29T17:12:17.979+0100 [INFO]  core: pre-seal teardown complete
+2026-01-29T17:12:17.980+0100 [INFO]  core.cluster-listener.tcp: starting listener: listener_address=127.0.0.1:9201
+2026-01-29T17:12:17.980+0100 [INFO]  core.cluster-listener: serving cluster requests: cluster_listen_address=127.0.0.1:9201
+2026-01-29T17:12:17.980+0100 [INFO]  core: vault is unsealed
+2026-01-29T17:12:17.980+0100 [INFO]  core: entering standby mode
+2026-01-29T17:12:17.980+0100 [INFO]  core: enabling horizontal scalability (reads)
+2026-01-29T17:12:17.980+0100 [INFO]  core: pre-seal teardown starting
+2026-01-29T17:12:17.980+0100 [INFO]  core: pre-seal teardown complete
+2026-01-29T17:12:17.980+0100 [INFO]  core: post-unseal setup starting
+2026-01-29T17:12:17.980+0100 [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-01-29T17:12:17.980+0100 [INFO]  core.oci-plugins: skipping OCI plugin downloading
+2026-01-29T17:12:17.980+0100 [INFO]  core.oci-plugins: skipping OCI plugin registration
+2026-01-29T17:12:17.981+0100 [INFO]  core: successfully mounted: type=system version="v2.0.0+builtin.bao" path=sys/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.981+0100 [INFO]  core: successfully mounted: type=identity version="v2.0.0+builtin.bao" path=identity/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.981+0100 [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.0+builtin.bao" path=cubbyhole/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.981+0100 [INFO]  core: successfully mounted: type=token version="v2.0.0+builtin.bao" path=token/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.981+0100 [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-01-29T17:12:17.982+0100 [INFO]  rollback: starting rollback manager
+2026-01-29T17:12:17.982+0100 [INFO]  core: restoring leases
+2026-01-29T17:12:17.982+0100 [INFO]  identity: entities restored
+2026-01-29T17:12:17.982+0100 [INFO]  identity: groups restored
+2026-01-29T17:12:17.982+0100 [INFO]  expiration: lease restore complete
+2026-01-29T17:12:17.983+0100 [INFO]  core: post-unseal setup complete
+2026-01-29T17:12:17.983+0100 [INFO]  core: acquired lock, enabling active operation
+2026-01-29T17:12:17.990+0100 [INFO]  core: pre-seal teardown starting
+2026-01-29T17:12:17.991+0100 [INFO]  rollback: stopping rollback manager
+2026-01-29T17:12:17.991+0100 [INFO]  core: pre-seal teardown complete
+2026-01-29T17:12:17.991+0100 [INFO]  core: post-unseal setup starting
+2026-01-29T17:12:17.991+0100 [INFO]  core: loaded wrapping token key
+2026-01-29T17:12:17.991+0100 [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-01-29T17:12:17.991+0100 [INFO]  core.oci-plugins: skipping OCI plugin downloading
+2026-01-29T17:12:17.991+0100 [INFO]  core.oci-plugins: skipping OCI plugin registration
+2026-01-29T17:12:17.992+0100 [INFO]  core: successfully mounted: type=system version="v2.0.0+builtin.bao" path=sys/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.993+0100 [INFO]  core: successfully mounted: type=identity version="v2.0.0+builtin.bao" path=identity/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.993+0100 [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.0+builtin.bao" path=cubbyhole/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.994+0100 [INFO]  core: successfully mounted: type=token version="v2.0.0+builtin.bao" path=token/ namespace="ID: root. Path: "
+2026-01-29T17:12:17.994+0100 [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-01-29T17:12:17.994+0100 [INFO]  rollback: starting rollback manager
+2026-01-29T17:12:17.994+0100 [INFO]  core: restoring leases
+2026-01-29T17:12:17.994+0100 [INFO]  expiration: lease restore complete
+2026-01-29T17:12:17.994+0100 [INFO]  identity: entities restored
+2026-01-29T17:12:17.995+0100 [INFO]  identity: groups restored
+2026-01-29T17:12:17.995+0100 [INFO]  grpclogfaker: [core] [Server #1] Server created
+
+2026-01-29T17:12:17.995+0100 [INFO]  core: post-unseal setup complete
+2026-01-29T17:12:18.982+0100 [INFO]  expiration: revoked lease: lease_id=auth/token/root/ha242c890ea78666d722eceb0d8cffc5f311ac30460fc53875a66d03d032b7492
+2026-01-29T17:12:18.984+0100 [INFO]  core: successful mount: namespace="" path=secret/ type=kv version=""
+2026-01-29T17:12:18.995+0100 [INFO]  secrets.kv.kv_a0edbe2c: collecting keys to upgrade
+2026-01-29T17:12:18.995+0100 [INFO]  secrets.kv.kv_a0edbe2c: done collecting keys: num_keys=1
+2026-01-29T17:12:18.995+0100 [INFO]  secrets.kv.kv_a0edbe2c: upgrading keys finished
+WARNING! dev mode is enabled! In this mode, OpenBao runs entirely in-memory
+and starts unsealed with a single unseal key. The root token is already
+authenticated to the CLI, so you can immediately begin using OpenBao.
+
+You may need to set the following environment variables:
+
+    $ export BAO_ADDR='http://127.0.0.1:9200'
+
+The unseal key and root token are displayed below in case you want to
+seal/unseal the Vault or re-authenticate.
+
+Unseal Key: m1QMqD8bedj87jXEXM0o3orMorYyVrI7h9cjl0cCDRg=
+Root Token: root
+OPENBAO SERVER READY
+
+Development mode should NOT be used in production installations!
+

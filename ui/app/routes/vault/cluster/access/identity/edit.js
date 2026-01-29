@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Route from '@ember/routing/route';
-import UnloadModelRoute from 'vault/mixins/unload-model-route';
+import UnloadModelRouteBase from 'vault/routes/unload-model-route-base';
 import UnsavedModelRoute from 'vault/mixins/unsaved-model-route';
 import { inject as service } from '@ember/service';
 
-export default Route.extend(UnloadModelRoute, UnsavedModelRoute, {
+export default UnloadModelRouteBase.extend(UnsavedModelRoute, {
   store: service(),
 
   model(params) {

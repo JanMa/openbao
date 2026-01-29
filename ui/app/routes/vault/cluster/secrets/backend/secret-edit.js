@@ -7,12 +7,11 @@ import AdapterError from '@ember-data/adapter/error';
 import { set } from '@ember/object';
 import { resolve } from 'rsvp';
 import { inject as service } from '@ember/service';
-import Route from '@ember/routing/route';
+import UnloadModelRouteBase from 'vault/routes/unload-model-route-base';
 import utils from 'vault/lib/key-utils';
-import UnloadModelRoute from 'vault/mixins/unload-model-route';
 import { encodePath, normalizePath } from 'vault/utils/path-encoding-helpers';
 
-export default Route.extend(UnloadModelRoute, {
+export default UnloadModelRouteBase.extend({
   store: service(),
   pathHelp: service('path-help'),
   wizard: service(),
