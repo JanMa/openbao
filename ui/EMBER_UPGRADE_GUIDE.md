@@ -114,7 +114,7 @@ Mixins are deprecated. Convert each to an appropriate modern pattern.
 |------------|--------|------------------------|
 | `backend-crumb.js` | ✅ DONE (commit 1c0b99ba75) | Native class getter |
 | `cluster-route.js` | ✅ DONE | Base class (`app/routes/cluster-route-base.js`) |
-| `focus-on-insert.js` | ⏳ Pending | Modifier (`ember-modifier`) |
+| `focus-on-insert.js` | ✅ DONE (commit 0450f69695) | Modifier (`app/modifiers/focus-on-insert.js`) or direct method |
 | `key-mixin.js` | ⏳ Pending | Utility function or service |
 | `model-boundary-route.js` | ⏳ Pending | Base route class |
 | `unload-model-route.js` | ⏳ Pending | Route decorator or base class |
@@ -149,6 +149,11 @@ Mixins are deprecated. Convert each to an appropriate modern pattern.
     - `app/routes/vault/cluster/tools.js`
     - `app/routes/vault/cluster/unseal.js`
   - Removed `app/mixins/cluster-route.js`
+- [x] `focus-on-insert.js` - Converted to direct method implementation in 2 consumer components:
+  - Created `app/modifiers/focus-on-insert.js` as an Ember modifier for future use with Glimmer components
+  - `app/components/role-edit.js` - Implemented `focusOnInsertFocus()` method called from `didInsertElement()`
+  - `app/components/transit-edit.js` - Implemented `focusOnInsertFocus()` method called from `didInsertElement()`
+  - Removed `app/mixins/focus-on-insert.js`
 - [ ] Identify all files that import the mixin: `grep -r "import.*from.*mixins/MIXIN_NAME" app/ lib/`
 - [ ] Create replacement (service/utility/modifier/base class)
 - [ ] Update all consumers to use the new pattern

@@ -1,0 +1,911 @@
+$ bao server -dev -dev-ha -dev-root-token-id=root -dev-listen-address=127.0.0.1:9200
+$ ember test --launch firefox
+==> OpenBao server configuration:
+
+             Api Address: http://127.0.0.1:9200
+                     Cgo: disabled
+         Cluster Address: https://127.0.0.1:9201
+   Environment Variables: BERRY_BIN_FOLDER, BROWSER, CHROME_DESKTOP, CLOUDSDK_ROOT_DIR, COLORTERM, DBUS_SESSION_BUS_ADDRESS, DEBUGINFOD_URLS, DESKTOP_SESSION, DISPLAY, EDITOR, FC_FONTATIONS, GDK_BACKEND, GDMSESSION, GIT_ASKPASS, GIT_PAGER, GOOGLE_CLOUD_SDK_HOME, GTK3_MODULES, GTK_MODULES, HOME, INIT_CWD, LANG, LC_ADDRESS, LC_IDENTIFICATION, LC_MEASUREMENT, LC_MONETARY, LC_NAME, LC_NUMERIC, LC_PAPER, LC_TELEPHONE, LC_TIME, LESS, LOGNAME, LSCOLORS, LS_COLORS, MAIL, MOTD_SHOWN, NO_AT_BRIDGE, NVM_BIN, NVM_CD_FLAGS, NVM_DIR, NVM_INC, OLDPWD, PAGER, PANEL_GDK_CORE_DEVICE_EVENTS, PATH, PROJECT_CWD, PWD, SESSION_MANAGER, SHELL, SHLVL, SSH_AGENT_PID, SSH_AUTH_SOCK, TERM, TERM_PROGRAM, TERM_PROGRAM_VERSION, USER, USER_ZDOTDIR, VSCODE_GIT_ASKPASS_EXTRA_ARGS, VSCODE_GIT_ASKPASS_MAIN, VSCODE_GIT_ASKPASS_NODE, VSCODE_GIT_IPC_HANDLE, VSCODE_INJECTION, VSCODE_PYTHON_AUTOACTIVATE_GUARD, XAUTHORITY, XDG_CACHE_HOME, XDG_CONFIG_DIRS, XDG_CONFIG_HOME, XDG_CURRENT_DESKTOP, XDG_DATA_DIRS, XDG_GREETER_DATA_DIR, XDG_MENU_PREFIX, XDG_RUNTIME_DIR, XDG_SEAT, XDG_SEAT_PATH, XDG_SESSION_CLASS, XDG_SESSION_DESKTOP, XDG_SESSION_ID, XDG_SESSION_PATH, XDG_SESSION_TYPE, XDG_VTNR, ZDOTDIR, ZSH, _, npm_config_user_agent, npm_execpath, npm_lifecycle_event, npm_node_execpath, npm_package_json, npm_package_name, npm_package_version
+              Go Version: go1.25.5 X:nodwarf5
+              Listener 1: tcp (addr: "127.0.0.1:9200", cluster address: "127.0.0.1:9201", max_request_duration: "1m30s", max_request_json_memory: "34078720", max_request_json_strings: "1000", max_request_size: "33554432", tls: "disabled")
+               Log Level: 
+           Recovery Mode: false
+                 Storage: inmem_ha (HA available)
+                 Version: OpenBao v2.0.0-HEAD, built 2026-01-26T23:18:54Z
+             Version Sha: 5010dcda53005620cd4f42cadb0356e6f85fec5d+CHANGES
+
+==> OpenBao server started! Log data will stream in below:
+
+2026-01-29T15:27:10.754+0100 [INFO]  proxy environment: http_proxy="" https_proxy="" no_proxy=""
+2026-01-29T15:27:10.754+0100 [WARN]  no `api_addr` value specified in config or in BAO_API_ADDR; falling back to detection if possible, but this value should be manually set
+2026-01-29T15:27:10.755+0100 [INFO]  core: Initializing version history cache for core
+2026-01-29T15:27:10.756+0100 [INFO]  core: security barrier not initialized
+2026-01-29T15:27:10.756+0100 [INFO]  core: security barrier not initialized
+2026-01-29T15:27:10.756+0100 [INFO]  core: acquired HA initialization lock
+2026-01-29T15:27:10.756+0100 [INFO]  core: security barrier initialized: stored=1 shares=1 threshold=1
+2026-01-29T15:27:10.774+0100 [INFO]  core: post-unseal setup starting
+2026-01-29T15:27:10.775+0100 [INFO]  core: loaded wrapping token key
+2026-01-29T15:27:10.775+0100 [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-01-29T15:27:10.775+0100 [INFO]  core.oci-plugins: skipping OCI plugin downloading
+2026-01-29T15:27:10.775+0100 [INFO]  core.oci-plugins: skipping OCI plugin registration
+2026-01-29T15:27:10.775+0100 [INFO]  core: no mounts in legacy mount table; adding default mount table
+2026-01-29T15:27:10.777+0100 [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.0+builtin.bao" path=cubbyhole/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.778+0100 [INFO]  core: successfully mounted: type=system version="v2.0.0+builtin.bao" path=sys/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.778+0100 [INFO]  core: successfully mounted: type=identity version="v2.0.0+builtin.bao" path=identity/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.779+0100 [INFO]  core: no mounts in legacy auth table; adding default mount table
+2026-01-29T15:27:10.781+0100 [INFO]  core: successfully mounted: type=token version="v2.0.0+builtin.bao" path=token/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.781+0100 [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-01-29T15:27:10.782+0100 [INFO]  rollback: starting rollback manager
+2026-01-29T15:27:10.783+0100 [INFO]  core: restoring leases
+2026-01-29T15:27:10.784+0100 [INFO]  expiration: lease restore complete
+2026-01-29T15:27:10.784+0100 [INFO]  identity: entities restored
+2026-01-29T15:27:10.784+0100 [INFO]  identity: groups restored
+2026-01-29T15:27:10.784+0100 [INFO]  core: Recorded vault version: vault version=2.0.0 upgrade time="2026-01-29 14:27:10.784658009 +0000 UTC" build date=2026-01-26T23:18:54Z
+2026-01-29T15:27:10.784+0100 [INFO]  core: post-unseal setup complete
+2026-01-29T15:27:10.785+0100 [INFO]  core: root token generated
+2026-01-29T15:27:10.785+0100 [INFO]  core: pre-seal teardown starting
+2026-01-29T15:27:10.785+0100 [INFO]  rollback: stopping rollback manager
+2026-01-29T15:27:10.785+0100 [INFO]  core: pre-seal teardown complete
+2026-01-29T15:27:10.785+0100 [INFO]  core.cluster-listener.tcp: starting listener: listener_address=127.0.0.1:9201
+2026-01-29T15:27:10.785+0100 [INFO]  core.cluster-listener: serving cluster requests: cluster_listen_address=127.0.0.1:9201
+2026-01-29T15:27:10.785+0100 [INFO]  core: vault is unsealed
+2026-01-29T15:27:10.785+0100 [INFO]  core: entering standby mode
+2026-01-29T15:27:10.785+0100 [INFO]  core: enabling horizontal scalability (reads)
+2026-01-29T15:27:10.785+0100 [INFO]  core: pre-seal teardown starting
+2026-01-29T15:27:10.786+0100 [INFO]  core: pre-seal teardown complete
+2026-01-29T15:27:10.786+0100 [INFO]  core: post-unseal setup starting
+2026-01-29T15:27:10.786+0100 [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-01-29T15:27:10.786+0100 [INFO]  core.oci-plugins: skipping OCI plugin downloading
+2026-01-29T15:27:10.786+0100 [INFO]  core.oci-plugins: skipping OCI plugin registration
+2026-01-29T15:27:10.786+0100 [INFO]  core: successfully mounted: type=system version="v2.0.0+builtin.bao" path=sys/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.786+0100 [INFO]  core: successfully mounted: type=identity version="v2.0.0+builtin.bao" path=identity/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.786+0100 [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.0+builtin.bao" path=cubbyhole/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.787+0100 [INFO]  core: successfully mounted: type=token version="v2.0.0+builtin.bao" path=token/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.787+0100 [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-01-29T15:27:10.787+0100 [INFO]  rollback: starting rollback manager
+2026-01-29T15:27:10.787+0100 [INFO]  core: restoring leases
+2026-01-29T15:27:10.788+0100 [INFO]  identity: entities restored
+2026-01-29T15:27:10.788+0100 [INFO]  identity: groups restored
+2026-01-29T15:27:10.788+0100 [INFO]  expiration: lease restore complete
+2026-01-29T15:27:10.788+0100 [INFO]  core: post-unseal setup complete
+2026-01-29T15:27:10.788+0100 [INFO]  core: acquired lock, enabling active operation
+2026-01-29T15:27:10.794+0100 [INFO]  core: pre-seal teardown starting
+2026-01-29T15:27:10.794+0100 [INFO]  rollback: stopping rollback manager
+2026-01-29T15:27:10.795+0100 [INFO]  core: pre-seal teardown complete
+2026-01-29T15:27:10.795+0100 [INFO]  core: post-unseal setup starting
+2026-01-29T15:27:10.795+0100 [INFO]  core: loaded wrapping token key
+2026-01-29T15:27:10.795+0100 [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-01-29T15:27:10.795+0100 [INFO]  core.oci-plugins: skipping OCI plugin downloading
+2026-01-29T15:27:10.795+0100 [INFO]  core.oci-plugins: skipping OCI plugin registration
+2026-01-29T15:27:10.796+0100 [INFO]  core: successfully mounted: type=system version="v2.0.0+builtin.bao" path=sys/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.796+0100 [INFO]  core: successfully mounted: type=identity version="v2.0.0+builtin.bao" path=identity/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.796+0100 [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.0+builtin.bao" path=cubbyhole/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.797+0100 [INFO]  core: successfully mounted: type=token version="v2.0.0+builtin.bao" path=token/ namespace="ID: root. Path: "
+2026-01-29T15:27:10.797+0100 [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-01-29T15:27:10.797+0100 [INFO]  core: restoring leases
+2026-01-29T15:27:10.797+0100 [INFO]  rollback: starting rollback manager
+2026-01-29T15:27:10.797+0100 [INFO]  identity: entities restored
+2026-01-29T15:27:10.797+0100 [INFO]  identity: groups restored
+2026-01-29T15:27:10.797+0100 [INFO]  expiration: lease restore complete
+2026-01-29T15:27:10.797+0100 [INFO]  grpclogfaker: [core] [Server #1] Server created
+
+2026-01-29T15:27:10.798+0100 [INFO]  core: post-unseal setup complete
+2026-01-29T15:27:11.788+0100 [INFO]  expiration: revoked lease: lease_id=auth/token/root/hec6915617876ed0985eee568160e9a5b4c70e18cd0455bd67ec4de65b55b6234
+2026-01-29T15:27:11.791+0100 [INFO]  core: successful mount: namespace="" path=secret/ type=kv version=""
+2026-01-29T15:27:11.802+0100 [INFO]  secrets.kv.kv_6ba87f31: collecting keys to upgrade
+2026-01-29T15:27:11.802+0100 [INFO]  secrets.kv.kv_6ba87f31: done collecting keys: num_keys=1
+2026-01-29T15:27:11.802+0100 [INFO]  secrets.kv.kv_6ba87f31: upgrading keys finished
+WARNING! dev mode is enabled! In this mode, OpenBao runs entirely in-memory
+and starts unsealed with a single unseal key. The root token is already
+authenticated to the CLI, so you can immediately begin using OpenBao.
+
+You may need to set the following environment variables:
+
+    $ export BAO_ADDR='http://127.0.0.1:9200'
+
+The unseal key and root token are displayed below in case you want to
+seal/unseal the Vault or re-authenticate.
+
+Unseal Key: SMy9aGEMCzWLePL9VBgPgnyf4pxaSQLk1PXvkowLI6k=
+Root Token: root
+
+Development mode should NOT be used in production installations!
+
+OPENBAO SERVER READY
+Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+WARNING: Node v20.19.3 is not tested against Ember CLI on your platform. We recommend that you use the most-recent "Active LTS" version of Node.js. See https://git.io/v7S5n for details.
+- Building
+Environment: test
+- Building
+- building... 
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+WARNING: Detected collisions between .js and .ts files of the same name. This can result in nondeterministic build output; see https://git.io/JvIwo for more information.
+  - vault/services/flash-messages.{js,ts}
+- building... [TemplateCompiler > applyPatches]
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+Browserslist: browsers data (caniuse-lite) is 14 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: caniuse-lite is outdated. Please run:
+  npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+- cleaning up
+cleaning up...
+- cleaning up
+Built project successfully. Stored in "../http/web_ui".
+2026-01-29T15:28:10.064+0100 [INFO]  core: enabled credential backend: namespace="" path=userpass-1-e1c70cd9-e8f9-494d-961c-1d21be719f61/ type=userpass version=""
+2026-01-29T15:28:10.261+0100 [INFO]  core: enabled credential backend: namespace="" path=userpass-2-e1c70cd9-e8f9-494d-961c-1d21be719f61/ type=userpass version=""
+2026-01-29T15:28:10.676+0100 [INFO]  core: disabled credential backend: namespace="" path=auth/userpass-1-e1c70cd9-e8f9-494d-961c-1d21be719f61/
+2026-01-29T15:28:10.711+0100 [INFO]  core: disabled credential backend: namespace="" path=auth/userpass-2-e1c70cd9-e8f9-494d-961c-1d21be719f61/
+2026-01-29T15:28:12.811+0100 [INFO]  core: enabled credential backend: namespace="" path=userpass-1.62395551811038/ type=userpass version=""
+2026-01-29T15:28:13.830+0100 [INFO]  core: enabled credential backend: namespace="" path=userpass-2.62395551811038/ type=userpass version=""
+2026-01-29T15:28:15.606+0100 [INFO]  core: enabled credential backend: namespace="" path=auth-list-userpass-c37da34b-d367-40b5-b6cd-2c1cd1130039/ type=userpass version=""
+2026-01-29T15:28:16.058+0100 [INFO]  core: disabled credential backend: namespace="" path=auth/auth-list-userpass-c37da34b-d367-40b5-b6cd-2c1cd1130039/
+2026-01-29T15:28:16.277+0100 [INFO]  core: enabled credential backend: namespace="" path=auth-list-ldap-c37da34b-d367-40b5-b6cd-2c1cd1130039/ type=ldap version=""
+2026-01-29T15:28:16.821+0100 [INFO]  core: disabled credential backend: namespace="" path=auth/auth-list-ldap-c37da34b-d367-40b5-b6cd-2c1cd1130039/
+2026-01-29T15:28:17.042+0100 [INFO]  core: enabled credential backend: namespace="" path=auth-list-jwt-c37da34b-d367-40b5-b6cd-2c1cd1130039/ type=jwt version=""
+2026-01-29T15:28:18.377+0100 [INFO]  core: enabled credential backend: namespace="" path=auth-list-oidc-c37da34b-d367-40b5-b6cd-2c1cd1130039/ type=oidc version=""
+2026-01-29T15:28:19.174+0100 [INFO]  core: enabled credential backend: namespace="" path=auth-list-radius-c37da34b-d367-40b5-b6cd-2c1cd1130039/ type=radius version=""
+2026-01-29T15:28:19.730+0100 [INFO]  core: disabled credential backend: namespace="" path=auth/auth-list-radius-c37da34b-d367-40b5-b6cd-2c1cd1130039/
+2026-01-29T15:28:23.074+0100 [INFO]  core: enabled credential backend: namespace="" path=cluster-userpass-ba83ec8e-cefe-411c-901a-847b8135f067/ type=userpass version=""
+2026-01-29T15:28:24.299+0100 [INFO]  core: successful mount: namespace="" path=console-route-1/ type=kv version=""
+2026-01-29T15:28:24.332+0100 [INFO]  core: successful mount: namespace="" path=console-route-2/ type=kv version=""
+2026-01-29T15:28:24.365+0100 [INFO]  core: successful mount: namespace="" path=console-route-3/ type=kv version=""
+2026-01-29T15:28:24.507+0100 [INFO]  core: successfully unmounted: namespace="" path=console-route-1/
+2026-01-29T15:28:24.538+0100 [INFO]  core: successfully unmounted: namespace="" path=console-route-2/
+2026-01-29T15:28:24.576+0100 [INFO]  core: successfully unmounted: namespace="" path=console-route-3/
+2026-01-29T15:28:44.755+0100 [INFO]  core: enabled credential backend: namespace="" path=userpass-dbc8e185-6762-446e-a7ef-fc7cac823234/ type=userpass version=""
+2026-01-29T15:28:46.262+0100 [INFO]  core: enabled credential backend: namespace="" path=userpass-a7a6cff9-c06f-414a-822d-0740039a3bbc/ type=userpass version=""
+not ok 1 Firefox 146.0 - [120290 ms] - Acceptance | oidc auth method: it should login with oidc when selected from auth methods dropdown
+    ---
+        stack: >
+            installTestNotIsolatedHook/test.pushFailure@http://localhost:7357/ui/assets/test-support.js:57528:32
+        message: >
+            Test took longer than 60000ms; test timed out. 
+            More information has been printed to the console. Please use that information to help in debugging.
+            
+            
+        negative: >
+            false
+        browser log: |
+            {"type":"warn","text":"DEPRECATION: The routes only function has been deprecated. Please use the make server version your default export in the config. [deprecation id: ember-cli-mirage-config-routes-only-export] This will be removed in Ember 3.0.0. See https://www.ember-cli-mirage.com/docs/advanced/server-configuration for more details.\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    raiseOnDeprecation@http://localhost:7357/ui/assets/test-support.js:617:13\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    @http://localhost:7357/ui/assets/test-support.js:48907:10\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    initialize/<@http://localhost:7357/ui/assets/vault.js:25913:13\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    invoke@http://localhost:7357/ui/assets/test-support.js:707:23\n    deprecate@http://localhost:7357/ui/assets/test-support.js:663:28\n    startMirage@http://localhost:7357/ui/assets/vendor.js:141241:49\n    setupMirage/<@http://localhost:7357/ui/assets/test-support.js:50328:46\n    callHook@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1540:806\n    runHook@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1549:1\n    processTaskQueue@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1826:294\n    advanceTaskQueue@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1823:136\n    advance@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1821:90\n    ./node_modules/qunit/qunit/qunit.js/internalStart/config.timeout<@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1696:198"}
+            {"type":"log","text":"⚙ Using base Mirage request handlers ⚙"}
+            {"type":"group","text":"Acceptance | oidc auth method: it should login with oidc when selected from auth methods dropdown"}
+            {"type":"group","text":"Scheduled async"}
+            {"type":"log","text":"_later@http://localhost:7357/ui/assets/vendor.js:52651:32\nlater@http://localhost:7357/ui/assets/vendor.js:52438:19\nlater@http://localhost:7357/ui/assets/vendor.js:34478:24\nonYield@http://localhost:7357/ui/assets/vendor.js:149131:40\n__ec_yieldable__@http://localhost:7357/ui/assets/vendor.js:146804:19\ninvokeYieldable@http://localhost:7357/ui/assets/vendor.js:146251:70\nhandleYieldedValue@http://localhost:7357/ui/assets/vendor.js:146058:14\nhandleResolvedContinueValue@http://localhost:7357/ui/assets/vendor.js:145982:12\nproceedSync@http://localhost:7357/ui/assets/vendor.js:145934:14\nproceedAsync/<@http://localhost:7357/ui/assets/vendor.js:145921:33\ninvoke@http://localhost:7357/ui/assets/vendor.js:51933:16\nflush@http://localhost:7357/ui/assets/vendor.js:51823:19\nflush@http://localhost:7357/ui/assets/vendor.js:52029:21\n_end@http://localhost:7357/ui/assets/vendor.js:52581:34\nend@http://localhost:7357/ui/assets/vendor.js:52311:12\n_runExpiredTimers@http://localhost:7357/ui/assets/vendor.js:52718:14\n"}
+            {"type":"group","text":"Acceptance | oidc auth method: it should login with oidc when selected from auth methods dropdown"}
+            {"type":"group","text":"Scheduled async"}
+            {"type":"log","text":"_later@http://localhost:7357/ui/assets/vendor.js:52651:32\nlater@http://localhost:7357/ui/assets/vendor.js:52438:19\nlater@http://localhost:7357/ui/assets/vendor.js:34478:24\nonYield@http://localhost:7357/ui/assets/vendor.js:149131:40\n__ec_yieldable__@http://localhost:7357/ui/assets/vendor.js:146804:19\ninvokeYieldable@http://localhost:7357/ui/assets/vendor.js:146251:70\nhandleYieldedValue@http://localhost:7357/ui/assets/vendor.js:146058:14\nhandleResolvedContinueValue@http://localhost:7357/ui/assets/vendor.js:145982:12\nproceedSync@http://localhost:7357/ui/assets/vendor.js:145934:14\nproceedAsync/<@http://localhost:7357/ui/assets/vendor.js:145921:33\ninvoke@http://localhost:7357/ui/assets/vendor.js:51933:16\nflush@http://localhost:7357/ui/assets/vendor.js:51823:19\nflush@http://localhost:7357/ui/assets/vendor.js:52029:21\n_end@http://localhost:7357/ui/assets/vendor.js:52581:34\nend@http://localhost:7357/ui/assets/vendor.js:52311:12\n_runExpiredTimers@http://localhost:7357/ui/assets/vendor.js:52718:14\n"}
+    ...
+not ok 2 Firefox 146.0 - [120403 ms] - Acceptance | oidc auth method: it should login with oidc from listed auth mount tab
+    ---
+        stack: >
+            installTestNotIsolatedHook/test.pushFailure@http://localhost:7357/ui/assets/test-support.js:57528:32
+        message: >
+            Test took longer than 60000ms; test timed out. 
+            More information has been printed to the console. Please use that information to help in debugging.
+            
+            
+        negative: >
+            false
+        browser log: |
+            {"type":"warn","text":"DEPRECATION: The routes only function has been deprecated. Please use the make server version your default export in the config. [deprecation id: ember-cli-mirage-config-routes-only-export] This will be removed in Ember 3.0.0. See https://www.ember-cli-mirage.com/docs/advanced/server-configuration for more details.\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    raiseOnDeprecation@http://localhost:7357/ui/assets/test-support.js:617:13\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    @http://localhost:7357/ui/assets/test-support.js:48907:10\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    initialize/<@http://localhost:7357/ui/assets/vault.js:25913:13\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    invoke@http://localhost:7357/ui/assets/test-support.js:707:23\n    deprecate@http://localhost:7357/ui/assets/test-support.js:663:28\n    startMirage@http://localhost:7357/ui/assets/vendor.js:141241:49\n    setupMirage/<@http://localhost:7357/ui/assets/test-support.js:50328:46\n    callHook@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1540:806\n    runHook@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1549:1\n    processTaskQueue@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1826:294\n    advanceTaskQueue@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1823:136\n    advance@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1821:90\n    ./node_modules/qunit/qunit/qunit.js/internalStart/config.timeout<@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1696:198"}
+            {"type":"log","text":"⚙ Using base Mirage request handlers ⚙"}
+            {"type":"group","text":"Acceptance | oidc auth method: it should login with oidc from listed auth mount tab"}
+            {"type":"group","text":"Scheduled async"}
+            {"type":"log","text":"_later@http://localhost:7357/ui/assets/vendor.js:52651:32\nlater@http://localhost:7357/ui/assets/vendor.js:52438:19\nlater@http://localhost:7357/ui/assets/vendor.js:34478:24\nonYield@http://localhost:7357/ui/assets/vendor.js:149131:40\n__ec_yieldable__@http://localhost:7357/ui/assets/vendor.js:146804:19\ninvokeYieldable@http://localhost:7357/ui/assets/vendor.js:146251:70\nhandleYieldedValue@http://localhost:7357/ui/assets/vendor.js:146058:14\nhandleResolvedContinueValue@http://localhost:7357/ui/assets/vendor.js:145982:12\nproceedSync@http://localhost:7357/ui/assets/vendor.js:145934:14\nproceedAsync/<@http://localhost:7357/ui/assets/vendor.js:145921:33\ninvoke@http://localhost:7357/ui/assets/vendor.js:51933:16\nflush@http://localhost:7357/ui/assets/vendor.js:51823:19\nflush@http://localhost:7357/ui/assets/vendor.js:52029:21\n_end@http://localhost:7357/ui/assets/vendor.js:52581:34\nend@http://localhost:7357/ui/assets/vendor.js:52311:12\n_runExpiredTimers@http://localhost:7357/ui/assets/vendor.js:52718:14\n"}
+            {"type":"group","text":"Acceptance | oidc auth method: it should login with oidc from listed auth mount tab"}
+            {"type":"group","text":"Scheduled async"}
+            {"type":"log","text":"_later@http://localhost:7357/ui/assets/vendor.js:52651:32\nlater@http://localhost:7357/ui/assets/vendor.js:52438:19\nlater@http://localhost:7357/ui/assets/vendor.js:34478:24\nonYield@http://localhost:7357/ui/assets/vendor.js:149131:40\n__ec_yieldable__@http://localhost:7357/ui/assets/vendor.js:146804:19\ninvokeYieldable@http://localhost:7357/ui/assets/vendor.js:146251:70\nhandleYieldedValue@http://localhost:7357/ui/assets/vendor.js:146058:14\nhandleResolvedContinueValue@http://localhost:7357/ui/assets/vendor.js:145982:12\nproceedSync@http://localhost:7357/ui/assets/vendor.js:145934:14\nproceedAsync/<@http://localhost:7357/ui/assets/vendor.js:145921:33\ninvoke@http://localhost:7357/ui/assets/vendor.js:51933:16\nflush@http://localhost:7357/ui/assets/vendor.js:51823:19\nflush@http://localhost:7357/ui/assets/vendor.js:52029:21\n_end@http://localhost:7357/ui/assets/vendor.js:52581:34\nend@http://localhost:7357/ui/assets/vendor.js:52311:12\n_runExpiredTimers@http://localhost:7357/ui/assets/vendor.js:52718:14\n"}
+    ...
+not ok 3 Firefox 146.0 - [120419 ms] - Acceptance | oidc auth method: it should populate oidc auth method on logout
+    ---
+        stack: >
+            installTestNotIsolatedHook/test.pushFailure@http://localhost:7357/ui/assets/test-support.js:57528:32
+        message: >
+            Test took longer than 60000ms; test timed out. 
+            More information has been printed to the console. Please use that information to help in debugging.
+            
+            
+        negative: >
+            false
+        browser log: |
+            {"type":"warn","text":"DEPRECATION: The routes only function has been deprecated. Please use the make server version your default export in the config. [deprecation id: ember-cli-mirage-config-routes-only-export] This will be removed in Ember 3.0.0. See https://www.ember-cli-mirage.com/docs/advanced/server-configuration for more details.\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    raiseOnDeprecation@http://localhost:7357/ui/assets/test-support.js:617:13\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    @http://localhost:7357/ui/assets/test-support.js:48907:10\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    initialize/<@http://localhost:7357/ui/assets/vault.js:25913:13\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    invoke@http://localhost:7357/ui/assets/test-support.js:707:23\n    deprecate@http://localhost:7357/ui/assets/test-support.js:663:28\n    startMirage@http://localhost:7357/ui/assets/vendor.js:141241:49\n    setupMirage/<@http://localhost:7357/ui/assets/test-support.js:50328:46\n    callHook@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1540:806\n    runHook@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1549:1\n    processTaskQueue@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1826:294\n    advanceTaskQueue@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1823:136\n    advance@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1821:90\n    ./node_modules/qunit/qunit/qunit.js/internalStart/config.timeout<@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1696:198"}
+            {"type":"log","text":"⚙ Using base Mirage request handlers ⚙"}
+            {"type":"group","text":"Acceptance | oidc auth method: it should populate oidc auth method on logout"}
+            {"type":"group","text":"Scheduled async"}
+            {"type":"log","text":"_later@http://localhost:7357/ui/assets/vendor.js:52651:32\nlater@http://localhost:7357/ui/assets/vendor.js:52438:19\nlater@http://localhost:7357/ui/assets/vendor.js:34478:24\nonYield@http://localhost:7357/ui/assets/vendor.js:149131:40\n__ec_yieldable__@http://localhost:7357/ui/assets/vendor.js:146804:19\ninvokeYieldable@http://localhost:7357/ui/assets/vendor.js:146251:70\nhandleYieldedValue@http://localhost:7357/ui/assets/vendor.js:146058:14\nhandleResolvedContinueValue@http://localhost:7357/ui/assets/vendor.js:145982:12\nproceedSync@http://localhost:7357/ui/assets/vendor.js:145934:14\nproceedAsync/<@http://localhost:7357/ui/assets/vendor.js:145921:33\ninvoke@http://localhost:7357/ui/assets/vendor.js:51933:16\nflush@http://localhost:7357/ui/assets/vendor.js:51823:19\nflush@http://localhost:7357/ui/assets/vendor.js:52029:21\n_end@http://localhost:7357/ui/assets/vendor.js:52581:34\nend@http://localhost:7357/ui/assets/vendor.js:52311:12\n_runExpiredTimers@http://localhost:7357/ui/assets/vendor.js:52718:14\n"}
+            {"type":"group","text":"Acceptance | oidc auth method: it should populate oidc auth method on logout"}
+            {"type":"group","text":"Scheduled async"}
+            {"type":"log","text":"_later@http://localhost:7357/ui/assets/vendor.js:52651:32\nlater@http://localhost:7357/ui/assets/vendor.js:52438:19\nlater@http://localhost:7357/ui/assets/vendor.js:34478:24\nonYield@http://localhost:7357/ui/assets/vendor.js:149131:40\n__ec_yieldable__@http://localhost:7357/ui/assets/vendor.js:146804:19\ninvokeYieldable@http://localhost:7357/ui/assets/vendor.js:146251:70\nhandleYieldedValue@http://localhost:7357/ui/assets/vendor.js:146058:14\nhandleResolvedContinueValue@http://localhost:7357/ui/assets/vendor.js:145982:12\nproceedSync@http://localhost:7357/ui/assets/vendor.js:145934:14\nproceedAsync/<@http://localhost:7357/ui/assets/vendor.js:145921:33\ninvoke@http://localhost:7357/ui/assets/vendor.js:51933:16\nflush@http://localhost:7357/ui/assets/vendor.js:51823:19\nflush@http://localhost:7357/ui/assets/vendor.js:52029:21\n_end@http://localhost:7357/ui/assets/vendor.js:52581:34\nend@http://localhost:7357/ui/assets/vendor.js:52311:12\n_runExpiredTimers@http://localhost:7357/ui/assets/vendor.js:52718:14\n"}
+    ...
+2026-01-29T15:35:07.095+0100 [INFO]  core: enabled credential backend: namespace="" path=oidc-userpass-1ad12874-8091-4d4c-8f52-ca9c90dddcd8/ type=userpass version=""
+2026-01-29T15:35:08.673+0100 [INFO]  core: enabled credential backend: namespace="" path=oidc-userpass-82c83883-98b8-4b02-96a8-6df9be79e508/ type=userpass version=""
+2026-01-29T15:35:10.266+0100 [INFO]  core: enabled credential backend: namespace="" path=oidc-userpass-a8bbc41a-e3e4-42c2-b080-cf612bc2d12e/ type=userpass version=""
+2026-01-29T15:35:11.447+0100 [INFO]  secrets.pki.pki_3e65c028: 573cfbde-4fb6-9c23-2270-49d43096c2c2: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:11.447+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-8f5f51a4-5351-4659-b032-dc148a79c297/ type=pki version=""
+2026-01-29T15:35:12.369+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-8f5f51a4-5351-4659-b032-dc148a79c297/
+2026-01-29T15:35:12.825+0100 [INFO]  secrets.pki.pki_4b5759f9: 1fa85dc2-8d53-445b-257d-90d03e847974: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:12.825+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-b26aef2d-5d44-4298-aefc-8c2d2d32c5a9/ type=pki version=""
+2026-01-29T15:35:13.579+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-b26aef2d-5d44-4298-aefc-8c2d2d32c5a9/
+2026-01-29T15:35:14.010+0100 [INFO]  secrets.pki.pki_2fd11772: 29894334-d41a-281e-68ea-9d4face5e590: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:14.010+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-c1dcd4bf-1f71-43a7-96fc-88cf815ed989/ type=pki version=""
+2026-01-29T15:35:14.748+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-c1dcd4bf-1f71-43a7-96fc-88cf815ed989/
+2026-01-29T15:35:15.240+0100 [INFO]  secrets.pki.pki_2f3ffda6: 8c1bd110-6364-13f5-8ea2-ff1c0e5efba6: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:15.241+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-b6e28a5c-0b5b-4d4d-a810-d14737bb06b3/ type=pki version=""
+2026-01-29T15:35:16.077+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-b6e28a5c-0b5b-4d4d-a810-d14737bb06b3/
+2026-01-29T15:35:16.684+0100 [INFO]  secrets.pki.pki_c8f361c9: 480958d1-1362-b527-096f-9a3ed4222606: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:16.684+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-fe561070-a3ad-41e9-9ce5-2eeb1680948c/ type=pki version=""
+2026-01-29T15:35:19.938+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-fe561070-a3ad-41e9-9ce5-2eeb1680948c/
+2026-01-29T15:35:20.392+0100 [INFO]  secrets.pki.pki_b2d5ad9d: e8825543-f1eb-5fce-904c-eed627fc3479: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:20.392+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-1ecd548b-c540-40cb-94e1-0796a4adc518/ type=pki version=""
+2026-01-29T15:35:22.432+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-1ecd548b-c540-40cb-94e1-0796a4adc518/
+2026-01-29T15:35:22.926+0100 [INFO]  secrets.pki.pki_13c34727: 4c84e9b3-b598-5e4c-578f-b5f7771c5d4c: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:22.926+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-8f37590d-3406-4e08-be95-8b9ec2bc79ab/ type=pki version=""
+2026-01-29T15:35:23.862+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-8f37590d-3406-4e08-be95-8b9ec2bc79ab/
+2026-01-29T15:35:24.315+0100 [INFO]  secrets.pki.pki_90a650e6: 38652a72-bc62-f802-f272-d47ae53dfede: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:24.315+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-6790a8c8-ec44-4fa4-9776-6aeb23088cb5/ type=pki version=""
+2026-01-29T15:35:25.242+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-6790a8c8-ec44-4fa4-9776-6aeb23088cb5/
+2026-01-29T15:35:25.712+0100 [INFO]  secrets.pki.pki_9335aef2: ed62c2dd-5d4c-8688-374b-1a0fbaf65662: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:25.712+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-8c7576ef-3346-4a0c-939b-f38308d43806/ type=pki version=""
+2026-01-29T15:35:27.013+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-8c7576ef-3346-4a0c-939b-f38308d43806/
+2026-01-29T15:35:27.635+0100 [INFO]  secrets.pki.pki_81443bbe: 11a4d680-7c79-2f26-c6c1-31c562d34196: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:27.635+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-656446b9-9686-4fc7-9a76-03bb5dd47cbf/ type=pki version=""
+2026-01-29T15:35:29.192+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-656446b9-9686-4fc7-9a76-03bb5dd47cbf/
+2026-01-29T15:35:29.634+0100 [INFO]  secrets.pki.pki_a97481c3: 048ee5cc-5939-36b8-9c99-47898f70cc43: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:29.634+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-be68caf8-464f-4214-8a10-8915407d5f03/ type=pki version=""
+2026-01-29T15:35:31.268+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-be68caf8-464f-4214-8a10-8915407d5f03/
+2026-01-29T15:35:31.713+0100 [INFO]  secrets.pki.pki_070318ca: 208afbc5-577c-a7bf-bcc1-14b9e98f8ae4: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:31.714+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-87974a3d-3efb-4fdf-a6c8-bd86a583bd06/ type=pki version=""
+2026-01-29T15:35:32.787+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-87974a3d-3efb-4fdf-a6c8-bd86a583bd06/
+2026-01-29T15:35:33.283+0100 [INFO]  secrets.pki.pki_49e004b7: bd11c525-f2e5-8f43-baac-d44437d32946: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:33.283+0100 [INFO]  core: successful mount: namespace="" path=parent-mount-59eb86b3-e98a-438f-a25e-dc9b4758ae27/ type=pki version=""
+2026-01-29T15:35:33.498+0100 [INFO]  secrets.pki.pki_658876c0: 41ffd565-9fbc-4d0e-b408-e3b338b6f31d: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:33.498+0100 [INFO]  core: successful mount: namespace="" path=intermediate-mount-28e77a0d-1cff-4e3c-8380-cb96426ce340/ type=pki version=""
+2026-01-29T15:35:35.553+0100 [INFO]  core: successfully unmounted: namespace="" path=intermediate-mount-28e77a0d-1cff-4e3c-8380-cb96426ce340/
+2026-01-29T15:35:35.581+0100 [INFO]  core: successfully unmounted: namespace="" path=parent-mount-59eb86b3-e98a-438f-a25e-dc9b4758ae27/
+2026-01-29T15:35:36.039+0100 [INFO]  secrets.pki.pki_c0dae6f5: b71e86e0-c72c-45c2-d603-5a89b97bf21d: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:36.039+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-050ff4f4-7d70-4578-984a-b6d522f4b327/ type=pki version=""
+2026-01-29T15:35:36.805+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-050ff4f4-7d70-4578-984a-b6d522f4b327/
+2026-01-29T15:35:37.233+0100 [INFO]  secrets.pki.pki_b6365f40: 825e8025-b72b-39a1-4b9f-dccf4277988b: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:37.234+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-784a1566-17ec-4aab-be17-860e4afe6e39/ type=pki version=""
+2026-01-29T15:35:38.572+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-784a1566-17ec-4aab-be17-860e4afe6e39/
+2026-01-29T15:35:39.133+0100 [INFO]  secrets.pki.pki_0f0aed0b: b66fae30-cb97-8587-bd37-cec7e8ce8c33: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:39.133+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-56d669c0-f434-4a76-a6a6-9afaaf74224a/ type=pki version=""
+2026-01-29T15:35:40.923+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-56d669c0-f434-4a76-a6a6-9afaaf74224a/
+2026-01-29T15:35:41.641+0100 [INFO]  secrets.pki.pki_16d6cb21: 2efdccbc-0f25-8496-7220-54b01d50f4fa: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:41.641+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-6ce3db25-5b2e-490b-8571-84e9a8f0b10f/ type=pki version=""
+2026-01-29T15:35:43.426+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-6ce3db25-5b2e-490b-8571-84e9a8f0b10f/
+2026-01-29T15:35:43.864+0100 [INFO]  secrets.pki.pki_425b4eb8: c9a94512-07e3-3cb7-9fa5-4df83147a574: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:43.864+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-67fa3b33-577d-4093-b8ff-ca4c8916567d/ type=pki version=""
+2026-01-29T15:35:44.597+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-67fa3b33-577d-4093-b8ff-ca4c8916567d/
+2026-01-29T15:35:45.035+0100 [INFO]  secrets.pki.pki_4652da2d: 5e75bf45-fb37-fedf-cabd-2c4713eaf38a: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:45.035+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-e289fbb3-4108-42ac-8d24-c67eae488c65/ type=pki version=""
+2026-01-29T15:35:45.772+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-e289fbb3-4108-42ac-8d24-c67eae488c65/
+2026-01-29T15:35:46.258+0100 [INFO]  secrets.pki.pki_b5a70558: 8e5e5109-938d-517b-492d-a4aebe35834b: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:46.258+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-ee7b58f0-3540-4afb-9ec7-45d0499dc9d8/ type=pki version=""
+2026-01-29T15:35:47.078+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-ee7b58f0-3540-4afb-9ec7-45d0499dc9d8/
+2026-01-29T15:35:47.790+0100 [INFO]  secrets.pki.pki_4e794205: 6e2e6ac7-9dc8-a9a1-31f4-cc816a6e26b9: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:47.790+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-ca2fc7f1-a11a-4678-95ee-617861d94410/ type=pki version=""
+2026-01-29T15:35:49.012+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-ca2fc7f1-a11a-4678-95ee-617861d94410/
+2026-01-29T15:35:50.057+0100 [INFO]  secrets.pki.pki_223e5e1a: 8a309373-c74e-58e2-6596-468a00f8e1e5: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:50.057+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-801a30d8-34e2-4edc-a8db-2d7ce170aec5/ type=pki version=""
+2026-01-29T15:35:50.855+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-801a30d8-34e2-4edc-a8db-2d7ce170aec5/
+2026-01-29T15:35:51.313+0100 [INFO]  secrets.pki.pki_466dc552: c63df11d-6eb1-d65c-cc7b-dc595977bba9: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:51.313+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-971459a6-281b-411a-9d51-08ae1beeb316/ type=pki version=""
+2026-01-29T15:35:52.055+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-971459a6-281b-411a-9d51-08ae1beeb316/
+2026-01-29T15:35:52.496+0100 [INFO]  secrets.pki.pki_74459b65: 3e5bfb66-07c6-a153-9932-096018395099: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:52.496+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-a506fbf9-27b8-43b6-ace6-9ab2f5f47629/ type=pki version=""
+2026-01-29T15:35:53.651+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-a506fbf9-27b8-43b6-ace6-9ab2f5f47629/
+2026-01-29T15:35:54.095+0100 [INFO]  secrets.pki.pki_c141bce1: a3b852a4-e3b7-bdd4-3c7d-19ae97402687: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:54.095+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-427135de-8d16-48ee-a149-cdcaa96e73e6/ type=pki version=""
+2026-01-29T15:35:55.640+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-427135de-8d16-48ee-a149-cdcaa96e73e6/
+2026-01-29T15:35:56.577+0100 [INFO]  secrets.pki.pki_a881c4e9: 998fa843-ccca-393a-e075-c9977b9c2318: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:56.577+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-282bcfce-76bb-4192-bef0-ef7a3f3dcfff/ type=pki version=""
+2026-01-29T15:35:59.412+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-282bcfce-76bb-4192-bef0-ef7a3f3dcfff/
+2026-01-29T15:35:59.896+0100 [INFO]  secrets.pki.pki_9398d9b4: d3a936b9-ea6d-c39a-41fa-1a56e69b68be: succeeded in migrating to issuer storage version 2
+2026-01-29T15:35:59.896+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-52e774e8-afbe-4a5d-aeab-083796b96565/ type=pki version=""
+2026-01-29T15:36:00.724+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-52e774e8-afbe-4a5d-aeab-083796b96565/
+2026-01-29T15:36:01.157+0100 [INFO]  secrets.pki.pki_85b073c1: 2047fbb4-854e-30e0-3293-a805e4efb3ad: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:01.157+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-403df7bd-1421-43b0-8fa0-daa3e2af28d3/ type=pki version=""
+2026-01-29T15:36:02.953+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-403df7bd-1421-43b0-8fa0-daa3e2af28d3/
+2026-01-29T15:36:03.413+0100 [INFO]  secrets.pki.pki_f004910b: a9463a23-39ba-3ad6-f95e-72262b72fec5: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:03.413+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-a01e816c-a2a9-4761-8eb2-3f7d116b44a3/ type=pki version=""
+2026-01-29T15:36:04.983+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-a01e816c-a2a9-4761-8eb2-3f7d116b44a3/
+2026-01-29T15:36:05.709+0100 [INFO]  secrets.pki.pki_0308d8c2: 913efef2-f146-1972-c4a7-45a01f2ad401: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:05.709+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-06c0d55b-6603-4fa0-8a94-78b11c2dfa14/ type=pki version=""
+2026-01-29T15:36:08.801+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-06c0d55b-6603-4fa0-8a94-78b11c2dfa14/
+2026-01-29T15:36:09.426+0100 [INFO]  secrets.pki.pki_825c66ee: bbb78e8c-cf8b-f1db-5ee3-ba599917f948: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:09.426+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-e01e9ad4-cf9b-4a8a-930a-690ad185db72/ type=pki version=""
+2026-01-29T15:36:11.537+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-e01e9ad4-cf9b-4a8a-930a-690ad185db72/
+2026-01-29T15:36:12.009+0100 [INFO]  secrets.pki.pki_5f229b5f: 43c567c9-eba6-cef8-86e6-40500b054100: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:12.009+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-a5b8f42d-6e81-4c5d-8e90-c51c158881cd/ type=pki version=""
+2026-01-29T15:36:13.916+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-a5b8f42d-6e81-4c5d-8e90-c51c158881cd/
+2026-01-29T15:36:14.359+0100 [INFO]  secrets.pki.pki_83a8d0a3: a09bfd89-9492-b86f-b6ae-7b537f9464f4: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:14.359+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-610768e3-0efe-449e-ae89-65fba4f4ad91/ type=pki version=""
+2026-01-29T15:36:15.637+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-610768e3-0efe-449e-ae89-65fba4f4ad91/
+2026-01-29T15:36:16.124+0100 [INFO]  secrets.pki.pki_dcdc5622: 19cb3edd-2d4e-55e0-2fd9-cbae1d6334fd: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:16.124+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-2149063c-6611-4944-a0c0-3abb30b85a13/ type=pki version=""
+2026-01-29T15:36:18.356+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-2149063c-6611-4944-a0c0-3abb30b85a13/
+2026-01-29T15:36:19.437+0100 [INFO]  secrets.pki.pki_869d23ad: 9dac38e9-3555-1f3f-836a-b4d373de9918: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:19.437+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-443f4a31-1eee-4e14-a3d2-53163bbb2769/ type=pki version=""
+2026-01-29T15:36:21.356+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-443f4a31-1eee-4e14-a3d2-53163bbb2769/
+2026-01-29T15:36:21.848+0100 [INFO]  secrets.pki.pki_d36de985: 3651f60a-5382-6e13-2904-322a8ce2c721: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:21.848+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-65359c25-c755-4aed-b8ed-e7afc03e949e/ type=pki version=""
+2026-01-29T15:36:23.389+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-65359c25-c755-4aed-b8ed-e7afc03e949e/
+2026-01-29T15:36:23.839+0100 [INFO]  secrets.pki.pki_d98edcc3: 9a01d711-83f0-1248-4caf-16d887746ad3: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:23.839+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-7c01ddce-bf3e-418e-9864-8d990ea1b7ef/ type=pki version=""
+2026-01-29T15:36:25.202+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-7c01ddce-bf3e-418e-9864-8d990ea1b7ef/
+2026-01-29T15:36:25.690+0100 [INFO]  secrets.pki.pki_5c1a5aa4: d8ed8912-c27e-4cfd-a6d5-0f1c3c68f2fc: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:25.690+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-7bd43c10-0946-47f8-9126-46a7c84a2625/ type=pki version=""
+2026-01-29T15:36:27.193+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-7bd43c10-0946-47f8-9126-46a7c84a2625/
+2026-01-29T15:36:28.113+0100 [INFO]  secrets.pki.pki_ecb0dec2: 2a1aeaf4-c3e5-e3c2-9af1-8fcbf7e29f34: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:28.113+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-5d0115fe-8351-4c9e-b95c-fe5a318b8c0c/ type=pki version=""
+2026-01-29T15:36:30.087+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-5d0115fe-8351-4c9e-b95c-fe5a318b8c0c/
+2026-01-29T15:36:30.718+0100 [INFO]  secrets.pki.pki_7949b210: eb29db4e-ebe4-287c-1dc9-1fe5c691996c: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:30.718+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-b45da1c3-69e9-4d08-b66a-fde0ba928aa4/ type=pki version=""
+2026-01-29T15:36:32.604+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-b45da1c3-69e9-4d08-b66a-fde0ba928aa4/
+2026-01-29T15:36:33.055+0100 [INFO]  secrets.pki.pki_34677413: 4d5dda06-2bda-7cf8-ebc6-ec82b10c05c8: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:33.055+0100 [INFO]  core: successful mount: namespace="" path=pki/ type=pki version=""
+2026-01-29T15:36:34.126+0100 [INFO]  core: successfully unmounted: namespace="" path=pki/
+2026-01-29T15:36:34.572+0100 [INFO]  secrets.pki.pki_96f2de1c: 38309da5-e9ad-2314-ce83-d2eafb424c5a: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:34.572+0100 [INFO]  core: successful mount: namespace="" path=pki/ type=pki version=""
+2026-01-29T15:36:35.653+0100 [INFO]  core: successfully unmounted: namespace="" path=pki/
+2026-01-29T15:36:36.141+0100 [INFO]  secrets.pki.pki_96e472f9: 2bf81e84-6fa6-7ead-b76c-93d362bea59c: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:36.141+0100 [INFO]  core: successful mount: namespace="" path=pki/ type=pki version=""
+2026-01-29T15:36:37.101+0100 [INFO]  core: successfully unmounted: namespace="" path=pki/
+2026-01-29T15:36:37.839+0100 [INFO]  secrets.pki.pki_fa156bae: 33354f69-904e-53eb-ea6b-5df5f3988d5c: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:37.839+0100 [INFO]  core: successful mount: namespace="" path=pki/ type=pki version=""
+2026-01-29T15:36:39.549+0100 [INFO]  core: successfully unmounted: namespace="" path=pki/
+2026-01-29T15:36:40.373+0100 [INFO]  secrets.pki.pki_e0fb3c0b: 6eaab251-e24f-cd42-d56d-339baa28de5d: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:40.374+0100 [INFO]  core: successful mount: namespace="" path=pki/ type=pki version=""
+2026-01-29T15:36:41.699+0100 [INFO]  core: successfully unmounted: namespace="" path=pki/
+2026-01-29T15:36:42.144+0100 [INFO]  secrets.pki.pki_05efa3f6: 1d6210d0-f17b-8519-d0bb-0f7bb097766e: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:42.144+0100 [INFO]  core: successful mount: namespace="" path=pki/ type=pki version=""
+2026-01-29T15:36:43.249+0100 [INFO]  core: successfully unmounted: namespace="" path=pki/
+2026-01-29T15:36:43.727+0100 [INFO]  secrets.pki.pki_fbf880cb: 15cf88f5-a308-583f-694a-477c9c3b51f6: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:43.727+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-c121372c-9486-4dee-938b-36d63f30cfcc/ type=pki version=""
+2026-01-29T15:36:44.882+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-c121372c-9486-4dee-938b-36d63f30cfcc/
+2026-01-29T15:36:45.377+0100 [INFO]  secrets.pki.pki_c62b1202: ed4177e9-7f5c-3759-0618-6a09dca534e8: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:45.377+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-9f09eda2-75fc-47fb-9993-5b3d5055eb84/ type=pki version=""
+2026-01-29T15:36:46.833+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-9f09eda2-75fc-47fb-9993-5b3d5055eb84/
+2026-01-29T15:36:48.111+0100 [INFO]  secrets.pki.pki_02e04774: eefe24da-bd9b-4a78-1a27-6982c946d259: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:48.111+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-60b37597-019a-4009-b60a-ed821c0edc47/ type=pki version=""
+2026-01-29T15:36:49.113+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-60b37597-019a-4009-b60a-ed821c0edc47/
+2026-01-29T15:36:49.994+0100 [INFO]  secrets.pki.pki_67723b1f: cd380c62-c711-ddd6-3b8c-2d760be9dc41: succeeded in migrating to issuer storage version 2
+2026-01-29T15:36:49.994+0100 [INFO]  core: successful mount: namespace="" path=pki-workflow-3f1f208e-6111-4391-af7e-1d32371f343a/ type=pki version=""
+2026-01-29T15:36:51.602+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-workflow-3f1f208e-6111-4391-af7e-1d32371f343a/
+2026-01-29T15:36:54.406+0100 [WARN]  secrets.pki.pki_fbf880cb.tidy: certificate entry is nil; tidying up since it is no longer useful for any server operations: serial=5f-85-50-91-23-54-e4-e3-a8-7f-30-ed-c5-3d-17-ba-9c-06-74-b6
+2026-01-29T15:37:04.273+0100 [INFO]  expiration: revoked lease: lease_id=auth/token/create/h59226b0449388bc55ac4427d3ff900fb94475464f0e322cbd23f128a07a61b0e
+2026-01-29T15:37:05.416+0100 [INFO]  secrets.database.database_2794bc6f: initializing database rotation queue
+2026-01-29T15:37:05.416+0100 [INFO]  core: successful mount: namespace="" path=database-1769697425298/ type=database version=""
+2026-01-29T15:37:05.426+0100 [INFO]  secrets.database.database_2794bc6f: populating role rotation queue
+2026-01-29T15:37:05.426+0100 [INFO]  secrets.database.database_2794bc6f: starting periodic ticker
+2026-01-29T15:37:06.087+0100 [INFO]  secrets.database.database_b9b2e6c0: initializing database rotation queue
+2026-01-29T15:37:06.087+0100 [INFO]  core: successful mount: namespace="" path=database-1769697425989/ type=database version=""
+2026-01-29T15:37:06.098+0100 [INFO]  secrets.database.database_b9b2e6c0: populating role rotation queue
+2026-01-29T15:37:06.098+0100 [INFO]  secrets.database.database_b9b2e6c0: starting periodic ticker
+2026-01-29T15:37:10.513+0100 [INFO]  secrets.database.database_e20a7963: initializing database rotation queue
+2026-01-29T15:37:10.514+0100 [INFO]  core: successful mount: namespace="" path=database-1769697430401/ type=database version=""
+2026-01-29T15:37:10.524+0100 [INFO]  secrets.database.database_e20a7963: populating role rotation queue
+2026-01-29T15:37:10.524+0100 [INFO]  secrets.database.database_e20a7963: starting periodic ticker
+2026-01-29T15:37:12.214+0100 [INFO]  secrets.database.database_2e3512a2: initializing database rotation queue
+2026-01-29T15:37:12.214+0100 [INFO]  core: successful mount: namespace="" path=database-1769697432117/ type=database version=""
+2026-01-29T15:37:12.225+0100 [INFO]  secrets.database.database_2e3512a2: populating role rotation queue
+2026-01-29T15:37:12.225+0100 [INFO]  secrets.database.database_2e3512a2: starting periodic ticker
+2026-01-29T15:37:12.817+0100 [ERROR] secrets.system.system_a380beee: error occurred during enable mount: path=database-1769697432117/ error="path is already in use at database-1769697432117/"
+2026-01-29T15:37:14.747+0100 [INFO]  secrets.database.database_c649c9bf: initializing database rotation queue
+2026-01-29T15:37:14.747+0100 [INFO]  core: successful mount: namespace="" path=database-1769697434638/ type=database version=""
+2026-01-29T15:37:14.758+0100 [INFO]  secrets.database.database_c649c9bf: populating role rotation queue
+2026-01-29T15:37:14.758+0100 [INFO]  secrets.database.database_c649c9bf: starting periodic ticker
+2026-01-29T15:37:15.633+0100 [INFO]  secrets.database.database_fa7d1c15: initializing database rotation queue
+2026-01-29T15:37:15.634+0100 [INFO]  core: successful mount: namespace="" path=database/ type=database version=""
+2026-01-29T15:37:15.644+0100 [INFO]  secrets.database.database_fa7d1c15: populating role rotation queue
+2026-01-29T15:37:15.644+0100 [INFO]  secrets.database.database_fa7d1c15: starting periodic ticker
+2026-01-29T15:37:16.530+0100 [INFO]  secrets.pki.pki_a7a3554c: 5b6b16db-a8d6-f207-fc4d-b2defd699c5f: succeeded in migrating to issuer storage version 2
+2026-01-29T15:37:16.530+0100 [INFO]  core: successful mount: namespace="" path=pki-disable-e8ef1fec-3b73-47ff-b1f8-7e101d09f829/ type=pki version=""
+2026-01-29T15:37:16.796+0100 [INFO]  core: successfully unmounted: namespace="" path=pki-disable-e8ef1fec-3b73-47ff-b1f8-7e101d09f829/
+2026-01-29T15:37:17.294+0100 [INFO]  secrets.database.database_cd17cc9c: initializing database rotation queue
+2026-01-29T15:37:17.295+0100 [INFO]  core: successful mount: namespace="" path=database-1-52070f00-2638-4b00-86aa-9fb6a8b818a0/ type=database version=""
+2026-01-29T15:37:17.305+0100 [INFO]  secrets.database.database_cd17cc9c: populating role rotation queue
+2026-01-29T15:37:17.305+0100 [INFO]  secrets.database.database_cd17cc9c: starting periodic ticker
+2026-01-29T15:37:17.506+0100 [INFO]  secrets.database.database_26523bf5: initializing database rotation queue
+2026-01-29T15:37:17.507+0100 [INFO]  core: successful mount: namespace="" path=database-2-52070f00-2638-4b00-86aa-9fb6a8b818a0/ type=database version=""
+2026-01-29T15:37:17.517+0100 [INFO]  secrets.database.database_26523bf5: populating role rotation queue
+2026-01-29T15:37:17.518+0100 [INFO]  secrets.database.database_26523bf5: starting periodic ticker
+2026-01-29T15:37:17.848+0100 [INFO]  secrets.database.database_cd17cc9c: stopping periodic ticker
+2026-01-29T15:37:17.848+0100 [INFO]  core: successfully unmounted: namespace="" path=database-1-52070f00-2638-4b00-86aa-9fb6a8b818a0/
+2026-01-29T15:37:17.877+0100 [INFO]  secrets.database.database_26523bf5: stopping periodic ticker
+2026-01-29T15:37:17.877+0100 [INFO]  core: successfully unmounted: namespace="" path=database-2-52070f00-2638-4b00-86aa-9fb6a8b818a0/
+2026-01-29T15:37:18.261+0100 [INFO]  core: successful mount: namespace="" path=generic-cf09dece-a731-4e9c-a659-db814152d922/ type=generic version=""
+2026-01-29T15:37:18.932+0100 [INFO]  core: successful mount: namespace="" path=generic-31a7f83d-3bc2-458c-9b6f-e154a7664ec3/ type=generic version=""
+2026-01-29T15:37:18.987+0100 [INFO]  core: mount tuning of options: path=generic-31a7f83d-3bc2-458c-9b6f-e154a7664ec3/ options=map[version:2]
+2026-01-29T15:37:18.988+0100 [INFO]  secrets.kv.generic_8f12257e: collecting keys to upgrade
+2026-01-29T15:37:18.988+0100 [INFO]  secrets.kv.generic_8f12257e: done collecting keys: num_keys=2
+2026-01-29T15:37:18.988+0100 [INFO]  secrets.kv.generic_8f12257e: upgrading keys finished
+2026-01-29T15:37:35.363+0100 [INFO]  core: successful mount: namespace="" path=kv/ type=kv version=""
+2026-01-29T15:37:35.373+0100 [INFO]  secrets.kv.kv_502b132b: collecting keys to upgrade
+2026-01-29T15:37:35.373+0100 [INFO]  secrets.kv.kv_502b132b: done collecting keys: num_keys=1
+2026-01-29T15:37:35.373+0100 [INFO]  secrets.kv.kv_502b132b: upgrading keys finished
+2026-01-29T15:37:35.721+0100 [INFO]  core: successfully unmounted: namespace="" path=kv/
+2026-01-29T15:37:36.082+0100 [ERROR] secrets.system.system_a380beee: error occurred during enable mount: path=secret/ error="path is already in use at secret/"
+2026-01-29T15:37:37.258+0100 [INFO]  core: successful mount: namespace="" path=kv-engine-367cc31c-c394-462b-8876-284d4d07e8ff/ type=kv version=""
+2026-01-29T15:37:37.269+0100 [INFO]  secrets.kv.kv_39aae431: collecting keys to upgrade
+2026-01-29T15:37:37.269+0100 [INFO]  secrets.kv.kv_39aae431: done collecting keys: num_keys=1
+2026-01-29T15:37:37.269+0100 [INFO]  secrets.kv.kv_39aae431: upgrading keys finished
+2026-01-29T15:37:38.107+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-engine-367cc31c-c394-462b-8876-284d4d07e8ff/
+2026-01-29T15:37:38.722+0100 [INFO]  core: successful mount: namespace="" path=kv-secret-0b1e1a16-2185-47bd-864f-991cf19454f6/ type=kv version=""
+2026-01-29T15:37:38.733+0100 [INFO]  secrets.kv.kv_14310d3b: collecting keys to upgrade
+2026-01-29T15:37:38.733+0100 [INFO]  secrets.kv.kv_14310d3b: done collecting keys: num_keys=1
+2026-01-29T15:37:38.733+0100 [INFO]  secrets.kv.kv_14310d3b: upgrading keys finished
+2026-01-29T15:37:40.004+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-secret-0b1e1a16-2185-47bd-864f-991cf19454f6/
+2026-01-29T15:37:41.029+0100 [INFO]  core: successful mount: namespace="" path=kv-secret-454e29d6-e633-4ebf-bfd1-ec41eb6ae56e/ type=kv version=""
+2026-01-29T15:37:41.040+0100 [INFO]  secrets.kv.kv_2d72902a: collecting keys to upgrade
+2026-01-29T15:37:41.040+0100 [INFO]  secrets.kv.kv_2d72902a: done collecting keys: num_keys=1
+2026-01-29T15:37:41.040+0100 [INFO]  secrets.kv.kv_2d72902a: upgrading keys finished
+2026-01-29T15:37:42.572+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-secret-454e29d6-e633-4ebf-bfd1-ec41eb6ae56e/
+2026-01-29T15:37:43.604+0100 [INFO]  core: successful mount: namespace="" path=kv-secret-c4cc1616-a4ec-4591-8af1-3475258565a6/ type=kv version=""
+2026-01-29T15:37:43.614+0100 [INFO]  secrets.kv.kv_523f0851: collecting keys to upgrade
+2026-01-29T15:37:43.614+0100 [INFO]  secrets.kv.kv_523f0851: done collecting keys: num_keys=1
+2026-01-29T15:37:43.614+0100 [INFO]  secrets.kv.kv_523f0851: upgrading keys finished
+2026-01-29T15:37:44.048+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-secret-c4cc1616-a4ec-4591-8af1-3475258565a6/
+2026-01-29T15:37:44.593+0100 [INFO]  core: successful mount: namespace="" path=kv-secret-d779701c-f51a-4258-b017-0ba74d480ac7/ type=kv version=""
+2026-01-29T15:37:44.604+0100 [INFO]  secrets.kv.kv_c06d6994: collecting keys to upgrade
+2026-01-29T15:37:44.604+0100 [INFO]  secrets.kv.kv_c06d6994: done collecting keys: num_keys=1
+2026-01-29T15:37:44.604+0100 [INFO]  secrets.kv.kv_c06d6994: upgrading keys finished
+2026-01-29T15:37:45.272+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-secret-d779701c-f51a-4258-b017-0ba74d480ac7/
+2026-01-29T15:37:45.806+0100 [INFO]  core: successful mount: namespace="" path=kv-secret-6ae3c8ef-f75c-4cee-a296-5e3c297ecea6/ type=kv version=""
+2026-01-29T15:37:45.817+0100 [INFO]  secrets.kv.kv_9fa22028: collecting keys to upgrade
+2026-01-29T15:37:45.817+0100 [INFO]  secrets.kv.kv_9fa22028: done collecting keys: num_keys=1
+2026-01-29T15:37:45.817+0100 [INFO]  secrets.kv.kv_9fa22028: upgrading keys finished
+2026-01-29T15:37:46.841+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-secret-6ae3c8ef-f75c-4cee-a296-5e3c297ecea6/
+2026-01-29T15:37:47.422+0100 [INFO]  core: successful mount: namespace="" path=kv-secret-d5893182-0d23-473e-9656-5d926fa37af9/ type=kv version=""
+2026-01-29T15:37:47.433+0100 [INFO]  secrets.kv.kv_e465d148: collecting keys to upgrade
+2026-01-29T15:37:47.433+0100 [INFO]  secrets.kv.kv_e465d148: done collecting keys: num_keys=1
+2026-01-29T15:37:47.433+0100 [INFO]  secrets.kv.kv_e465d148: upgrading keys finished
+2026-01-29T15:37:48.336+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-secret-d5893182-0d23-473e-9656-5d926fa37af9/
+2026-01-29T15:37:49.200+0100 [INFO]  core: successful mount: namespace="" path=kv-secret-89ee87ce-c538-473c-b200-7e160f525f9e/ type=kv version=""
+2026-01-29T15:37:50.604+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-secret-89ee87ce-c538-473c-b200-7e160f525f9e/
+2026-01-29T15:37:51.455+0100 [INFO]  core: successful mount: namespace="" path=kv-secret-18006315-d1a4-41d5-8ea7-af05dd835f06/ type=kv version=""
+2026-01-29T15:37:54.208+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-secret-18006315-d1a4-41d5-8ea7-af05dd835f06/
+2026-01-29T15:37:54.810+0100 [INFO]  core: successful mount: namespace="" path=kv-secret-8183e654-80bd-4bba-89a2-b3d71be40ba9/ type=kv version=""
+2026-01-29T15:37:55.466+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-secret-8183e654-80bd-4bba-89a2-b3d71be40ba9/
+2026-01-29T15:37:55.934+0100 [INFO]  core: successful mount: namespace="" path=test/ type=kv version=""
+2026-01-29T15:37:56.590+0100 [INFO]  core: successfully unmounted: namespace="" path=test/
+2026-01-29T15:37:57.064+0100 [ERROR] secrets.system.system_a380beee: error occurred during enable mount: path=secret/ error="path is already in use at secret/"
+2026-01-29T15:37:57.696+0100 [INFO]  core: successfully unmounted: namespace="" path=secret/
+2026-01-29T15:37:58.211+0100 [INFO]  core: successful mount: namespace="" path=secret/ type=kv version=""
+2026-01-29T15:37:58.767+0100 [INFO]  core: successfully unmounted: namespace="" path=secret/
+2026-01-29T15:37:59.239+0100 [INFO]  core: successful mount: namespace="" path=kv-encoding-2200eb53-b40b-438b-9056-5177b5c3323a/ type=kv version=""
+2026-01-29T15:38:04.854+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-encoding-2200eb53-b40b-438b-9056-5177b5c3323a/
+2026-01-29T15:38:05.534+0100 [INFO]  core: successful mount: namespace="" path=kv-engine-b6cb0c7b-b9c3-49a2-9290-5a9297677906/ type=kv version=""
+2026-01-29T15:38:05.545+0100 [INFO]  secrets.kv.kv_073b2627: collecting keys to upgrade
+2026-01-29T15:38:05.545+0100 [INFO]  secrets.kv.kv_073b2627: done collecting keys: num_keys=1
+2026-01-29T15:38:05.545+0100 [INFO]  secrets.kv.kv_073b2627: upgrading keys finished
+2026-01-29T15:38:07.026+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-engine-b6cb0c7b-b9c3-49a2-9290-5a9297677906/
+2026-01-29T15:38:07.385+0100 [INFO]  core: successful mount: namespace="" path=kv-engine-45c9b9f2-67c2-4692-9697-c5fa5c7ea509/ type=kv version=""
+2026-01-29T15:38:07.822+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-engine-45c9b9f2-67c2-4692-9697-c5fa5c7ea509/
+2026-01-29T15:38:08.178+0100 [INFO]  core: successful mount: namespace="" path=kv-quotes-87c2a456-885b-4a02-8a50-733985eb9de5/ type=kv version=""
+2026-01-29T15:38:09.048+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-quotes-87c2a456-885b-4a02-8a50-733985eb9de5/
+2026-01-29T15:38:09.481+0100 [INFO]  core: successful mount: namespace="" path=test/ type=kv version=""
+2026-01-29T15:38:10.730+0100 [INFO]  core: successfully unmounted: namespace="" path=test/
+2026-01-29T15:38:11.238+0100 [INFO]  core: successful mount: namespace="" path=dont-show-metadata-tab/ type=kv version=""
+2026-01-29T15:38:11.248+0100 [INFO]  secrets.kv.kv_72c0cd6f: collecting keys to upgrade
+2026-01-29T15:38:11.248+0100 [INFO]  secrets.kv.kv_72c0cd6f: done collecting keys: num_keys=1
+2026-01-29T15:38:11.248+0100 [INFO]  secrets.kv.kv_72c0cd6f: upgrading keys finished
+2026-01-29T15:38:12.093+0100 [INFO]  core: successfully unmounted: namespace="" path=dont-show-metadata-tab/
+2026-01-29T15:38:12.738+0100 [INFO]  core: successful mount: namespace="" path=kv-metadata-access-only/ type=kv version=""
+2026-01-29T15:38:12.749+0100 [INFO]  secrets.kv.kv_1f55aa9b: collecting keys to upgrade
+2026-01-29T15:38:12.749+0100 [INFO]  secrets.kv.kv_1f55aa9b: done collecting keys: num_keys=1
+2026-01-29T15:38:12.749+0100 [INFO]  secrets.kv.kv_1f55aa9b: upgrading keys finished
+2026-01-29T15:38:14.974+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-metadata-access-only/
+2026-01-29T15:38:15.639+0100 [INFO]  core: successful mount: namespace="" path=no-metadata-read/ type=kv version=""
+2026-01-29T15:38:15.649+0100 [INFO]  secrets.kv.kv_027915e0: collecting keys to upgrade
+2026-01-29T15:38:15.649+0100 [INFO]  secrets.kv.kv_027915e0: done collecting keys: num_keys=1
+2026-01-29T15:38:15.649+0100 [INFO]  secrets.kv.kv_027915e0: upgrading keys finished
+2026-01-29T15:38:18.696+0100 [INFO]  core: successfully unmounted: namespace="" path=no-metadata-read/
+2026-01-29T15:38:20.075+0100 [INFO]  core: successful mount: namespace="" path=kv-v2-destroy-capabilities/ type=kv version=""
+2026-01-29T15:38:20.085+0100 [INFO]  secrets.kv.kv_1ada0a32: collecting keys to upgrade
+2026-01-29T15:38:20.085+0100 [INFO]  secrets.kv.kv_1ada0a32: done collecting keys: num_keys=1
+2026-01-29T15:38:20.085+0100 [INFO]  secrets.kv.kv_1ada0a32: upgrading keys finished
+2026-01-29T15:38:20.934+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-v2-destroy-capabilities/
+2026-01-29T15:38:21.396+0100 [INFO]  core: successful mount: namespace="" path=kv-v2-only-delete/ type=kv version=""
+2026-01-29T15:38:21.406+0100 [INFO]  secrets.kv.kv_49ceccc2: collecting keys to upgrade
+2026-01-29T15:38:21.406+0100 [INFO]  secrets.kv.kv_49ceccc2: done collecting keys: num_keys=1
+2026-01-29T15:38:21.406+0100 [INFO]  secrets.kv.kv_49ceccc2: upgrading keys finished
+2026-01-29T15:38:22.357+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-v2-only-delete/
+2026-01-29T15:38:22.844+0100 [INFO]  core: successful mount: namespace="" path=kv-v2-soft-delete-only/ type=kv version=""
+2026-01-29T15:38:22.855+0100 [INFO]  secrets.kv.kv_849ff180: collecting keys to upgrade
+2026-01-29T15:38:22.855+0100 [INFO]  secrets.kv.kv_849ff180: done collecting keys: num_keys=1
+2026-01-29T15:38:22.855+0100 [INFO]  secrets.kv.kv_849ff180: upgrading keys finished
+2026-01-29T15:38:24.535+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-v2-soft-delete-only/
+2026-01-29T15:38:25.136+0100 [INFO]  core: successful mount: namespace="" path=kv-v2-can-delete-version/ type=kv version=""
+2026-01-29T15:38:25.146+0100 [INFO]  secrets.kv.kv_35bb98b0: collecting keys to upgrade
+2026-01-29T15:38:25.146+0100 [INFO]  secrets.kv.kv_35bb98b0: done collecting keys: num_keys=1
+2026-01-29T15:38:25.146+0100 [INFO]  secrets.kv.kv_35bb98b0: upgrading keys finished
+2026-01-29T15:38:27.943+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-v2-can-delete-version/
+2026-01-29T15:38:28.508+0100 [INFO]  core: successful mount: namespace="" path=kv-v2-forward-slash/ type=kv version=""
+2026-01-29T15:38:28.518+0100 [INFO]  secrets.kv.kv_0992080f: collecting keys to upgrade
+2026-01-29T15:38:28.518+0100 [INFO]  secrets.kv.kv_0992080f: done collecting keys: num_keys=1
+2026-01-29T15:38:28.518+0100 [INFO]  secrets.kv.kv_0992080f: upgrading keys finished
+2026-01-29T15:38:29.879+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-v2-forward-slash/
+2026-01-29T15:38:30.870+0100 [INFO]  core: successful mount: namespace="" path=forward/slash/ type=kv version=""
+2026-01-29T15:38:30.880+0100 [INFO]  secrets.kv.kv_3afdca84: collecting keys to upgrade
+2026-01-29T15:38:30.880+0100 [INFO]  secrets.kv.kv_3afdca84: done collecting keys: num_keys=1
+2026-01-29T15:38:30.880+0100 [INFO]  secrets.kv.kv_3afdca84: upgrading keys finished
+2026-01-29T15:38:31.665+0100 [INFO]  core: successfully unmounted: namespace="" path=forward/slash/
+2026-01-29T15:38:32.152+0100 [INFO]  core: successful mount: namespace="" path=kv-v2/ type=kv version=""
+2026-01-29T15:38:32.162+0100 [INFO]  secrets.kv.kv_d9e31980: collecting keys to upgrade
+2026-01-29T15:38:32.162+0100 [INFO]  secrets.kv.kv_d9e31980: done collecting keys: num_keys=1
+2026-01-29T15:38:32.162+0100 [INFO]  secrets.kv.kv_d9e31980: upgrading keys finished
+2026-01-29T15:38:33.181+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-v2/
+2026-01-29T15:38:33.670+0100 [INFO]  core: successful mount: namespace="" path=kv-v2/ type=kv version=""
+2026-01-29T15:38:33.680+0100 [INFO]  secrets.kv.kv_4ca65215: collecting keys to upgrade
+2026-01-29T15:38:33.680+0100 [INFO]  secrets.kv.kv_4ca65215: done collecting keys: num_keys=1
+2026-01-29T15:38:33.680+0100 [INFO]  secrets.kv.kv_4ca65215: upgrading keys finished
+2026-01-29T15:38:34.917+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-v2/
+2026-01-29T15:38:35.515+0100 [INFO]  core: successful mount: namespace="" path=kv-v1/ type=kv version=""
+2026-01-29T15:38:36.959+0100 [INFO]  core: successfully unmounted: namespace="" path=kv-v1/
+2026-01-29T15:38:38.350+0100 [INFO]  secrets.ssh.ssh_4b10dd22: Performing SSH migration to new issuers layout
+2026-01-29T15:38:38.350+0100 [INFO]  secrets.ssh.ssh_4b10dd22: Succeeded in migrating to issuer storage version 1
+2026-01-29T15:38:38.350+0100 [INFO]  core: successful mount: namespace="" path=ssh-c739f3db-f31e-49d7-92dd-4721d64b4a16/ type=ssh version=""
+2026-01-29T15:38:39.748+0100 [INFO]  secrets.ssh.ssh_711ae9d2: Performing SSH migration to new issuers layout
+2026-01-29T15:38:39.748+0100 [INFO]  secrets.ssh.ssh_711ae9d2: Succeeded in migrating to issuer storage version 1
+2026-01-29T15:38:39.748+0100 [INFO]  core: successful mount: namespace="" path=ssh-2da742ce-900d-453d-9b71-35e1424e1be5/ type=ssh version=""
+2026-01-29T15:38:41.656+0100 [INFO]  secrets.ssh.ssh_4d59914f: Performing SSH migration to new issuers layout
+2026-01-29T15:38:41.656+0100 [INFO]  secrets.ssh.ssh_4d59914f: Succeeded in migrating to issuer storage version 1
+2026-01-29T15:38:41.656+0100 [INFO]  core: successful mount: namespace="" path=ssh-4957f33c-4402-4ae7-9e67-e8b0b76a6dff/ type=ssh version=""
+2026-01-29T15:38:42.715+0100 [INFO]  secrets.pki.pki_dc09953b: 3bb76524-967b-0341-7599-e77dbc965ea9: succeeded in migrating to issuer storage version 2
+2026-01-29T15:38:42.715+0100 [INFO]  core: successful mount: namespace="" path=settings-path-f1d131af-352e-467e-b9fd-a08d741fcc9e/ type=pki version=""
+2026-01-29T15:38:43.699+0100 [INFO]  core: enabled credential backend: namespace="" path=approle-config-b5930c14-2fcd-4242-9170-03ab20461e2c/ type=approle version=""
+2026-01-29T15:38:44.376+0100 [INFO]  core: enabled credential backend: namespace="" path=ldap-redirect-615d0211-199c-4b55-adb9-fda3493ca925/ type=ldap version=""
+2026-01-29T15:38:45.259+0100 [INFO]  core: enabled credential backend: namespace="" path=approle-save-d6ae92cb-7e6e-4f02-8935-9f630455ac34/ type=approle version=""
+2026-01-29T15:38:46.145+0100 [INFO]  core: enabled credential backend: namespace="" path=ldap-showtab-1c4acd74-174d-4b6f-92b4-a89f77786617/ type=ldap version=""
+2026-01-29T15:38:47.363+0100 [INFO]  core: enabled credential backend: namespace="" path=kubernetes-showtab-fa261946-3a5a-4774-bf2c-646a8e9c6af2/ type=kubernetes version=""
+2026-01-29T15:38:48.863+0100 [INFO]  core: enabled credential backend: namespace="" path=aaa-approle-827fdf41-b287-4f6b-aedb-ca930b78e2ed/ type=approle version=""
+2026-01-29T15:38:49.970+0100 [INFO]  secrets.ssh.ssh_0ef10319: Performing SSH migration to new issuers layout
+2026-01-29T15:38:49.970+0100 [INFO]  secrets.ssh.ssh_0ef10319: Succeeded in migrating to issuer storage version 1
+2026-01-29T15:38:49.970+0100 [INFO]  core: successful mount: namespace="" path=ssh-configure-0e6d70ac-e751-43a0-93b4-d255bbe7d215/ type=ssh version=""
+2026-01-29T15:38:52.377+0100 [INFO]  core: successful mount: namespace="" path=mount-kv-cddbe196-98f4-481f-a2df-fc2ab87adf07/ type=kv version=""
+2026-01-29T15:38:52.387+0100 [INFO]  secrets.kv.kv_bb764af0: collecting keys to upgrade
+2026-01-29T15:38:52.387+0100 [INFO]  secrets.kv.kv_bb764af0: done collecting keys: num_keys=1
+2026-01-29T15:38:52.387+0100 [INFO]  secrets.kv.kv_bb764af0: upgrading keys finished
+2026-01-29T15:38:53.756+0100 [INFO]  core: successful mount: namespace="" path=mount-kv-e6873096-588c-4b4b-9f37-079afd001557/ type=kv version=""
+2026-01-29T15:38:53.766+0100 [INFO]  secrets.kv.kv_3a0ddcf5: collecting keys to upgrade
+2026-01-29T15:38:53.766+0100 [INFO]  secrets.kv.kv_3a0ddcf5: done collecting keys: num_keys=1
+2026-01-29T15:38:53.766+0100 [INFO]  secrets.kv.kv_3a0ddcf5: upgrading keys finished
+2026-01-29T15:38:55.268+0100 [INFO]  core: successful mount: namespace="" path=kv-duplicate/ type=kv version=""
+2026-01-29T15:38:55.279+0100 [INFO]  secrets.kv.kv_856d62e9: collecting keys to upgrade
+2026-01-29T15:38:55.279+0100 [INFO]  secrets.kv.kv_856d62e9: done collecting keys: num_keys=1
+2026-01-29T15:38:55.279+0100 [INFO]  secrets.kv.kv_856d62e9: upgrading keys finished
+2026-01-29T15:38:55.570+0100 [ERROR] secrets.system.system_a380beee: error occurred during enable mount: path=kv-duplicate/ error="path is already in use at kv-duplicate/"
+2026-01-29T15:38:56.578+0100 [INFO]  core: successful mount: namespace="" path=kv-noUpdate-aa8375fd-6512-4539-9fcf-b63620577097/ type=kv version=""
+2026-01-29T15:38:56.588+0100 [INFO]  secrets.kv.kv_33da979f: collecting keys to upgrade
+2026-01-29T15:38:56.588+0100 [INFO]  secrets.kv.kv_33da979f: done collecting keys: num_keys=1
+2026-01-29T15:38:56.588+0100 [INFO]  secrets.kv.kv_33da979f: upgrading keys finished
+2026-01-29T15:38:57.274+0100 [INFO]  core: successful mount: namespace="" path=kubernetes/ type=kubernetes version=""
+2026-01-29T15:39:06.868+0100 [INFO]  secrets.ssh.ssh_80e81185: Performing SSH migration to new issuers layout
+2026-01-29T15:39:06.868+0100 [INFO]  secrets.ssh.ssh_80e81185: Succeeded in migrating to issuer storage version 1
+2026-01-29T15:39:06.868+0100 [INFO]  core: successful mount: namespace="" path=ssh-8a214621-e389-48a0-bd6b-13c3e5be5ea2/ type=ssh version=""
+2026-01-29T15:39:11.838+0100 [INFO]  core: successful mount: namespace="" path=transit-fc911ffc-a615-4d53-a97a-bdac16bc82a6/ type=transit version=""
+2026-01-29T15:39:12.695+0100 [INFO]  core: successful mount: namespace="" path=transit-a9256414-4f90-4a61-aa44-66352788512d/ type=transit version=""
+2026-01-29T15:39:13.878+0100 [INFO]  core: successful mount: namespace="" path=transit-ad0b8bd0-5bd4-464e-a8fa-0f14849b48bd/ type=transit version=""
+2026-01-29T15:39:16.929+0100 [INFO]  core: successful mount: namespace="" path=transit-a47b2faf-c6e8-45da-83df-11d1e82c850e/ type=transit version=""
+2026-01-29T15:39:18.385+0100 [INFO]  core: successful mount: namespace="" path=transit-7ff1852d-e11d-4616-ad22-16ae52128f18/ type=transit version=""
+2026-01-29T15:39:21.682+0100 [INFO]  core: successful mount: namespace="" path=transit-f64521ee-1de5-489a-bc2c-03fca079f63f/ type=transit version=""
+2026-01-29T15:39:24.059+0100 [INFO]  core: successful mount: namespace="" path=transit-b1cef445-ddf7-4efc-92c9-5cd95ac36ffc/ type=transit version=""
+2026-01-29T15:39:27.171+0100 [INFO]  core: successful mount: namespace="" path=transit-72766f29-2b66-4573-a958-7ad323b25957/ type=transit version=""
+2026-01-29T15:39:28.077+0100 [INFO]  core: successful mount: namespace="" path=transit-ef1e4c2f-8f60-42f1-adba-a559100215db/ type=transit version=""
+2026-01-29T15:39:29.146+0100 [INFO]  core: successful mount: namespace="" path=transit-c9eec85e-d457-442c-868a-272f8a3eb4cd/ type=transit version=""
+2026-01-29T15:39:30.220+0100 [INFO]  core: successful mount: namespace="" path=transit-d46b8bc7-c546-40c8-a440-d20b75c8cfe2/ type=transit version=""
+2026-01-29T15:39:31.559+0100 [INFO]  core: successful mount: namespace="" path=transit-8fff60ea-488a-4ca8-88bb-086c8abb6588/ type=transit version=""
+2026-01-29T15:39:33.192+0100 [INFO]  core: successful mount: namespace="" path=transit-8df4a58e-b350-4d99-83d9-92f43d1afe0f/ type=transit version=""
+2026-01-29T15:39:35.866+0100 [INFO]  core: successful mount: namespace="" path=transit-3a2c2d0a-f4fa-4878-a51c-197401f12d0a/ type=transit version=""
+2026-01-29T15:39:38.256+0100 [INFO]  core: marked as sealed
+2026-01-29T15:39:38.256+0100 [INFO]  core: runStandby stopped
+2026-01-29T15:39:38.256+0100 [INFO]  core: pre-seal teardown starting
+2026-01-29T15:39:38.757+0100 [INFO]  rollback: stopping rollback manager
+2026-01-29T15:39:38.758+0100 [INFO]  secrets.database.database_2794bc6f: stopping periodic ticker
+2026-01-29T15:39:38.758+0100 [INFO]  secrets.database.database_b9b2e6c0: stopping periodic ticker
+2026-01-29T15:39:38.758+0100 [INFO]  secrets.database.database_e20a7963: stopping periodic ticker
+2026-01-29T15:39:38.758+0100 [INFO]  secrets.database.database_c649c9bf: stopping periodic ticker
+2026-01-29T15:39:38.758+0100 [INFO]  secrets.database.database_2e3512a2: stopping periodic ticker
+2026-01-29T15:39:38.758+0100 [INFO]  secrets.database.database_fa7d1c15: stopping periodic ticker
+2026-01-29T15:39:38.758+0100 [INFO]  core: pre-seal teardown complete
+2026-01-29T15:39:38.758+0100 [INFO]  core: stopping cluster listeners
+2026-01-29T15:39:38.758+0100 [INFO]  core.cluster-listener: forwarding rpc listeners stopped
+2026-01-29T15:39:39.163+0100 [INFO]  core.cluster-listener: rpc listeners successfully shut down
+2026-01-29T15:39:39.163+0100 [INFO]  core: cluster listeners successfully shut down
+2026-01-29T15:39:39.163+0100 [INFO]  core: vault is sealed
+2026-01-29T15:39:39.268+0100 [INFO]  core.cluster-listener.tcp: starting listener: listener_address=127.0.0.1:9201
+2026-01-29T15:39:39.268+0100 [INFO]  core.cluster-listener: serving cluster requests: cluster_listen_address=127.0.0.1:9201
+2026-01-29T15:39:39.268+0100 [INFO]  core: vault is unsealed
+2026-01-29T15:39:39.268+0100 [INFO]  core: entering standby mode
+2026-01-29T15:39:39.268+0100 [INFO]  core: enabling horizontal scalability (reads)
+2026-01-29T15:39:39.268+0100 [INFO]  core: pre-seal teardown starting
+2026-01-29T15:39:39.268+0100 [INFO]  core: pre-seal teardown complete
+2026-01-29T15:39:39.268+0100 [INFO]  core: post-unseal setup starting
+2026-01-29T15:39:39.268+0100 [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-01-29T15:39:39.268+0100 [INFO]  core.oci-plugins: skipping OCI plugin downloading
+2026-01-29T15:39:39.268+0100 [INFO]  core.oci-plugins: skipping OCI plugin registration
+2026-01-29T15:39:39.269+0100 [INFO]  core: successfully mounted: type=system version="v2.0.0+builtin.bao" path=sys/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=identity version="v2.0.0+builtin.bao" path=identity/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database-1769697425298/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database-1769697425989/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database-1769697430401/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database-1769697432117/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database-1769697434638/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=generic version="v2.0.0+builtin.bao" path=generic-cf09dece-a731-4e9c-a659-db814152d922/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=generic version="v2.0.0+builtin.bao" path=generic-31a7f83d-3bc2-458c-9b6f-e154a7664ec3/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=ssh version="v2.0.0+builtin.bao" path=ssh-c739f3db-f31e-49d7-92dd-4721d64b4a16/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=ssh version="v2.0.0+builtin.bao" path=ssh-2da742ce-900d-453d-9b71-35e1424e1be5/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=ssh version="v2.0.0+builtin.bao" path=ssh-4957f33c-4402-4ae7-9e67-e8b0b76a6dff/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.270+0100 [INFO]  core: successfully mounted: type=pki version="v2.0.0+builtin.bao" path=settings-path-f1d131af-352e-467e-b9fd-a08d741fcc9e/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=ssh version="v2.0.0+builtin.bao" path=ssh-configure-0e6d70ac-e751-43a0-93b4-d255bbe7d215/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=kv version="v2.0.0+builtin.bao" path=mount-kv-cddbe196-98f4-481f-a2df-fc2ab87adf07/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=kv version="v2.0.0+builtin.bao" path=mount-kv-e6873096-588c-4b4b-9f37-079afd001557/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=kv version="v2.0.0+builtin.bao" path=kv-duplicate/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=kv version="v2.0.0+builtin.bao" path=kv-noUpdate-aa8375fd-6512-4539-9fcf-b63620577097/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=kubernetes version="v2.0.0+builtin.bao" path=kubernetes/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=ssh version="v2.0.0+builtin.bao" path=ssh-8a214621-e389-48a0-bd6b-13c3e5be5ea2/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-fc911ffc-a615-4d53-a97a-bdac16bc82a6/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-a9256414-4f90-4a61-aa44-66352788512d/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-ad0b8bd0-5bd4-464e-a8fa-0f14849b48bd/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-a47b2faf-c6e8-45da-83df-11d1e82c850e/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-7ff1852d-e11d-4616-ad22-16ae52128f18/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-f64521ee-1de5-489a-bc2c-03fca079f63f/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-b1cef445-ddf7-4efc-92c9-5cd95ac36ffc/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-72766f29-2b66-4573-a958-7ad323b25957/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.271+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-ef1e4c2f-8f60-42f1-adba-a559100215db/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.272+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-c9eec85e-d457-442c-868a-272f8a3eb4cd/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.272+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-d46b8bc7-c546-40c8-a440-d20b75c8cfe2/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.272+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-8fff60ea-488a-4ca8-88bb-086c8abb6588/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.272+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-8df4a58e-b350-4d99-83d9-92f43d1afe0f/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.272+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-3a2c2d0a-f4fa-4878-a51c-197401f12d0a/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.272+0100 [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.0+builtin.bao" path=cubbyhole/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.272+0100 [INFO]  core: successfully mounted: type=token version="v2.0.0+builtin.bao" path=token/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.272+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=userpass-1.62395551811038/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.272+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=userpass-2.62395551811038/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.272+0100 [INFO]  core: successfully mounted: type=jwt version="v2.0.0+builtin.bao" path=auth-list-jwt-c37da34b-d367-40b5-b6cd-2c1cd1130039/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=oidc version="v2.0.0+builtin.bao" path=auth-list-oidc-c37da34b-d367-40b5-b6cd-2c1cd1130039/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=cluster-userpass-ba83ec8e-cefe-411c-901a-847b8135f067/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=userpass-dbc8e185-6762-446e-a7ef-fc7cac823234/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=userpass-a7a6cff9-c06f-414a-822d-0740039a3bbc/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=oidc-userpass-1ad12874-8091-4d4c-8f52-ca9c90dddcd8/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=oidc-userpass-82c83883-98b8-4b02-96a8-6df9be79e508/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=oidc-userpass-a8bbc41a-e3e4-42c2-b080-cf612bc2d12e/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=approle version="v2.0.0+builtin.bao" path=approle-config-b5930c14-2fcd-4242-9170-03ab20461e2c/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=ldap version="v2.0.0+builtin.bao" path=ldap-redirect-615d0211-199c-4b55-adb9-fda3493ca925/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=approle version="v2.0.0+builtin.bao" path=approle-save-d6ae92cb-7e6e-4f02-8935-9f630455ac34/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=ldap version="v2.0.0+builtin.bao" path=ldap-showtab-1c4acd74-174d-4b6f-92b4-a89f77786617/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=kubernetes version="v2.0.0+builtin.bao" path=kubernetes-showtab-fa261946-3a5a-4774-bf2c-646a8e9c6af2/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  core: successfully mounted: type=approle version="v2.0.0+builtin.bao" path=aaa-approle-827fdf41-b287-4f6b-aedb-ca930b78e2ed/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.273+0100 [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-01-29T15:39:39.274+0100 [INFO]  rollback: starting rollback manager
+2026-01-29T15:39:39.274+0100 [INFO]  core: restoring leases
+2026-01-29T15:39:39.274+0100 [INFO]  identity: entities restored
+2026-01-29T15:39:39.275+0100 [INFO]  identity: groups restored
+2026-01-29T15:39:39.275+0100 [INFO]  expiration: lease restore complete
+2026-01-29T15:39:39.275+0100 [INFO]  core: post-unseal setup complete
+2026-01-29T15:39:39.276+0100 [INFO]  core: acquired lock, enabling active operation
+2026-01-29T15:39:39.280+0100 [INFO]  core: pre-seal teardown starting
+2026-01-29T15:39:39.280+0100 [INFO]  rollback: stopping rollback manager
+2026-01-29T15:39:39.280+0100 [INFO]  core: pre-seal teardown complete
+2026-01-29T15:39:39.280+0100 [INFO]  core: post-unseal setup starting
+2026-01-29T15:39:39.281+0100 [INFO]  core: loaded wrapping token key
+2026-01-29T15:39:39.281+0100 [INFO]  core: successfully setup plugin catalog: plugin-directory=""
+2026-01-29T15:39:39.281+0100 [INFO]  core.oci-plugins: skipping OCI plugin downloading
+2026-01-29T15:39:39.281+0100 [INFO]  core.oci-plugins: skipping OCI plugin registration
+2026-01-29T15:39:39.281+0100 [INFO]  core: successfully mounted: type=system version="v2.0.0+builtin.bao" path=sys/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.281+0100 [INFO]  core: successfully mounted: type=identity version="v2.0.0+builtin.bao" path=identity/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  secrets.database.database_2794bc6f: initializing database rotation queue
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database-1769697425298/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  secrets.database.database_b9b2e6c0: initializing database rotation queue
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database-1769697425989/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  secrets.database.database_e20a7963: initializing database rotation queue
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database-1769697430401/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  secrets.database.database_2e3512a2: initializing database rotation queue
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database-1769697432117/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  secrets.database.database_c649c9bf: initializing database rotation queue
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database-1769697434638/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=database version="v2.0.0+builtin.bao" path=database/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  secrets.database.database_fa7d1c15: initializing database rotation queue
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=generic version="v2.0.0+builtin.bao" path=generic-cf09dece-a731-4e9c-a659-db814152d922/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=generic version="v2.0.0+builtin.bao" path=generic-31a7f83d-3bc2-458c-9b6f-e154a7664ec3/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=ssh version="v2.0.0+builtin.bao" path=ssh-c739f3db-f31e-49d7-92dd-4721d64b4a16/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=ssh version="v2.0.0+builtin.bao" path=ssh-2da742ce-900d-453d-9b71-35e1424e1be5/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.282+0100 [INFO]  core: successfully mounted: type=ssh version="v2.0.0+builtin.bao" path=ssh-4957f33c-4402-4ae7-9e67-e8b0b76a6dff/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=pki version="v2.0.0+builtin.bao" path=settings-path-f1d131af-352e-467e-b9fd-a08d741fcc9e/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=ssh version="v2.0.0+builtin.bao" path=ssh-configure-0e6d70ac-e751-43a0-93b4-d255bbe7d215/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=kv version="v2.0.0+builtin.bao" path=mount-kv-cddbe196-98f4-481f-a2df-fc2ab87adf07/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=kv version="v2.0.0+builtin.bao" path=mount-kv-e6873096-588c-4b4b-9f37-079afd001557/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=kv version="v2.0.0+builtin.bao" path=kv-duplicate/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=kv version="v2.0.0+builtin.bao" path=kv-noUpdate-aa8375fd-6512-4539-9fcf-b63620577097/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=kubernetes version="v2.0.0+builtin.bao" path=kubernetes/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=ssh version="v2.0.0+builtin.bao" path=ssh-8a214621-e389-48a0-bd6b-13c3e5be5ea2/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-fc911ffc-a615-4d53-a97a-bdac16bc82a6/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-a9256414-4f90-4a61-aa44-66352788512d/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.283+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-ad0b8bd0-5bd4-464e-a8fa-0f14849b48bd/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-a47b2faf-c6e8-45da-83df-11d1e82c850e/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-7ff1852d-e11d-4616-ad22-16ae52128f18/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-f64521ee-1de5-489a-bc2c-03fca079f63f/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-b1cef445-ddf7-4efc-92c9-5cd95ac36ffc/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-72766f29-2b66-4573-a958-7ad323b25957/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-ef1e4c2f-8f60-42f1-adba-a559100215db/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-c9eec85e-d457-442c-868a-272f8a3eb4cd/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-d46b8bc7-c546-40c8-a440-d20b75c8cfe2/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-8fff60ea-488a-4ca8-88bb-086c8abb6588/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-8df4a58e-b350-4d99-83d9-92f43d1afe0f/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=transit version="v2.0.0+builtin.bao" path=transit-3a2c2d0a-f4fa-4878-a51c-197401f12d0a/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.284+0100 [INFO]  core: successfully mounted: type=cubbyhole version="v2.0.0+builtin.bao" path=cubbyhole/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.285+0100 [INFO]  core: successfully mounted: type=token version="v2.0.0+builtin.bao" path=token/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.285+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=userpass-1.62395551811038/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.285+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=userpass-2.62395551811038/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.285+0100 [INFO]  core: successfully mounted: type=jwt version="v2.0.0+builtin.bao" path=auth-list-jwt-c37da34b-d367-40b5-b6cd-2c1cd1130039/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=oidc version="v2.0.0+builtin.bao" path=auth-list-oidc-c37da34b-d367-40b5-b6cd-2c1cd1130039/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=cluster-userpass-ba83ec8e-cefe-411c-901a-847b8135f067/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=userpass-dbc8e185-6762-446e-a7ef-fc7cac823234/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=userpass-a7a6cff9-c06f-414a-822d-0740039a3bbc/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=oidc-userpass-1ad12874-8091-4d4c-8f52-ca9c90dddcd8/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=oidc-userpass-82c83883-98b8-4b02-96a8-6df9be79e508/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=userpass version="v2.0.0+builtin.bao" path=oidc-userpass-a8bbc41a-e3e4-42c2-b080-cf612bc2d12e/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=approle version="v2.0.0+builtin.bao" path=approle-config-b5930c14-2fcd-4242-9170-03ab20461e2c/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=ldap version="v2.0.0+builtin.bao" path=ldap-redirect-615d0211-199c-4b55-adb9-fda3493ca925/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=approle version="v2.0.0+builtin.bao" path=approle-save-d6ae92cb-7e6e-4f02-8935-9f630455ac34/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=ldap version="v2.0.0+builtin.bao" path=ldap-showtab-1c4acd74-174d-4b6f-92b4-a89f77786617/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=kubernetes version="v2.0.0+builtin.bao" path=kubernetes-showtab-fa261946-3a5a-4774-bf2c-646a8e9c6af2/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.286+0100 [INFO]  core: successfully mounted: type=approle version="v2.0.0+builtin.bao" path=aaa-approle-827fdf41-b287-4f6b-aedb-ca930b78e2ed/ namespace="ID: root. Path: "
+2026-01-29T15:39:39.287+0100 [INFO]  rollback: Starting the rollback manager with 256 workers
+2026-01-29T15:39:39.287+0100 [INFO]  rollback: starting rollback manager
+2026-01-29T15:39:39.287+0100 [INFO]  core: restoring leases
+2026-01-29T15:39:39.288+0100 [INFO]  identity: entities restored
+2026-01-29T15:39:39.288+0100 [INFO]  identity: groups restored
+2026-01-29T15:39:39.288+0100 [INFO]  grpclogfaker: [core] [Server #2] Server created
+
+2026-01-29T15:39:39.289+0100 [INFO]  expiration: lease restore complete
+2026-01-29T15:39:39.289+0100 [INFO]  core: post-unseal setup complete
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_2794bc6f: populating role rotation queue
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_2794bc6f: starting periodic ticker
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_b9b2e6c0: populating role rotation queue
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_e20a7963: populating role rotation queue
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_b9b2e6c0: starting periodic ticker
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_2e3512a2: populating role rotation queue
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_e20a7963: starting periodic ticker
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_2e3512a2: starting periodic ticker
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_c649c9bf: populating role rotation queue
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_fa7d1c15: populating role rotation queue
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_c649c9bf: starting periodic ticker
+2026-01-29T15:39:39.292+0100 [INFO]  secrets.database.database_fa7d1c15: starting periodic ticker
+2026-01-29T15:39:40.304+0100 [INFO]  expiration: revoked lease: lease_id=auth/token/create/h3f4a5046ddf716bc3e5e2648eb6606b7939d6ed351a8cff4172d724fea706f4f
+2026-01-29T15:39:40.948+0100 [INFO]  expiration: revoked lease: lease_id=auth/token/create/hd0b66eb0dec2f9a869d0b25160d3c08ed47ef8afb283d26822cfbe04e20d43bf
+not ok 4 Firefox 146.0 - [46 ms] - Integration | Component | auth-config-form options: it submits data correctly
+    ---
+        actual: >
+            false
+        expected: >
+            true
+        stack: >
+            @http://localhost:7357/ui/assets/tests.js:9301:16
+            
+        message: >
+            failed, expected argument to be truthy, was: false
+        negative: >
+            false
+        browser log: |
+    ...
+not ok 5 Firefox 146.0 - [142 ms] - Integration | Component | control group success: render without token
+    ---
+        actual: >
+            false
+        expected: >
+            true
+        stack: >
+            @http://localhost:7357/ui/assets/tests.js:11266:16
+            
+        message: >
+            shows unwrapped data
+        negative: >
+            false
+        browser log: |
+    ...
+not ok 6 Firefox 146.0 - [100 ms] - Integration | Component | edit form: it calls flash message fns on save
+    ---
+        actual: >
+            false
+        expected: >
+            true
+        stack: >
+            @http://localhost:7357/ui/assets/tests.js:12272:16
+            
+        message: >
+            calls passed onSave
+        negative: >
+            false
+        browser log: |
+    ...
+not ok 7 Firefox 146.0 - [48 ms] - Integration | Component | json-editor: it renders the correct theme and expected styling
+    ---
+        actual: >
+            [object Object]
+        expected: >
+            [object Object]
+        stack: >
+            hasPseudoElementStyle@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:709:872
+        message: >
+            Element .cm-s-hashi-read-only has style "{"background":"rgb(247, 248, 250) none repeat scroll 0% 0% / auto padding-box border-box"}"
+        negative: >
+            false
+        browser log: |
+    ...
+not ok 8 Firefox 146.0 - [62435 ms] - Integration | Component | mfa-form: it should show countdown on passcode already used and rate limit errors
+    ---
+        stack: >
+            findTargetElement@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1011:207
+        message: >
+            Element [data-test-mfa-countdown] should exist
+        negative: >
+            false
+        browser log: |
+            {"type":"warn","text":"DEPRECATION: The routes only function has been deprecated. Please use the make server version your default export in the config. [deprecation id: ember-cli-mirage-config-routes-only-export] This will be removed in Ember 3.0.0. See https://www.ember-cli-mirage.com/docs/advanced/server-configuration for more details.\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    raiseOnDeprecation@http://localhost:7357/ui/assets/test-support.js:617:13\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    @http://localhost:7357/ui/assets/test-support.js:48907:10\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    initialize/<@http://localhost:7357/ui/assets/vault.js:25913:13\n    registerHandler/HANDLERS[type]@http://localhost:7357/ui/assets/test-support.js:695:17\n    invoke@http://localhost:7357/ui/assets/test-support.js:707:23\n    deprecate@http://localhost:7357/ui/assets/test-support.js:663:28\n    startMirage@http://localhost:7357/ui/assets/vendor.js:141241:49\n    setupMirage/<@http://localhost:7357/ui/assets/test-support.js:50328:46\n    callHook@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1540:806\n    runHook@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1549:1\n    processTaskQueue@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1826:294\n    advanceTaskQueue@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1823:136\n    advance@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1821:90\n    ./node_modules/qunit/qunit/qunit.js/internalStart/config.timeout<@http://localhost:7357/ui/assets/chunk.vendors-node_modules_pretender_dist_pretender_es_js-node_modules_qunit_qunit_qunit_js-node_mo-a4fc29.0eb52eee88c478ef7bd8.js:1696:198"}
+            {"type":"log","text":"⚙ Using base Mirage request handlers ⚙"}
+            {"type":"group","text":"Integration | Component | mfa-form: it should show countdown on passcode already used and rate limit errors"}
+            {"type":"group","text":"Scheduled async"}
+            {"type":"log","text":"_later@http://localhost:7357/ui/assets/vendor.js:52651:32\nlater@http://localhost:7357/ui/assets/vendor.js:52438:19\nlater@http://localhost:7357/ui/assets/vendor.js:34478:24\nonYield@http://localhost:7357/ui/assets/vendor.js:149131:40\n__ec_yieldable__@http://localhost:7357/ui/assets/vendor.js:146804:19\ninvokeYieldable@http://localhost:7357/ui/assets/vendor.js:146251:70\nhandleYieldedValue@http://localhost:7357/ui/assets/vendor.js:146058:14\nhandleResolvedContinueValue@http://localhost:7357/ui/assets/vendor.js:145982:12\nproceedSync@http://localhost:7357/ui/assets/vendor.js:145934:14\nproceedAsync/<@http://localhost:7357/ui/assets/vendor.js:145921:33\ninvoke@http://localhost:7357/ui/assets/vendor.js:51933:16\nflush@http://localhost:7357/ui/assets/vendor.js:51823:19\nflush@http://localhost:7357/ui/assets/vendor.js:52029:21\n_end@http://localhost:7357/ui/assets/vendor.js:52581:34\nend@http://localhost:7357/ui/assets/vendor.js:52311:12\n_runExpiredTimers@http://localhost:7357/ui/assets/vendor.js:52718:14\n"}
+    ...
+not ok 9 Firefox 146.0 - [45 ms] - Integration | Helper | date-format: displays time zone if withTimeZone=true
+    ---
+        actual: >
+            28
+        expected: >
+            26
+        stack: >
+            @http://localhost:7357/ui/assets/tests.js:29246:14
+            
+        negative: >
+            false
+        browser log: |
+    ...
+
+1..1446
+# tests 1446
+# pass  1415
+# skip  22
+# todo  0
+# fail  9
+Testem finished with non-zero exit code. Tests failed.
+
+Error: Command failed with exit code 1: ember test --launch firefox
+    at makeError (/home/jan/git/openbao/openbao/ui/node_modules/execa/lib/error.js:59:11)
+    at handlePromise (/home/jan/git/openbao/openbao/ui/node_modules/execa/index.js:114:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async /home/jan/git/openbao/openbao/ui/scripts/start-openbao.js:59:7 {
+  shortMessage: 'Command failed with exit code 1: ember test --launch firefox',
+  command: 'ember test --launch firefox',
+  exitCode: 1,
+  signal: undefined,
+  signalDescription: undefined,
+  stdout: undefined,
+  stderr: undefined,
+  failed: true,
+  timedOut: false,
+  isCanceled: false,
+  killed: false
+}
