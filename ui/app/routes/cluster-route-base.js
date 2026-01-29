@@ -33,6 +33,10 @@ export default class ClusterRouteBase extends Route {
   @service store;
   @service router;
 
+  // Model boundary clearing properties (from model-boundary-route mixin)
+  modelType = null;
+  modelTypes = null;
+
   transitionToTargetRoute(transition = {}) {
     const targetRoute = this.targetRouteName(transition);
     if (
@@ -106,5 +110,20 @@ export default class ClusterRouteBase extends Route {
       return REDIRECT;
     }
     return null;
+  }
+
+  deactivate() {
+    // Clear Ember Data store of models when route is deactivated
+    const modelType = this.modelType;
+    const modelTypes = this.modelTypes;
+
+    if (modelType) {
+      this.store.unloadAll(modelType);
+    }
+    if (modelTypes) {
+      modelTypes.forEach((type) => {
+        this.store.unloadAll(type);
+      });
+    }
   }
 }
