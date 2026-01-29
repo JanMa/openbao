@@ -18,13 +18,14 @@ For each step:
 1. Read the current step from EMBER_UPGRADE_GUIDE.md
 2. Execute the required changes (codemods, manual edits, dependency updates)
 3. Kill any stale bao processes: `pkill -9 bao || true`
-4. Run tests: `cd /home/jan/git/openbao/openbao/ui && yarn test:quick --launch firefox`
-4. If tests PASS:
+4. Run tests (MUST use Node 20): 
+   `cd /home/jan/git/openbao/openbao/ui && nvm use 20 && yarn test:quick --launch firefox 2>&1 | tee test-output.txt`
+5. If tests PASS:
    - Mark the checkbox in the guide as complete: `- [x]`
    - Commit changes: `git add -A && git commit -m "<descriptive message>"`
    - Report success and ask if you should proceed to the next step
-5. If tests FAIL:
-   - Analyze the failure output
+6. If tests FAIL:
+   - Read test-output.txt to analyze the failure (avoid re-running tests)
    - Fix the issues
    - Re-run tests
    - Repeat until tests pass
@@ -68,9 +69,11 @@ Always operate from: `/home/jan/git/openbao/openbao/ui`
 
 | Purpose | Command |
 |---------|---------|
-| Quick tests | `yarn test:quick` |
+| Quick tests | `yarn test:quick --launch firefox 2>&1 \| tee test-output.txt` |
 | Linting | `yarn lint:js && yarn lint:hbs` |
-| Full tests | `yarn test` |
+| Full tests | `yarn test --launch firefox 2>&1 \| tee test-output.txt` |
+
+**Always save test output to a file** using `| tee test-output.txt` to avoid lengthy reruns when analyzing failures. The test output file can be read to analyze failures without re-running the full test suite.
 
 ## Known Flaky/Acceptable Test Failures
 
