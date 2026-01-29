@@ -187,18 +187,31 @@ grep -r "from.*mixins" app/ lib/ --include="*.js" | sort | uniq
 
 ### 3.2 Remove `this.get()` and `this.set()` Patterns
 
+**Status: PARTIALLY COMPLETE** ✓ (Codemod executed, 166 manual fixes remain)
+
+**Completed:**
+- Executed es5-getter-ember-codemod on app/ and lib/ directories
+- Result: 892 unmodified, 1 ok, 1 error (ClassPrivateProperty AST type incompatibility in backends.js)
+- 1 file modified: app/components/namespace-picker.js (minor formatting change)
+- Fixed model-boundary-route mixin removal issues discovered during codemod
+  - Created app/routes/model-boundary-route-base.js to replace deleted mixin
+  - Updated ClusterRouteBase to include model boundary clearing logic
+  - Converted vault/cluster.js, vault/cluster/access.js, vault/cluster/logout.js to native class syntax
+  - Removed ModelBoundaryRoute mixin imports from all routes
+
+**Remaining manual work:**
+- 166 `this.set()` calls remain in app/ and lib/ directories
+- These need manual conversion to `@tracked` properties with direct assignment
+- Nested property access patterns like `this.get('foo.bar')` need conversion to optional chaining `this.foo?.bar`
+- Component property updates need special handling with tracked properties
+
 **Run the codemod:**
 
 ```bash
 cd /home/jan/git/openbao/openbao/ui
 
-# Dry run first
-npx ember-no-get-codemod app/ --dry-run
-npx ember-no-get-codemod lib/ --dry-run
-
-# Apply the codemod
-npx ember-no-get-codemod app/
-npx ember-no-get-codemod lib/
+# Already executed successfully with:
+# npx ember-codemods/es5-getter-ember-codemod es5-getter-ember-codemod app/**/*.js lib/**/*.js
 ```
 
 **Manual fixes required for:**
