@@ -117,8 +117,8 @@ Mixins are deprecated. Convert each to an appropriate modern pattern.
 | `focus-on-insert.js` | ✅ DONE (commit 0450f69695) | Modifier (`app/modifiers/focus-on-insert.js`) or direct method |
 | `key-mixin.js` | ✅ DONE (commit 32b73fd278) | Inlined into models (lease.js, secret.js, secret-v2.js) |
 | `model-boundary-route.js` | ✅ DONE (commit c5cac6641d) | Base class (`app/routes/model-boundary-route-base.js`) |
-| `unload-model-route.js` | ⏳ Pending | Route decorator or base class |
-| `unsaved-model-route.js` | ⏳ Pending | Route decorator or base class |
+| `unload-model-route.js` | ✅ DONE (commit 3a8e8e9aa9) | Base class (`app/routes/unload-model-route-base.js`) |
+| `unsaved-model-route.js` | ⏳ Pending | Base route class or inline |
 | `with-nav-to-nearest-ancestor.js` | ⏳ Pending | Service or utility |
 
 **Conversion Steps for Each Mixin:**
@@ -169,6 +169,11 @@ Mixins are deprecated. Convert each to an appropriate modern pattern.
   - Updated 1 route extending Route:
     - `app/routes/vault/cluster/logout.js` - now extends ModelBoundaryRouteBase
   - Removed `app/mixins/model-boundary-route.js`
+- [x] `unload-model-route.js` - Converted to base class pattern:
+  - Created `app/routes/unload-model-route-base.js` extending Route with unloadModel() method
+  - Updated 20 consumer routes to extend UnloadModelRouteBase (see commit 3a8e8e9aa9 for full list)
+  - Routes now inherit the willTransition() behavior that unloads models from the Ember Data store
+  - Removed `app/mixins/unload-model-route.js`
 - [ ] Identify all files that import the mixin: `grep -r "import.*from.*mixins/MIXIN_NAME" app/ lib/`
 - [ ] Create replacement (service/utility/modifier/base class)
 - [ ] Update all consumers to use the new pattern
