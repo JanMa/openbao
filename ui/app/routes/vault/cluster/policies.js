@@ -3,14 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { inject as service } from '@ember/service';
-import Route from '@ember/routing/route';
-import ClusterRoute from 'vault/mixins/cluster-route';
+import { service } from '@ember/service';
+import ClusterRouteBase from 'vault/routes/cluster-route-base';
 
 const ALLOWED_TYPES = ['acl', 'egp', 'rgp'];
 
-export default Route.extend(ClusterRoute, {
-  version: service(),
+export default class VaultClusterPoliciesRoute extends ClusterRouteBase {
+  @service version;
 
   model(params) {
     const policyType = params.type;
@@ -18,5 +17,5 @@ export default Route.extend(ClusterRoute, {
       return this.transitionTo(this.routeName, ALLOWED_TYPES[0]);
     }
     return {};
-  },
-});
+  }
+}

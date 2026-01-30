@@ -4,10 +4,22 @@
  */
 
 import Controller from '@ember/controller';
-import BackendCrumbMixin from 'vault/mixins/backend-crumb';
 import { action } from '@ember/object';
 
-export default class MetadataController extends Controller.extend(BackendCrumbMixin) {
+export default class MetadataController extends Controller {
+  get backendCrumb() {
+    const backend = this.backend;
+    if (backend === undefined) {
+      return undefined;
+    }
+    return {
+      label: backend,
+      text: backend,
+      path: 'vault.cluster.secrets.backend.list-root',
+      model: backend,
+    };
+  }
+
   @action
   refreshModel() {
     this.send('refreshModel');

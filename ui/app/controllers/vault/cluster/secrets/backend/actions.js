@@ -4,18 +4,28 @@
  */
 
 import Controller from '@ember/controller';
-import BackendCrumbMixin from 'vault/mixins/backend-crumb';
+import { action } from '@ember/object';
 
-export default Controller.extend(BackendCrumbMixin, {
-  queryParams: {
-    selectedAction: 'action',
-  },
+export default class ActionsController extends Controller {
+  queryParams = [{ selectedAction: 'action' }];
 
-  actions: {
-    refresh: function () {
-      // closure actions don't bubble to routes,
-      // so we have to manually bubble here
-      this.send('refreshModel');
-    },
-  },
-});
+  get backendCrumb() {
+    const backend = this.backend;
+    if (backend === undefined) {
+      return undefined;
+    }
+    return {
+      label: backend,
+      text: backend,
+      path: 'vault.cluster.secrets.backend.list-root',
+      model: backend,
+    };
+  }
+
+  @action
+  refresh() {
+    // closure actions don't bubble to routes,
+    // so we have to manually bubble here
+    this.send('refreshModel');
+  }
+}

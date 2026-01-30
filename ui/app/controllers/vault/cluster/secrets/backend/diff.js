@@ -4,6 +4,18 @@
  */
 
 import Controller from '@ember/controller';
-import BackendCrumbMixin from 'vault/mixins/backend-crumb';
 
-export default class DiffController extends Controller.extend(BackendCrumbMixin) {}
+export default class DiffController extends Controller {
+  get backendCrumb() {
+    const backend = this.backend;
+    if (backend === undefined) {
+      return undefined;
+    }
+    return {
+      label: backend,
+      text: backend,
+      path: 'vault.cluster.secrets.backend.list-root',
+      model: backend,
+    };
+  }
+}

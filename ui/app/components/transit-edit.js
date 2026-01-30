@@ -9,14 +9,13 @@ import { isBlank } from '@ember/utils';
 import Component from '@ember/component';
 import { task, waitForEvent } from 'ember-concurrency';
 import { set } from '@ember/object';
-
-import FocusOnInsertMixin from 'vault/mixins/focus-on-insert';
+import { schedule } from '@ember/runloop';
 import keys from 'vault/lib/keycodes';
 
 const LIST_ROOT_ROUTE = 'vault.cluster.secrets.backend.list-root';
 const SHOW_ROUTE = 'vault.cluster.secrets.backend.show';
 
-export default Component.extend(FocusOnInsertMixin, {
+export default Component.extend({
   router: service(),
   mode: null,
   onDataChange() {},
@@ -24,6 +23,19 @@ export default Component.extend(FocusOnInsertMixin, {
   key: null,
   autoRotateInvalid: false,
   requestInFlight: or('key.isLoading', 'key.isReloading', 'key.isSaving'),
+
+  didInsertElement() {
+    this._super(...arguments);
+    schedule('afterRender', this, 'focusOnInsertFocus');
+  },
+
+  focusOnInsertFocus() {
+    const selector = 'input[type="text"]';
+    const targetElement = this.element.querySelectorAll(selector)[0];
+    if (targetElement && targetElement !== document.activeElement) {
+      targetElement.focus();
+    }
+  },
 
   willDestroyElement() {
     this._super(...arguments);

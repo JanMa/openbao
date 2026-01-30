@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { inject as service } from '@ember/service';
-import Route from '@ember/routing/route';
-import ClusterRoute from 'vault/mixins/cluster-route';
+import { service } from '@ember/service';
+import ClusterRouteBase from 'vault/routes/cluster-route-base';
 import ListRoute from 'core/mixins/list-route';
 
-export default Route.extend(ClusterRoute, ListRoute, {
+export default ClusterRouteBase.extend(ListRoute, {
   store: service(),
 
   shouldReturnEmptyModel(policyType) {

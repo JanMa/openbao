@@ -4,23 +4,19 @@
  */
 
 import Ember from 'ember';
-import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
-import Route from '@ember/routing/route';
-import ModelBoundaryRoute from 'vault/mixins/model-boundary-route';
+import ModelBoundaryRouteBase from 'vault/routes/model-boundary-route-base';
 
-export default Route.extend(ModelBoundaryRoute, {
-  auth: service(),
-  controlGroup: service(),
-  flashMessages: service(),
-  console: service(),
-  permissions: service(),
-  namespaceService: service('namespace'),
-  router: service(),
+export default class VaultClusterLogoutRoute extends ModelBoundaryRouteBase {
+  @service auth;
+  @service controlGroup;
+  @service flashMessages;
+  @service console;
+  @service permissions;
+  @service('namespace') namespaceService;
+  @service router;
 
-  modelTypes: computed(function () {
-    return ['secret', 'secret-engine'];
-  }),
+  modelTypes = ['secret', 'secret-engine'];
 
   beforeModel({ to: { queryParams } }) {
     const authType = this.auth.getAuthType();
@@ -44,5 +40,5 @@ export default Route.extend(ModelBoundaryRoute, {
       const { cluster_name } = this.paramsFor('vault.cluster');
       location.assign(this.router.urlFor('vault.cluster.auth', cluster_name, { queryParams }));
     }
-  },
-});
+  }
+}

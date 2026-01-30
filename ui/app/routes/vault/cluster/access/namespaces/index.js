@@ -4,10 +4,9 @@
  */
 
 import { inject as service } from '@ember/service';
-import Route from '@ember/routing/route';
-import UnloadModel from 'vault/mixins/unload-model-route';
+import UnloadModelRouteBase from 'vault/routes/unload-model-route-base';
 
-export default Route.extend(UnloadModel, {
+export default UnloadModelRouteBase.extend({
   store: service(),
 
   queryParams: {

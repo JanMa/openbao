@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Route from '@ember/routing/route';
+import UnloadModelRouteBase from 'vault/routes/unload-model-route-base';
 import utils from 'vault/lib/key-utils';
-import UnloadModelRoute from 'vault/mixins/unload-model-route';
 import { normalizePath } from 'vault/utils/path-encoding-helpers';
 import { inject as service } from '@ember/service';
 
-export default Route.extend(UnloadModelRoute, {
+export default UnloadModelRouteBase.extend({
   store: service(),
   templateName: 'vault/cluster/secrets/backend/versions',
 

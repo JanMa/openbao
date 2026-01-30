@@ -4,28 +4,46 @@
  */
 
 import Controller, { inject as controller } from '@ember/controller';
-import BackendCrumbMixin from 'vault/mixins/backend-crumb';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend(BackendCrumbMixin, {
-  backendController: controller('vault.cluster.secrets.backend'),
-  queryParams: ['version', 'itemType'],
-  version: '',
-  itemType: '',
+export default class EditController extends Controller {
+  @controller('vault.cluster.secrets.backend') backendController;
+
+  queryParams = ['version', 'itemType'];
+
+  @tracked version = '';
+  @tracked itemType = '';
+  @tracked preferAdvancedEdit = false;
+
+  get backendCrumb() {
+    const backend = this.backend;
+    if (backend === undefined) {
+      return undefined;
+    }
+    return {
+      label: backend,
+      text: backend,
+      path: 'vault.cluster.secrets.backend.list-root',
+      model: backend,
+    };
+  }
 
   reset() {
-    this.set('version', '');
-    this.set('itemType', '');
-  },
-  actions: {
-    refresh: function () {
-      // closure actions don't bubble to routes,
-      // so we have to manually bubble here
-      this.send('refreshModel');
-    },
+    this.version = '';
+    this.itemType = '';
+  }
 
-    toggleAdvancedEdit(bool) {
-      this.set('preferAdvancedEdit', bool);
-      this.backendController.set('preferAdvancedEdit', bool);
-    },
-  },
-});
+  @action
+  refresh() {
+    // closure actions don't bubble to routes,
+    // so we have to manually bubble here
+    this.send('refreshModel');
+  }
+
+  @action
+  toggleAdvancedEdit(bool) {
+    this.preferAdvancedEdit = bool;
+    this.backendController.preferAdvancedEdit = bool;
+  }
+}

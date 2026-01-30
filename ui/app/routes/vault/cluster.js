@@ -4,15 +4,13 @@
  */
 
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
+import { action } from '@ember/object';
 import { reject } from 'rsvp';
-import Route from '@ember/routing/route';
 import { task, timeout } from 'ember-concurrency';
 import Ember from 'ember';
 import getStorage from '../../lib/token-storage';
 import localStorage from 'vault/lib/local-storage';
-import ClusterRoute from 'vault/mixins/cluster-route';
-import ModelBoundaryRoute from 'vault/mixins/model-boundary-route';
+import ClusterRouteBase from 'vault/routes/cluster-route-base';
 
 const POLL_INTERVAL_MS = 10000;
 
@@ -26,30 +24,32 @@ export const getManagedNamespace = (nsParam, root) => {
   return `${root}/${nsParam}`;
 };
 
-export default Route.extend(ModelBoundaryRoute, ClusterRoute, {
-  namespaceService: service('namespace'),
-  version: service(),
-  permissions: service(),
-  store: service(),
-  auth: service(),
-  currentCluster: service(),
-  modelTypes: computed(function () {
-    return ['node', 'secret', 'secret-engine'];
-  }),
+// Note: ClusterRouteBase already provides auth, store, and router services
+// We re-declare store and auth here for ESLint's ember/no-implicit-injections rule
+export default class VaultClusterRoute extends ClusterRouteBase {
+  @service('namespace') namespaceService;
+  @service version;
+  @service permissions;
+  @service store;
+  @service auth;
+  @service currentCluster;
 
-  queryParams: {
+  modelTypes = ['node', 'secret', 'secret-engine'];
+
+  queryParams = {
     namespaceQueryParam: {
       refreshModel: true,
     },
-  },
+  };
 
   getClusterId(params) {
     const { cluster_name } = params;
     const cluster = this.modelFor('vault').findBy('name', cluster_name);
     return cluster ? cluster.get('id') : null;
-  },
+  }
 
-  async beforeModel() {
+  async beforeModel(transition) {
+    await super.beforeModel(transition);
     const params = this.paramsFor(this.routeName);
     let namespace = params.namespaceQueryParam;
     const currentTokenName = this.auth.get('currentTokenName');
@@ -73,7 +73,7 @@ export default Route.extend(ModelBoundaryRoute, ClusterRoute, {
     } else {
       return reject({ httpStatus: 404, message: 'not found', path: params.cluster_name });
     }
-  },
+  }
 
   model(params) {
     // if a user's browser settings block localStorage they will be unable to use Vault. The method will throw the error and the rest of the application will not load.
@@ -81,9 +81,10 @@ export default Route.extend(ModelBoundaryRoute, ClusterRoute, {
 
     const id = this.getClusterId(params);
     return this.store.findRecord('cluster', id);
-  },
+  }
 
-  poll: task(function* () {
+  @task({ cancelOn: 'deactivate', keepLatest: true })
+  *poll() {
     while (true) {
       // when testing, the polling loop causes promises to never settle so acceptance tests hang
       // to get around that, we just disable the poll in tests
@@ -92,36 +93,32 @@ export default Route.extend(ModelBoundaryRoute, ClusterRoute, {
       }
       yield timeout(POLL_INTERVAL_MS);
       try {
-        /* eslint-disable-next-line ember/no-controller-access-in-routes */
         yield this.controller.model.reload();
         yield this.transitionToTargetRoute();
       } catch {
         // we want to keep polling here
       }
     }
-  })
-    .cancelOn('deactivate')
-    .keepLatest(),
+  }
 
   afterModel(model, transition) {
-    this._super(...arguments);
+    super.afterModel(model, transition);
     this.currentCluster.setCluster(model);
 
     // Proceed to the target route, as namespace features are assumed to be always enabled.
     return this.transitionToTargetRoute(transition);
-  },
+  }
 
   setupController() {
-    this._super(...arguments);
+    super.setupController(...arguments);
     this.poll.perform();
-  },
+  }
 
-  actions: {
-    error(e) {
-      if (e.httpStatus === 503 && e.errors[0] === 'Vault is sealed') {
-        this.refresh();
-      }
-      return true;
-    },
-  },
-});
+  @action
+  error(e) {
+    if (e.httpStatus === 503 && e.errors[0] === 'Vault is sealed') {
+      this.refresh();
+    }
+    return true;
+  }
+}
