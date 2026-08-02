@@ -129,6 +129,13 @@ export default class SecretCreateOrUpdate extends Component {
     const changed = secret.changedAttributes();
     const changedKeys = Object.keys(changed);
 
+    // For KV1 a new secret does not have an id yet. Ember Data 4.12 requires
+    // records being created to have an id on the client side, so we use the
+    // secret path (which doubles as the id for KV1) before saving.
+    if (!isV2 && secretData && secretData.isNew && !secretData.id && key) {
+      secretData.set('id', key);
+    }
+
     return secretData
       .save()
       .then(() => {
