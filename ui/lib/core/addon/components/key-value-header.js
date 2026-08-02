@@ -44,6 +44,20 @@ export default class KeyValueHeader extends Component {
     return `vault.cluster.secrets.backend.${this.args.mode}`;
   }
 
+  // Builds the list of models that are needed to generate a URL for a
+  // breadcrumb. The leading dynamic segment (e.g. the secret backend or auth
+  // method path) comes from the root crumb, while the crumb itself provides
+  // its own leaf model. Supplying the models explicitly means the router no
+  // longer has to infer them from its (possibly mid-transition) state.
+  crumbModels(crumb) {
+    const rootModel = this.args.root?.model;
+    const model = crumb.model;
+    if (rootModel !== undefined && rootModel !== null && rootModel !== model) {
+      return [rootModel, model];
+    }
+    return model !== undefined && model !== null ? [model] : [];
+  }
+
   get secretPath() {
     const crumbs = [];
     const root = this.args.root;
@@ -51,7 +65,7 @@ export default class KeyValueHeader extends Component {
     const baseKeyModel = encodePath(this.args.baseKey?.id);
 
     if (root) {
-      crumbs.push(root);
+      crumbs.push({ ...root, models: this.crumbModels(root) });
     }
 
     if (!baseKey) {
@@ -69,6 +83,7 @@ export default class KeyValueHeader extends Component {
         text: this.stripTrailingSlash(baseKey),
         path: currentPath,
         model: baseKeyModel,
+        models: this.crumbModels({ model: baseKeyModel }),
       });
 
       if (!showCurrent) {
@@ -84,6 +99,7 @@ export default class KeyValueHeader extends Component {
         text: this.stripTrailingSlash(parts[index]),
         path: path,
         model: encodePath(ancestor),
+        models: this.crumbModels({ model: encodePath(ancestor) }),
       });
     });
 
@@ -92,6 +108,7 @@ export default class KeyValueHeader extends Component {
       text: this.stripTrailingSlash(utils.keyWithoutParentKey(baseKey)),
       path: currentPath,
       model: baseKeyModel,
+      models: this.crumbModels({ model: baseKeyModel }),
     });
 
     if (!showCurrent) {
