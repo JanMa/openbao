@@ -202,7 +202,7 @@ export default Route.extend({
 
   handleSecretModelError(capabilities, secretId, modelType, error) {
     // can't read the path and don't have update capability, so re-throw
-    if (!capabilities.canUpdate && modelType === 'secret') {
+    if (capabilities && !capabilities.canUpdate && modelType === 'secret') {
       throw error;
     }
     // don't have access to the metadata for v2 or the secret for v1,
@@ -248,6 +248,9 @@ export default Route.extend({
     }
     let secretModel;
 
+    // the adapter treats 403/404 capability lookups as best-effort (it returns
+    // a partial record), any other capability failure surfaces here as a real
+    // error; no extra catch is needed so genuine failures aren't masked
     const capabilities = this.capabilities(secret, modelType);
     try {
       secretModel = await this.store.queryRecord(modelType, { id: secret, backend, type });
