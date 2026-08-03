@@ -25,6 +25,13 @@ export default class PkiKeyAdapter extends ApplicationAdapter {
       url = `${url}/generate/${record.type}`;
     }
     return this.ajax(url, 'POST', { data: this.serialize(snapshot) }).then((resp) => {
+      // import responses always contain the generated key id; generate
+      // responses may omit key_id, so fall back to the supplied key name to
+      // keep a stable record id. Preferring the server's key_id (when present)
+      // keeps the record id consistent with a fresh read of the same key.
+      if (!adapterOptions.import && !resp.data?.key_id && snapshot.attr('keyName')) {
+        return { ...resp, key_id: snapshot.attr('keyName') };
+      }
       return resp;
     });
   }
