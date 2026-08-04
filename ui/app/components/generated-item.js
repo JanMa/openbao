@@ -9,6 +9,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { task } from 'ember-concurrency';
 import { waitFor } from '@ember/test-waiters';
+import transitionToSafe from 'vault/utils/transition-to-safe';
 
 /**
  * @module GeneratedItem
@@ -47,7 +48,7 @@ export default Component.extend({
         }
         return;
       }
-      this.router.transitionTo('vault.cluster.access.method.item.list').followRedirects();
+      transitionToSafe(this.router, 'vault.cluster.access.method.item.list');
       this.flashMessages.success(`Successfully saved ${this.itemType} ${this.model.id}.`);
     })
   ),
@@ -84,7 +85,7 @@ export default Component.extend({
     },
     deleteItem() {
       this.model.destroyRecord().then(() => {
-        this.router.transitionTo('vault.cluster.access.method.item.list').followRedirects();
+        transitionToSafe(this.router, 'vault.cluster.access.method.item.list');
         this.flashMessages.success(`Successfully deleted ${this.itemType} ${this.model.id}.`);
       });
     },
