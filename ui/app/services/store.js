@@ -191,11 +191,14 @@ export default Store.extend({
   clearDataset(modelName) {
     const cacheList = this.lazyCaches;
     if (!cacheList.size) return;
-    if (modelName && cacheList.has(modelName)) {
+    if (modelName) {
+      // only invalidate the cache for the requested model, even if the model
+      // has no cached dataset (previously this fell through and cleared every
+      // dataset, which made per-model invalidation unusable)
       cacheList.delete(modelName);
-      return;
+    } else {
+      cacheList.clear();
     }
-    cacheList.clear();
     this.set('lazyCaches', cacheList);
   },
 
