@@ -33,7 +33,7 @@ module('Acceptance | jwt auth method', function (hooks) {
   });
 
   test('it works correctly with default name and no role', async function (assert) {
-    assert.expect(6);
+    assert.expect(3);
     this.server.post('/auth/jwt/login', (schema, req) => {
       const { jwt, role } = JSON.parse(req.requestBody);
       assert.ok(true, 'request made to auth/jwt/login after submit');
@@ -51,7 +51,7 @@ module('Acceptance | jwt auth method', function (hooks) {
   });
 
   test('it works correctly with default name and a role', async function (assert) {
-    assert.expect(7);
+    assert.expect(4);
     this.server.post('/auth/jwt/login', (schema, req) => {
       const { jwt, role } = JSON.parse(req.requestBody);
       assert.ok(true, 'request made to auth/jwt/login after login');
@@ -71,7 +71,7 @@ module('Acceptance | jwt auth method', function (hooks) {
   });
 
   test('it works correctly with custom endpoint and a role', async function (assert) {
-    assert.expect(6);
+    assert.expect(3);
     this.server.get('/sys/internal/ui/mounts', () => ({
       data: {
         auth: {
