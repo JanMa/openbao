@@ -5,12 +5,7 @@
 {{/if}}
 <div class="control {{if this.isInline 'select is-inline-block'}}">
   <div class="select {{if this.isFullwidth 'is-fullwidth'}}">
-    <select
-      class="select"
-      id="select-{{this.elementId}}"
-      onchange={{action this.onChange value="target.value"}}
-      data-test-select={{this.name}}
-    >
+    <select class="select" id="select-{{this.elementId}}" onchange={{this.handleChange}} data-test-select={{this.name}}>
       {{#if this.noDefault}}
         <option value="">
           Select one
