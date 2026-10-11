@@ -15,7 +15,7 @@
             class="button is-transparent"
             @text={{@value}}
             @buttonType="button"
-            @onSuccess={{action (set-flash-message "Data copied!")}}
+            @onSuccess={{set-flash-message "Data copied!"}}
           >
             <Icon @name="clipboard-copy" aria-label="Copy" />
           </CopyButton>

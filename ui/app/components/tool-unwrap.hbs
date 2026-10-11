@@ -70,7 +70,7 @@
         @text={{stringify @unwrap_data}}
         class="button is-primary"
         @buttonType="button"
-        @onSuccess={{action (set-flash-message "Data copied!")}}
+        @onSuccess={{set-flash-message "Data copied!"}}
       >
         Copy
       </CopyButton>

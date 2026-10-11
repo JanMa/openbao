@@ -57,7 +57,7 @@
           data-test-button="modal-copy"
           @text={{@hmac}}
           @buttonType="button"
-          @onSuccess={{action (set-flash-message "HMAC copied!")}}
+          @onSuccess={{set-flash-message "HMAC copied!"}}
         >
           <Icon @name="clipboard-copy" aria-label="Copy" />
         </CopyButton>
