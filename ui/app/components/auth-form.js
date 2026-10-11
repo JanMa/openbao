@@ -10,6 +10,7 @@ import { match, or } from '@ember/object/computed';
 import { dasherize } from '@ember/string';
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { action } from '@ember/object';
 import { supportedAuthBackends } from 'vault/helpers/supported-auth-backends';
 import { task, timeout } from 'ember-concurrency';
 import { waitFor } from '@ember/test-waiters';
@@ -267,40 +268,44 @@ export default Component.extend(DEFAULTS, {
     }
   }),
 
-  actions: {
-    doSubmit(passedData, event, token) {
-      if (event) {
-        event.preventDefault();
-      }
-      if (token) {
-        this.set('token', token);
-      }
-      this.set('error', null);
-      // if callback from oidc or jwt we have a token at this point
-      const backend = token ? this.getAuthBackend('token') : this.selectedAuthBackend || {};
-      const backendMeta = BACKENDS.find(
-        (b) => (b.type || '').toLowerCase() === (backend.type || '').toLowerCase()
-      );
-      const attributes = (backendMeta || {}).formAttributes || [];
-      const data = this.getProperties(...attributes);
+  doSubmit: action(function (passedData, event, token) {
+    if (event) {
+      event.preventDefault();
+    }
+    if (token) {
+      this.set('token', token);
+    }
+    this.set('error', null);
+    // if callback from oidc or jwt we have a token at this point
+    const backend = token ? this.getAuthBackend('token') : this.selectedAuthBackend || {};
+    const backendMeta = BACKENDS.find(
+      (b) => (b.type || '').toLowerCase() === (backend.type || '').toLowerCase()
+    );
+    const attributes = (backendMeta || {}).formAttributes || [];
+    const data = this.getProperties(...attributes);
 
-      if (passedData) {
-        Object.assign(data, passedData);
-      }
-      if (this.customPath || backend.id) {
-        data.path = this.customPath || backend.id;
-      }
-      return this.authenticate.unlinked().perform(backend.type, data);
-    },
-    handleError(e) {
-      this.setProperties({
-        isLoading: false,
-        error: e ? this.auth.handleError(e) : null,
-      });
-    },
-    returnToLoginFromOktaNumberChallenge() {
-      this.setOktaNumberChallenge(false);
-      this.set('oktaNumberChallengeAnswer', null);
-    },
-  },
+    if (passedData) {
+      Object.assign(data, passedData);
+    }
+    if (this.customPath || backend.id) {
+      data.path = this.customPath || backend.id;
+    }
+    return this.authenticate.unlinked().perform(backend.type, data);
+  }),
+
+  handleError: action(function (e) {
+    this.setProperties({
+      isLoading: false,
+      error: e ? this.auth.handleError(e) : null,
+    });
+  }),
+
+  handleUpdate: action(function (value) {
+    this.set('customPath', value);
+  }),
+
+  returnToLoginFromOktaNumberChallenge: action(function () {
+    this.setOktaNumberChallenge(false);
+    this.set('oktaNumberChallengeAnswer', null);
+  }),
 });

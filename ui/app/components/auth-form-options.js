@@ -4,5 +4,10 @@
  */
 
 import Component from '@ember/component';
+import { action } from '@ember/object';
 
-export default Component.extend({});
+export default Component.extend({
+  handlePathChange: action(function (event) {
+    this.onPathChange(event.target.value);
+  }),
+});

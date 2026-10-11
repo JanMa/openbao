@@ -1,7 +1,4 @@
-<form
-  id="auth-form"
-  {{on "submit" (fn (if this.isOIDC (action "startOIDCAuth") @onSubmit) (hash role=this.roleName jwt=this.jwt))}}
->
+<form id="auth-form" {{on "submit" (fn this.handleSubmit (hash role=this.roleName jwt=this.jwt))}}>
   <div class="field">
     <label for="role" class="is-label">Role</label>
     <div class="control">
