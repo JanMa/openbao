@@ -3,7 +3,7 @@
     <OktaNumberChallenge
       @correctAnswer={{this.oktaNumberChallengeAnswer}}
       @hasError={{not-eq this.error null}}
-      @onReturnToLogin={{action "returnToLoginFromOktaNumberChallenge"}}
+      @onReturnToLogin={{this.returnToLoginFromOktaNumberChallenge}}
     />
   {{else}}
     {{#if this.hasMethodsWithPath}}
@@ -65,17 +65,17 @@
           @labelAttribute="typeDisplay"
           @isFullwidth={{true}}
           @selectedValue={{this.selectedAuth}}
-          @onChange={{action (mut this.selectedAuth)}}
+          @onChange={{fn (mut this.selectedAuth)}}
         />
       {{/if}}
       {{#if (or (eq this.selectedAuthBackend.type "jwt") (eq this.selectedAuthBackend.type "oidc"))}}
         <AuthJwt
-          @onError={{action "handleError"}}
-          @onLoading={{action (mut this.isLoading)}}
+          @onError={{this.handleError}}
+          @onLoading={{fn (mut this.isLoading)}}
           @namespace={{this.namespace}}
-          @onNamespace={{action (mut this.namespace)}}
-          @onSubmit={{action "doSubmit"}}
-          @onRoleName={{action (mut this.roleName)}}
+          @onNamespace={{fn (mut this.namespace)}}
+          @onSubmit={{this.doSubmit}}
+          @onRoleName={{fn (mut this.roleName)}}
           @roleName={{this.roleName}}
           @selectedAuthType={{this.selectedAuthBackend.type}}
           @selectedAuthPath={{or this.customPath this.selectedAuthBackend.id}}
@@ -83,12 +83,12 @@
         >
           <AuthFormOptions
             @customPath={{this.customPath}}
-            @onPathChange={{action (mut this.customPath)}}
+            @onPathChange={{this.handleUpdate}}
             @selectedAuthIsPath={{this.selectedAuthIsPath}}
           />
         </AuthJwt>
       {{else}}
-        <form id="auth-form" onsubmit={{action "doSubmit" null}}>
+        <form id="auth-form" onsubmit={{fn this.doSubmit null}}>
           {{#if (eq this.providerName "github")}}
             <div class="field">
               <label for="token" class="is-label">GitHub token</label>
@@ -154,7 +154,7 @@
           {{#if (not-eq this.selectedAuthBackend.type "token")}}
             <AuthFormOptions
               @customPath={{this.customPath}}
-              @onPathChange={{action (mut this.customPath)}}
+              @onPathChange={{this.handleUpdate}}
               @selectedAuthIsPath={{this.selectedAuthIsPath}}
             />
           {{/if}}

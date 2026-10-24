@@ -39,7 +39,7 @@
                   @text={{this.auth.currentToken}}
                   class="link"
                   @buttonType="button"
-                  @onSuccess={{action (set-flash-message "Token copied!")}}
+                  @onSuccess={{set-flash-message "Token copied!"}}
                   @container="#container"
                 >
                   Copy token

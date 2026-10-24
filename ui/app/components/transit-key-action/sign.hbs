@@ -131,7 +131,7 @@
           data-test-button="modal-copy"
           @text={{@signature}}
           @buttonType="button"
-          @onSuccess={{action (set-flash-message "Signature copied!")}}
+          @onSuccess={{set-flash-message "Signature copied!"}}
         >
           <Icon @name="clipboard-copy" aria-label="Copy" />
         </CopyButton>

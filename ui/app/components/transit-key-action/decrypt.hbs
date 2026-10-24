@@ -62,7 +62,7 @@
             data-test-button="modal-copy"
             @text={{@plaintext}}
             @buttonType="button"
-            @onSuccess={{action (set-flash-message "Plaintext copied!")}}
+            @onSuccess={{set-flash-message "Plaintext copied!"}}
           >
             <Icon @name="clipboard-copy" aria-label="Copy" />
           </CopyButton>

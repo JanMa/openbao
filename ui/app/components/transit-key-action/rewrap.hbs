@@ -1,29 +1,18 @@
-<form
-  onsubmit={{action
-    @doSubmit
-    (hash plaintext=@plaintext context=@context nonce=@nonce key_version=@key_version encodedBase64=@encodedBase64)
-  }}
->
+<form onsubmit={{action @doSubmit (hash ciphertext=@ciphertext context=@context nonce=@nonce key_version=@key_version)}}>
   <div class="box is-sideless is-fullwidth is-marginless">
-    <NamespaceReminder @mode="perform" @noun="encryption" />
+    <NamespaceReminder @mode="perform" @noun="rewrap" />
     <div class="content has-bottom-margin-l">
-      <p>You can encrypt plaintext data using <code>{{@key.name}}</code> as the encryption key.</p>
+      <p>
+        You can rewrap the provided ciphertext using the latest version of
+        <code>{{@key.name}}</code>
+        as the encryption key.
+      </p>
     </div>
     <KeyVersionSelect @key={{@key}} @onVersionChange={{action (mut @key_version)}} @key_version={{@key_version}} />
     <div class="field">
-      <div id="plaintext-control" class="control is-relative">
-        <JsonEditor
-          @title="Plaintext"
-          @value={{@plaintext}}
-          @valueUpdated={{action (mut @plaintext)}}
-          @mode="ruby"
-          @data-test-transit-input="plaintext"
-        />
+      <div class="control is-expanded">
+        <JsonEditor @title="Ciphertext" @valueUpdated={{action (mut @ciphertext)}} @mode="ruby" />
       </div>
-    </div>
-    <div class="field">
-      <Input @type="checkbox" id="encodedBase64" @checked={{@encodedBase64}} data-test-transit-input="encodedBase64" />
-      <label for="encodedBase64">This data is already encoded in base64</label>
     </div>
     {{#if @key.derived}}
       <div class="field">
@@ -42,34 +31,34 @@
     {{/if}}
     {{#if (eq @key.convergentEncryptionVersion 1)}}
       <div class="field">
-        <div class="level">
-          <div class="level-left">
-            <label for="nonce" class="is-label">Nonce</label>
+        <label for="nonce" class="is-label">Nonce</label>
+        <div class="field has-addons">
+          <div class="control">
+            <Input @type="text" id="nonce" @value={{@nonce}} class="input" data-test-transit-input="nonce" />
           </div>
-          <div class="level-right">
+          <div class="control">
             <B64Toggle @value={{@nonce}} @data-test-transit-b64-toggle="nonce" />
           </div>
-        </div>
-        <div class="control">
-          <Input @type="text" id="nonce" @value={{@nonce}} class="input" data-test-transit-input="nonce" />
         </div>
       </div>
     {{/if}}
   </div>
-  <div class="field is-grouped box is-fullwidth is-bottomless">
+  <div class="field box is-fullwidth is-bottomless">
+    <div class="content has-bottom-margin-l">
+      <p class="help">
+        Submitting this form will update the
+        <code>ciphertext</code>
+        in-place.
+      </p>
+    </div>
     <div class="control">
-      <button type="submit" class="button is-primary" data-test-button-encrypt>
-        Encrypt
+      <button type="submit" class="button is-primary">
+        Rewrap
       </button>
     </div>
   </div>
 </form>
-<Modal
-  @title="Copy your token"
-  @onClose={{action (mut @isModalActive) false}}
-  @isActive={{@isModalActive}}
-  data-test-encrypt-modal
->
+<Modal @title="Copy your token" @onClose={{action (mut @isModalActive)}} @isActive={{@isModalActive}}>
   <section class="modal-card-body">
     <div class="box is-shadowless is-fullwidth is-sideless">
       <h2 class="title is-6">Ciphertext</h2>
@@ -80,7 +69,7 @@
           data-test-button="modal-copy"
           @text={{@ciphertext}}
           @buttonType="button"
-          @onSuccess={{action (set-flash-message "Ciphertext copied!")}}
+          @onSuccess={{set-flash-message "Ciphertext copied!"}}
         >
           <Icon @name="clipboard-copy" aria-label="Copy" />
         </CopyButton>

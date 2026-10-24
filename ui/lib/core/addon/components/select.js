@@ -4,7 +4,8 @@
  */
 
 import Component from '@ember/component';
-import layout from '../templates/components/select';
+import { action } from '@ember/object';
+import layout from './select';
 
 /**
  * @module Select
@@ -40,4 +41,8 @@ export default Component.extend({
   isFullwidth: false,
   noDefault: false,
   onChange() {},
+
+  handleChange: action(function (event) {
+    this.onChange(event.target.value);
+  }),
 });

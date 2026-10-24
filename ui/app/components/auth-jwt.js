@@ -9,6 +9,7 @@ import { inject as service } from '@ember/service';
 import Component from './outer-html';
 import { task, timeout, waitForEvent } from 'ember-concurrency';
 import { computed } from '@ember/object';
+import { action } from '@ember/object';
 import { waitFor } from '@ember/test-waiters';
 
 const WAIT_TIME = 500;
@@ -172,44 +173,49 @@ export default Component.extend({
     yield this.onSubmit(null, null, resp.auth.client_token);
   }),
 
-  actions: {
-    async startOIDCAuth(data, e) {
-      this.onError(null);
-      if (e && e.preventDefault) {
-        e.preventDefault();
-      }
-      try {
-        await this.fetchRole.perform(this.roleName, { debounce: false });
-      } catch (error) {
-        // this task could be cancelled if the instances in didReceiveAttrs resolve after this was started
-        if (error?.name !== 'TaskCancelation') {
-          throw error;
-        }
-      }
-      if (!this.isOIDC || !this.role || !this.role.authUrl) {
-        let message = this.errorMessage;
-        if (!this.role) {
-          message = 'Invalid role. Please try again.';
-        } else if (!this.role.authUrl) {
-          message =
-            'Missing auth_url. Please check that allowed_redirect_uris for the role include this mount path.';
-        }
-        this.onError(message);
-        return;
-      }
-      const win = this.getWindow();
+  handleSubmit: action(function (data, e) {
+    if (this.isOIDC) {
+      return this.startOIDCAuth(data, e);
+    }
+    return this.onSubmit(data, e);
+  }),
 
-      const POPUP_WIDTH = 500;
-      const POPUP_HEIGHT = 600;
-      const left = win.screen.width / 2 - POPUP_WIDTH / 2;
-      const top = win.screen.height / 2 - POPUP_HEIGHT / 2;
-      const oidcWindow = win.open(
-        this.role.authUrl,
-        'vaultOIDCWindow',
-        `width=${POPUP_WIDTH},height=${POPUP_HEIGHT},resizable,scrollbars=yes,top=${top},left=${left}`
-      );
+  startOIDCAuth: action(async function (data, e) {
+    this.onError(null);
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+    try {
+      await this.fetchRole.perform(this.roleName, { debounce: false });
+    } catch (error) {
+      // this task could be cancelled if the instances in didReceiveAttrs resolve after this was started
+      if (error?.name !== 'TaskCancelation') {
+        throw error;
+      }
+    }
+    if (!this.isOIDC || !this.role || !this.role.authUrl) {
+      let message = this.errorMessage;
+      if (!this.role) {
+        message = 'Invalid role. Please try again.';
+      } else if (!this.role.authUrl) {
+        message =
+          'Missing auth_url. Please check that allowed_redirect_uris for the role include this mount path.';
+      }
+      this.onError(message);
+      return;
+    }
+    const win = this.getWindow();
 
-      this.prepareForOIDC.perform(oidcWindow);
-    },
-  },
+    const POPUP_WIDTH = 500;
+    const POPUP_HEIGHT = 600;
+    const left = win.screen.width / 2 - POPUP_WIDTH / 2;
+    const top = win.screen.height / 2 - POPUP_HEIGHT / 2;
+    const oidcWindow = win.open(
+      this.role.authUrl,
+      'vaultOIDCWindow',
+      `width=${POPUP_WIDTH},height=${POPUP_HEIGHT},resizable,scrollbars=yes,top=${top},left=${left}`
+    );
+
+    this.prepareForOIDC.perform(oidcWindow);
+  }),
 });

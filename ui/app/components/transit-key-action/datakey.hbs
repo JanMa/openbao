@@ -81,7 +81,7 @@
             data-test-button="modal-copy"
             @text={{@plaintext}}
             @buttonType="button"
-            @onSuccess={{action (set-flash-message "Plaintext copied!")}}
+            @onSuccess={{set-flash-message "Plaintext copied!"}}
           >
             <Icon @name="clipboard-copy" aria-label="Copy" />
           </CopyButton>
@@ -95,7 +95,7 @@
             data-test-button="modal-copy"
             @text={{@ciphertext}}
             @buttonType="button"
-            @onSuccess={{action (set-flash-message "Ciphertext copied!")}}
+            @onSuccess={{set-flash-message "Ciphertext copied!"}}
           >
             <Icon @name="clipboard-copy" aria-label="Copy" />
           </CopyButton>
@@ -105,7 +105,7 @@
           data-test-button="modal-copy-close"
           @text={{@plaintext}}
           @buttonType="button"
-          @onSuccess={{action (set-flash-message "Plaintext copied!")}}
+          @onSuccess={{set-flash-message "Plaintext copied!"}}
         >
           Copy Plaintext
         </CopyButton>
@@ -114,7 +114,7 @@
           data-test-button="modal-copy-close"
           @text={{@ciphertext}}
           @buttonType="button"
-          @onSuccess={{action (set-flash-message "Ciphertext copied!")}}
+          @onSuccess={{set-flash-message "Ciphertext copied!"}}
         >
           Copy Ciphertext
         </CopyButton>
@@ -128,7 +128,7 @@
             data-test-button="modal-copy"
             @text={{@ciphertext}}
             @buttonType="button"
-            @onSuccess={{action (set-flash-message "Ciphertext copied!")}}
+            @onSuccess={{set-flash-message "Ciphertext copied!"}}
           >
             <Icon @name="clipboard-copy" aria-label="Copy" />
           </CopyButton>
